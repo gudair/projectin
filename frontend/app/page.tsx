@@ -71,17 +71,30 @@ export default function Dashboard() {
 
   const handleTrade = async (symbol: string, type: 'BUY' | 'SELL', quantity: number, price: number) => {
     try {
-      // TODO: Integrate with real backend API
-      console.log('Trade executed:', { symbol, type, quantity, price, total: quantity * price })
+      // Make API call to create trade
+      const { apiClient } = await import('@/services/api')
 
-      // Simulate trade success
-      alert(`${type} order placed for ${quantity} shares of ${symbol} at $${price.toFixed(2)} each. Total: $${(quantity * price).toLocaleString()}`)
+      const response = await apiClient.createTrade({
+        symbol,
+        side: type,
+        quantity,
+        price,
+        trade_type: 'MARKET'
+      })
 
-      // Refresh portfolio data after trade
+      if (response.error) {
+        throw new Error(response.error)
+      }
+
+      // Show success message
+      alert(`✅ ${type} order executed successfully!\n${quantity} shares of ${symbol} at $${price.toFixed(2)}\nTotal: $${(quantity * price).toLocaleString()}`)
+
+      // Refresh portfolio data after successful trade
       await refetchPortfolio()
     } catch (error) {
       console.error('Trade failed:', error)
-      alert('Trade failed. Please try again.')
+      alert(`❌ Trade failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      throw error // Re-throw to keep form data in TradingPanel
     }
   }
 

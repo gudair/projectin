@@ -53,7 +53,9 @@ app.add_middleware(
         "http://localhost:3000",  # Next.js dev server
         "http://localhost:3001",  # Alternative port
         "https://*.vercel.app",   # Vercel deployments
+        "https://projectin-ten.vercel.app",  # Your specific Vercel domain
         "https://localhost:3000", # HTTPS local
+        "*"  # Allow all for development
     ],
     allow_credentials=True,
     allow_methods=["*"],

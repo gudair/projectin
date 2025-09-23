@@ -36,13 +36,18 @@ export default function TradingPanel({ onTrade }: TradingPanelProps) {
     stock.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const handleTrade = () => {
+  const handleTrade = async () => {
     if (selectedStock && quantity > 0) {
-      onTrade?.(selectedStock.symbol, tradeType, quantity, selectedStock.price)
-      // Reset form
-      setQuantity(1)
-      setSelectedStock(null)
-      setSearchTerm('')
+      try {
+        await onTrade?.(selectedStock.symbol, tradeType, quantity, selectedStock.price)
+        // Reset form on successful trade
+        setQuantity(1)
+        setSelectedStock(null)
+        setSearchTerm('')
+      } catch (error) {
+        console.error('Trade failed:', error)
+        // Keep form data if trade fails
+      }
     }
   }
 

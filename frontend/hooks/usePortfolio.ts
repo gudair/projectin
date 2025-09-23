@@ -1,13 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { apiClient } from '@/services/api'
 
 interface Portfolio {
   id: string
+  name: string
+  initial_capital: number
+  cash: number
   total_value: number
-  daily_change: number
-  daily_change_percent: number
-  cash_balance: number
+  total_return_percent: number
+  positions_count: number
+  created_at: string
   recent_trades?: any[]
 }
 
@@ -19,23 +23,33 @@ export function usePortfolio() {
   const fetchPortfolio = async () => {
     try {
       setIsLoading(true)
-      // Mock data for now
-      const mockPortfolio: Portfolio = {
-        id: '1',
-        total_value: 12543.50,
-        daily_change: 234.12,
-        daily_change_percent: 1.9,
-        cash_balance: 2543.50,
-        recent_trades: []
+      setError(null)
+
+      const response = await apiClient.getPortfolio()
+
+      if (response.error) {
+        throw new Error(response.error)
       }
 
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      if (response.data) {
+        // Transform API response to match frontend interface
+        const portfolioData: Portfolio = {
+          id: response.data.id,
+          name: response.data.name || 'Trading Simulator',
+          initial_capital: response.data.initial_capital || 10000,
+          cash: response.data.cash || 0,
+          total_value: response.data.total_value || 0,
+          total_return_percent: response.data.total_return_percent || 0,
+          positions_count: response.data.positions_count || 0,
+          created_at: response.data.created_at || new Date().toISOString(),
+          recent_trades: []
+        }
 
-      setData(mockPortfolio)
-      setError(null)
+        setData(portfolioData)
+      }
     } catch (err) {
-      setError('Failed to fetch portfolio data')
+      console.error('Portfolio fetch error:', err)
+      setError(err instanceof Error ? err.message : 'Failed to fetch portfolio data')
     } finally {
       setIsLoading(false)
     }
