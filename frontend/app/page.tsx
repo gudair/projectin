@@ -18,6 +18,7 @@ import RecommendationsList from '@/components/RecommendationsList'
 import PerformanceChart from '@/components/PerformanceChart'
 import RecentTrades from '@/components/RecentTrades'
 import MarketNews from '@/components/MarketNews'
+import TradingPanel from '@/components/TradingPanel'
 import { usePortfolio } from '@/hooks/usePortfolio'
 import { useSignals } from '@/hooks/useSignals'
 import { useRecommendations } from '@/hooks/useRecommendations'
@@ -68,6 +69,22 @@ export default function Dashboard() {
     setLastUpdated(new Date())
   }
 
+  const handleTrade = async (symbol: string, type: 'BUY' | 'SELL', quantity: number, price: number) => {
+    try {
+      // TODO: Integrate with real backend API
+      console.log('Trade executed:', { symbol, type, quantity, price, total: quantity * price })
+
+      // Simulate trade success
+      alert(`${type} order placed for ${quantity} shares of ${symbol} at $${price.toFixed(2)} each. Total: $${(quantity * price).toLocaleString()}`)
+
+      // Refresh portfolio data after trade
+      await refetchPortfolio()
+    } catch (error) {
+      console.error('Trade failed:', error)
+      alert('Trade failed. Please try again.')
+    }
+  }
+
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
@@ -77,41 +94,45 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="glass border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <TrendingUp className="h-8 w-8 text-green-600 mr-3" />
+              <div className="p-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl mr-4">
+                <TrendingUp className="h-8 w-8 text-white" />
+              </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Trading Simulator</h1>
-                <p className="text-sm text-gray-500">Real-time Portfolio Dashboard</p>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                  Trading Simulator
+                </h1>
+                <p className="text-white/80 font-medium">Real-time Portfolio Dashboard</p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="flex items-center text-sm text-gray-500">
-                <Clock className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-sm text-white/70 bg-white/10 px-3 py-2 rounded-lg backdrop-blur-sm">
+                <Clock className="h-4 w-4 mr-2" />
                 Last updated: {formatTime(lastUpdated)}
               </div>
 
               <button
                 onClick={() => setIsAutoRefresh(!isAutoRefresh)}
-                className={`flex items-center px-3 py-1 rounded-md text-sm font-medium ${
+                className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   isAutoRefresh
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-gray-100 text-gray-800'
+                    ? 'bg-emerald-500/20 text-emerald-100 border border-emerald-400/30'
+                    : 'bg-red-500/20 text-red-100 border border-red-400/30'
                 }`}
               >
                 {isAutoRefresh ? (
                   <>
-                    <CheckCircle className="h-4 w-4 mr-1" />
+                    <CheckCircle className="h-4 w-4 mr-2" />
                     Auto-refresh ON
                   </>
                 ) : (
                   <>
-                    <AlertCircle className="h-4 w-4 mr-1" />
+                    <AlertCircle className="h-4 w-4 mr-2" />
                     Auto-refresh OFF
                   </>
                 )}
@@ -119,7 +140,7 @@ export default function Dashboard() {
 
               <button
                 onClick={handleManualRefresh}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="btn-trading btn-primary"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -130,7 +151,7 @@ export default function Dashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {portfolioError && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -164,14 +185,14 @@ export default function Dashboard() {
           />
         </motion.div>
 
-        {/* Charts and Performance */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* Trading Panel and Performance */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <PerformanceChart portfolioId={portfolio?.id} />
+            <TradingPanel onTrade={handleTrade} />
           </motion.div>
 
           <motion.div
@@ -179,12 +200,21 @@ export default function Dashboard() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <TradingSignals
-              signals={signals}
-              isLoading={signalsLoading}
-            />
+            <PerformanceChart portfolioId={portfolio?.id} />
           </motion.div>
         </div>
+
+        {/* Trading Signals */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <TradingSignals
+            signals={signals}
+            isLoading={signalsLoading}
+          />
+        </motion.div>
 
         {/* Recommendations and News */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
