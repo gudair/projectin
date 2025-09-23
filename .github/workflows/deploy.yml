@@ -1,10 +1,13 @@
+# DISABLED - Configure secrets first
 name: Deploy Trading Simulator
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  # Commented out to disable auto-deployment
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
+  workflow_dispatch: # Manual trigger only
 
 jobs:
   # Test Backend
