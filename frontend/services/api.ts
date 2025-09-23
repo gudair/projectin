@@ -1,5 +1,8 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
+console.log('🔧 Environment variable NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL)
+console.log('🔧 Using API_BASE_URL:', API_BASE_URL)
+
 interface ApiResponse<T> {
   data?: T
   error?: string
@@ -18,7 +21,9 @@ class ApiClient {
   ): Promise<ApiResponse<T>> {
     try {
       const url = `${this.baseURL}${endpoint}`
-      console.log('API Request:', url)
+      console.log('🌐 API Request URL:', url)
+      console.log('🌐 API Base URL:', this.baseURL)
+      console.log('🌐 Full fetch options:', { headers: { 'Content-Type': 'application/json', ...options.headers }, ...options })
 
       const response = await fetch(url, {
         headers: {
@@ -28,16 +33,20 @@ class ApiClient {
         ...options,
       })
 
+      console.log('📡 Response status:', response.status)
+      console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()))
+
       if (!response.ok) {
         const errorText = await response.text()
-        console.error('API Error:', response.status, errorText)
+        console.error('❌ API Error:', response.status, errorText)
         throw new Error(`HTTP ${response.status}: ${errorText}`)
       }
 
       const data = await response.json()
+      console.log('✅ API Response data:', data)
       return { data }
     } catch (error) {
-      console.error('API Request failed:', error)
+      console.error('💥 API Request failed:', error)
       return { error: error instanceof Error ? error.message : 'Unknown error' }
     }
   }

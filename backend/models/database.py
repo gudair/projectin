@@ -25,7 +25,7 @@ class Portfolio(Base):
     __tablename__ = "portfolios"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"))
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=True)
     name = Column(String(100), nullable=False, default="Main Portfolio")
     initial_capital = Column(Decimal(15, 2), nullable=False, default=200.00)
     cash = Column(Decimal(15, 2), nullable=False, default=0.00)
