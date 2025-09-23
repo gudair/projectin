@@ -27,11 +27,17 @@ export function usePortfolio() {
 
       const response = await apiClient.getPortfolio()
 
+      // DEBUG: Log the raw response
+      console.log('🔍 Portfolio API Response:', response)
+
       if (response.error) {
         throw new Error(response.error)
       }
 
       if (response.data) {
+        // DEBUG: Log the raw data from API
+        console.log('📊 Raw Portfolio Data from API:', response.data)
+
         // Transform API response to match frontend interface
         const portfolioData: Portfolio = {
           id: response.data.id,
@@ -45,6 +51,8 @@ export function usePortfolio() {
           recent_trades: []
         }
 
+        // DEBUG: Log the transformed data
+        console.log('✨ Transformed Portfolio Data:', portfolioData)
         setData(portfolioData)
       }
     } catch (err) {
