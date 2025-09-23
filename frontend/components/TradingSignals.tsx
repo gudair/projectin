@@ -12,7 +12,7 @@ interface Signal {
 }
 
 interface TradingSignalsProps {
-  signals?: Signal[]
+  signals?: Signal[] | null
   isLoading: boolean
 }
 

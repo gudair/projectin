@@ -13,7 +13,7 @@ interface Trade {
 }
 
 interface RecentTradesProps {
-  trades?: Trade[]
+  trades?: Trade[] | null
 }
 
 export default function RecentTrades({ trades }: RecentTradesProps) {

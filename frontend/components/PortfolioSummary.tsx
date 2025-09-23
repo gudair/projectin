@@ -11,7 +11,7 @@ interface Portfolio {
 }
 
 interface PortfolioSummaryProps {
-  portfolio?: Portfolio
+  portfolio?: Portfolio | null
   isLoading: boolean
 }
 

@@ -14,7 +14,7 @@ interface Recommendation {
 }
 
 interface RecommendationsListProps {
-  recommendations?: Recommendation[]
+  recommendations?: Recommendation[] | null
   isLoading: boolean
 }
 
