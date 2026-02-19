@@ -30,3 +30,18 @@ vaderSentiment>=3.3.2
 # Utilities
 python-multipart>=0.0.6
 email-validator>=2.1.0
+
+# AI Trading Agent - Alpaca Integration
+alpaca-py>=0.21.0
+websockets>=12.0
+httpx>=0.25.0
+
+# AI Trading Agent - Claude API
+anthropic>=0.18.0
+
+# AI Trading Agent - CLI Dashboard
+rich>=13.7.0
+
+# AI Trading Agent - Async support
+aiohttp>=3.9.0
+asyncio-throttle>=1.0.0

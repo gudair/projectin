@@ -7,6 +7,14 @@ load_dotenv()
 ALPHA_VANTAGE_API_KEY = os.getenv('ALPHA_VANTAGE_API_KEY', 'demo')
 NEWS_API_KEY = os.getenv('NEWS_API_KEY', 'demo')
 
+# Alpaca API (Paper Trading)
+ALPACA_API_KEY = os.getenv('ALPACA_API_KEY', '')
+ALPACA_SECRET_KEY = os.getenv('ALPACA_SECRET_KEY', '')
+ALPACA_BASE_URL = os.getenv('ALPACA_BASE_URL', 'https://paper-api.alpaca.markets')
+
+# Anthropic Claude API
+ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')
+
 # Trading Configuration
 INITIAL_CAPITAL = 200.0
 INITIAL_STOCK = 'TSLA'
@@ -27,8 +35,9 @@ AFTER_HOURS_END = "20:00"
 
 # Data Sources
 DATA_SOURCES = {
-    'primary': 'yfinance',
-    'backup': 'alpha_vantage',
+    'primary': 'alpaca',
+    'backup': 'yfinance',
+    'fallback': 'alpha_vantage',
     'news': 'newsapi'
 }
 
