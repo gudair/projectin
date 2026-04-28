@@ -40,16 +40,24 @@ Oracle Cloud VPS (or Render)
 
 ## Remote Deployment
 
-### Step 1 — Create accounts
+### Hosting options (pick one)
+
+| Option | Credit card? | Always-on? | Setup |
+|--------|--------------|------------|-------|
+| **Render Web Service + UptimeRobot** ★ | No | Yes (with HTTP ping) | Easiest |
+| **GitHub Actions** | No (repo must be public) | Cron-based | Medium |
+| **Oracle Cloud ARM VPS** | Yes (verification only) | Yes | Most powerful |
+| **Fly.io / Google Cloud e2-micro** | Yes (verification only) | Yes | Medium |
+
+★ Recommended if you don't have a credit card. Free, never sleeps, 5 minutes of setup.
+
+### Step 1 — Create accounts (always required)
 
 | Service | URL | Cost | Purpose |
 |---------|-----|------|---------|
 | Supabase | supabase.com | Free | Log storage + auth |
-| Oracle Cloud | cloud.oracle.com | Free forever | VPS (ARM, 4 OCPUs, 24 GB RAM) |
-| Render | render.com | Free (sleeps) | Alternative to Oracle |
 | GitHub Pages | github.com | Free | Log viewer frontend |
-
-> **Oracle Cloud note**: requires a real Visa/MC for identity verification — card is never charged on the free tier. If rejected, try from a different network. Render is the easier fallback (but the free Background Worker spins down after inactivity).
+| UptimeRobot | uptimerobot.com | Free | Pings the agent every 5 min (Render option only) |
 
 ---
 
@@ -160,7 +168,81 @@ This inserts the 8 core symbols with `is_active=true` and creates the `agent_sta
 
 ---
 
-### Step 5 — Deploy to Oracle Cloud
+### Step 5A — Deploy to Render Web Service + UptimeRobot (recommended, no CC)
+
+Render's free Web Service sleeps after 15 min without HTTP traffic. The agent already includes a tiny `/health` endpoint that activates when it detects a `PORT` env var. UptimeRobot pings it every 5 min — the service stays alive forever, free.
+
+**1. Render setup:**
+
+1. Go to [render.com](https://render.com) → sign up with GitHub
+2. **New +** → **Web Service** (NOT Background Worker)
+3. Connect repo `gudair/projectin`
+4. Configure:
+   - **Runtime**: Python 3
+   - **Build command**: `pip install -r requirements.txt`
+   - **Start command**: `python -m cli.main --aggressive`
+   - **Instance type**: **Free**
+5. Under **Environment**, add every variable from `.env`:
+   - `ALPACA_API_KEY`, `ALPACA_SECRET_KEY`, `ALPACA_BASE_URL`
+   - `GROQ_API_KEY`
+   - `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `SUPABASE_ANON_KEY`
+   - **Do NOT set `PORT`** — Render injects it automatically
+6. Click **Create Web Service**. Wait for the first deploy (~3 min).
+7. Copy the public URL Render assigns: `https://projectin-xxxx.onrender.com`
+
+**2. Verify the health endpoint:**
+
+```bash
+curl https://projectin-xxxx.onrender.com/health
+# {"status":"ok"}
+```
+
+**3. UptimeRobot setup (keeps the service awake):**
+
+1. Sign up at [uptimerobot.com](https://uptimerobot.com) → free tier
+2. **+ Add New Monitor**:
+   - Monitor Type: **HTTP(s)**
+   - Friendly Name: `projectin-agent`
+   - URL: `https://projectin-xxxx.onrender.com/health`
+   - Monitoring Interval: **5 minutes** (the free-tier minimum)
+3. Save.
+
+That's it. UptimeRobot now pings every 5 min → Render never spins it down.
+
+**4. Seed the DB** (one-time, from your local machine):
+
+```bash
+source .venv/bin/activate
+python scripts/seed_db.py
+```
+
+---
+
+### Step 5B — Deploy to GitHub Actions (no CC, repo must be public)
+
+Two scheduled workflows cover the full US market day. The agent is stateless (loads positions from Alpaca on startup), so the restart between jobs is safe.
+
+**1. Make the repo public** (or accept ~$10/month in Actions minutes for private repos):
+   - GitHub repo → Settings → General → scroll to **Danger Zone** → Change visibility
+
+**2. Add secrets** at repo Settings → Secrets and variables → Actions → **New repository secret**.
+   Add each variable from `.env` with the same name:
+   - `ALPACA_API_KEY`, `ALPACA_SECRET_KEY`, `ALPACA_BASE_URL`
+   - `GROQ_API_KEY`
+   - `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`
+
+**3. The workflow file is already at** `.github/workflows/trading-agent.yml`. Once secrets are set, the next push activates it. To test immediately: Actions tab → Trading Agent → **Run workflow**.
+
+**4. Seed the DB** (one-time, from your local machine):
+
+```bash
+source .venv/bin/activate
+python scripts/seed_db.py
+```
+
+---
+
+### Step 5C — Deploy to Oracle Cloud (most powerful, requires CC)
 
 **Provision the VM:**
 1. Sign in at [cloud.oracle.com](https://cloud.oracle.com)
@@ -168,59 +250,36 @@ This inserts the 8 core symbols with `is_active=true` and creates the `agent_sta
    - Shape: 4 OCPUs, 24 GB RAM
    - OS: Ubuntu 22.04
    - Add your SSH public key
-3. Note the public IP
+
+> If your Oracle Cloud account is rejected, try from a different network/device or use option 5A or 5B above.
 
 **Deploy the agent:**
 
 ```bash
-# From your local machine
 ssh ubuntu@YOUR_SERVER_IP
 
-# On the server
 git clone https://github.com/gudair/projectin.git
 cd projectin
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Copy your .env
 nano .env   # paste your env vars
-
-# Seed the DB
 python scripts/seed_db.py
 
-# Install as systemd service
+# systemd service (auto-restart on crash)
 sudo cp deploy/projectin.service /etc/systemd/system/
-# Edit paths in the service file if needed:
-sudo nano /etc/systemd/system/projectin.service
+sudo nano /etc/systemd/system/projectin.service   # adjust paths if needed
 
 sudo systemctl daemon-reload
 sudo systemctl enable projectin
 sudo systemctl start projectin
 
-# Verify
-sudo systemctl status projectin
-sudo journalctl -u projectin -f
+sudo journalctl -u projectin -f   # tail logs
+
+# Cron jobs (cleanup + Supabase keepalive)
+crontab -e   # paste deploy/crontab.txt contents
 ```
-
-**Install cron jobs:**
-
-```bash
-crontab -e
-# Paste contents of deploy/crontab.txt
-```
-
----
-
-### Step 5 (alternative) — Deploy to Render
-
-> Use this if Oracle Cloud account is rejected. Note: free Background Workers on Render spin down after inactivity — use a Render Cron Job instead or upgrade to the $7/month paid tier.
-
-1. Go to [render.com](https://render.com) → New → **Background Worker**
-2. Connect your GitHub repo `gudair/projectin`
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `python -m cli.main --aggressive`
-5. Add all env vars under **Environment**
 
 ---
 

@@ -691,12 +691,52 @@ def run_cli():
     print("🚀 Starting agent event loop...")
 
     try:
-        asyncio.run(aggressive_agent.start())
+        import os
+        port = int(os.getenv("PORT", 0))
+        if port:
+            # Running on a platform that exposes HTTP (Render Web Service).
+            # Start a minimal health server alongside the agent so the platform
+            # doesn't consider the process idle and spin it down.
+            asyncio.run(_run_with_health_server(aggressive_agent, port))
+        else:
+            asyncio.run(aggressive_agent.start())
     except KeyboardInterrupt:
         print("\nInterrupted by user")
     except Exception as e:
         logging.error(f"Fatal error: {e}", exc_info=True)
         sys.exit(1)
+
+
+async def _run_with_health_server(agent, port: int):
+    """Run the trading agent alongside a minimal HTTP health server.
+
+    Used on platforms like Render Web Service where a PORT env var is set.
+    Without HTTP traffic the platform spins down the process; this endpoint
+    lets UptimeRobot (or similar) ping every 5 minutes to keep it alive.
+    """
+    import uvicorn
+    from fastapi import FastAPI
+
+    health_app = FastAPI(docs_url=None, redoc_url=None)
+
+    @health_app.get("/health")
+    async def health():
+        return {"status": "ok"}
+
+    @health_app.get("/")
+    async def root():
+        return {"status": "ok", "service": "projectin-agent"}
+
+    server_config = uvicorn.Config(
+        health_app,
+        host="0.0.0.0",
+        port=port,
+        log_level="error",
+    )
+    server = uvicorn.Server(server_config)
+
+    print(f"🌐 Health server listening on port {port}")
+    await asyncio.gather(server.serve(), agent.start())
 
 
 if __name__ == '__main__':
