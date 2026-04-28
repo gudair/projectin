@@ -283,19 +283,25 @@ crontab -e   # paste deploy/crontab.txt contents
 
 ---
 
-### Step 6 — GitHub Pages frontend
+### Step 6 — Log viewer frontend
 
-1. Create a new repo: `projectin-logs-ui` (can be public)
-2. Copy `frontend/index.html` to that repo's root
-3. Edit the two constants at the top of the `<script>` block:
+No separate repo needed. The log viewer is served directly from your Render URL.
 
+**How it works**: When Render injects `PORT`, the agent starts a FastAPI server that:
+- `GET /` → serves `frontend/index.html` with Supabase credentials injected from env vars
+- `GET /health` → returns `{"status":"ok"}` (used by UptimeRobot)
+
+**Setup** (Render Web Service option):
+1. Add `SUPABASE_ANON_KEY` to your Render environment variables (the `anon public` key from Supabase → Project Settings → API)
+2. Redeploy. Your viewer is at `https://projectin-xxxx.onrender.com/`
+
+**Setup** (GitHub Actions / Oracle Cloud option):
+The HTML file requires manual credential setup for local serving. Copy `frontend/index.html` to a new GitHub Pages repo and edit:
 ```js
 const SUPABASE_URL  = 'https://YOUR_PROJECT_ID.supabase.co';
 const SUPABASE_ANON = 'YOUR_ANON_KEY';
 ```
-
-4. In repo Settings → Pages → Source: **Deploy from branch `main` / `/ (root)`**
-5. Your viewer will be at `https://gudair.github.io/projectin-logs-ui/`
+Then enable Pages on that repo.
 
 ---
 

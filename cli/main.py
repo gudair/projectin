@@ -708,16 +708,38 @@ def run_cli():
 
 
 async def _run_with_health_server(agent, port: int):
-    """Run the trading agent alongside a minimal HTTP health server.
+    """Run the trading agent alongside a minimal HTTP server.
 
-    Used on platforms like Render Web Service where a PORT env var is set.
-    Without HTTP traffic the platform spins down the process; this endpoint
-    lets UptimeRobot (or similar) ping every 5 minutes to keep it alive.
+    Serves the log viewer frontend at / and a health endpoint at /health.
+    Supabase credentials are injected from env vars so the HTML doesn't need
+    to be edited manually before deploy.
+
+    Used on platforms like Render Web Service where PORT is injected.
+    UptimeRobot pings /health every 5 min to prevent the free tier from sleeping.
     """
+    import os
+    from pathlib import Path
     import uvicorn
     from fastapi import FastAPI
+    from fastapi.responses import HTMLResponse
 
     health_app = FastAPI(docs_url=None, redoc_url=None)
+
+    # Read frontend/index.html once at startup and inject credentials from env.
+    # Placeholders in the HTML: 'https://YOUR_PROJECT_ID.supabase.co' and 'YOUR_ANON_KEY'
+    _html: str | None = None
+    _frontend = Path(__file__).parent.parent / "frontend" / "index.html"
+    try:
+        raw = _frontend.read_text()
+        _url  = os.getenv("SUPABASE_URL", "")
+        _anon = os.getenv("SUPABASE_ANON_KEY", "")
+        _html = (
+            raw
+            .replace("'https://YOUR_PROJECT_ID.supabase.co'", f"'{_url}'")
+            .replace("'YOUR_ANON_KEY'", f"'{_anon}'")
+        )
+    except Exception as exc:
+        logging.warning(f"Could not load frontend/index.html: {exc}")
 
     @health_app.get("/health")
     async def health():
@@ -725,7 +747,9 @@ async def _run_with_health_server(agent, port: int):
 
     @health_app.get("/")
     async def root():
-        return {"status": "ok", "service": "projectin-agent"}
+        if _html:
+            return HTMLResponse(_html)
+        return HTMLResponse("<h1>projectin agent running</h1>")
 
     server_config = uvicorn.Config(
         health_app,
@@ -735,7 +759,7 @@ async def _run_with_health_server(agent, port: int):
     )
     server = uvicorn.Server(server_config)
 
-    print(f"🌐 Health server listening on port {port}")
+    print(f"🌐 Server listening on port {port} (frontend + /health)")
     await asyncio.gather(server.serve(), agent.start())
 
 
