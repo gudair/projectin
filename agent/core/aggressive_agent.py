@@ -309,6 +309,7 @@ class AggressiveTradingAgent:
             await asyncio.gather(
                 self._position_monitor_loop(),
                 self._entry_check_loop(),
+                self._discovery_loop(),
             )
         except asyncio.CancelledError:
             logger.info("Agent stopped")
@@ -621,6 +622,91 @@ class AggressiveTradingAgent:
                 break
             except Exception as e:
                 logger.error(f"Error in entry check: {e}")
+                await asyncio.sleep(60)
+
+    async def _discovery_loop(self):
+        """Daily symbol discovery — runs at 16:10 ET, after market close.
+
+        Scans the top % movers for the day using yfinance and writes candidates
+        to the Supabase `symbols` table with is_active=false for human review.
+        Does not affect the trading logic in any way.
+        """
+        from zoneinfo import ZoneInfo
+        ET = ZoneInfo("America/New_York")
+        DISCOVERY_TIME = "16:10"
+        TOP_SYMBOLS = [
+            # High-volume liquid names worth watching for dip patterns
+            "SOXL", "SMCI", "MARA", "COIN", "MU", "AMD", "NVDA", "TSLA",
+            "PLTR", "HOOD", "IONQ", "RKLB", "RIVN", "LCID", "SOFI",
+            "UPST", "AFRM", "PYPL", "SQ", "ROKU",
+            "META", "AMZN", "MSFT", "GOOGL", "AAPL",
+            "BABA", "NIO", "XPEV", "LI",
+            "SPY", "QQQ", "ARKK", "TQQQ", "SQQQ",
+        ]
+        last_run_date: str | None = None
+
+        while True:
+            try:
+                now_et = datetime.now(ET)
+                today_et = now_et.strftime("%Y-%m-%d")
+
+                if last_run_date == today_et:
+                    await asyncio.sleep(300)
+                    continue
+
+                if now_et.strftime("%H:%M") < DISCOVERY_TIME:
+                    await asyncio.sleep(60)
+                    continue
+
+                last_run_date = today_et
+                logger.info("🔍 Running daily symbol discovery scan...")
+
+                try:
+                    import yfinance as yf
+                    from agent.core.supabase_logger import add_discovered_candidate
+
+                    candidates = []
+                    for sym in TOP_SYMBOLS:
+                        if sym in self.agent_config.symbols:
+                            continue  # skip already-active symbols
+                        try:
+                            ticker = yf.Ticker(sym)
+                            hist = ticker.history(period="2d")
+                            if hist is None or len(hist) < 2:
+                                continue
+                            prev_close = float(hist["Close"].iloc[-2])
+                            last_close = float(hist["Close"].iloc[-1])
+                            volume = int(hist["Volume"].iloc[-1])
+                            if prev_close <= 0:
+                                continue
+                            change_pct = (last_close - prev_close) / prev_close * 100
+                            abs_change = abs(change_pct)
+                            if abs_change < 3.0 or volume < 1_000_000:
+                                continue
+                            score = abs_change + (volume / 1_000_000) * 0.1
+                            reason = f"{'▲' if change_pct > 0 else '▼'} {change_pct:+.1f}% on {volume/1e6:.1f}M vol"
+                            candidates.append((score, sym, reason, change_pct))
+                        except Exception:
+                            continue
+
+                    candidates.sort(reverse=True)
+                    top10 = candidates[:10]
+                    for score, sym, reason, change_pct in top10:
+                        add_discovered_candidate(sym, reason, score, change_pct)
+                        logger.info(f"  📌 candidate: {sym} {reason} (score={score:.1f})")
+
+                    if top10:
+                        logger.info(f"🔍 Discovery done — {len(top10)} candidates written to Supabase (is_active=false)")
+                    else:
+                        logger.info("🔍 Discovery done — no movers above threshold today")
+
+                except Exception as e:
+                    logger.error(f"Discovery scan failed: {e}")
+
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                logger.error(f"Error in discovery loop: {e}")
                 await asyncio.sleep(60)
 
     async def _check_entries(self):

@@ -180,7 +180,7 @@ Render's free Web Service sleeps after 15 min without HTTP traffic. The agent al
 4. Configure:
    - **Runtime**: Python 3
    - **Build command**: `pip install -r requirements.txt`
-   - **Start command**: `python -m cli.main --aggressive`
+   - **Start command**: `python -m cli.main`
    - **Instance type**: **Free**
 5. Under **Environment**, add every variable from `.env`:
    - `ALPACA_API_KEY`, `ALPACA_SECRET_KEY`, `ALPACA_BASE_URL`
@@ -309,7 +309,7 @@ Then enable Pages on that repo.
 
 ```bash
 source .venv/bin/activate
-python -m cli.main --aggressive
+python -m cli.main
 ```
 
 Requires `.env` with all variables set. The agent logs trades to `logs/trades/` and mirrors them to Supabase if configured.
@@ -419,7 +419,7 @@ alpaca/
 backtest/
 └── daily_data.py             # OHLCV loader (used by live agent)
 cli/
-└── main.py                   # Entry point: python -m cli.main --aggressive
+└── main.py                   # Entry point: python -m cli.main
 config/
 └── agent_config.py           # AggressiveAgentConfig (strategy params)
 deploy/
