@@ -1,0 +1,41 @@
+{
+  "period": {
+    "start": "2025-10-01T00:00:00",
+    "end": "2025-10-31T00:00:00",
+    "trading_days": 0
+  },
+  "config": {
+    "initial_capital": 100000.0,
+    "max_positions": 5,
+    "position_size_pct": 0.02,
+    "stop_loss_pct": 0.03,
+    "take_profit_pct": 0.05,
+    "max_hold_days": 5
+  },
+  "performance": {
+    "final_equity": 100000.0,
+    "total_return": 0.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "winning": 0,
+    "losing": 0,
+    "win_rate": 0,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "profit_factor": 0,
+    "avg_hold_days": 0
+  },
+  "stats": {
+    "signals_generated": 0,
+    "buy_signals": 0,
+    "sell_signals": 0,
+    "trades_executed": 0,
+    "skipped_no_cash": 0,
+    "skipped_max_positions": 0
+  },
+  "trade_list": [],
+  "daily_equity": []
+}

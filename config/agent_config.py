@@ -121,7 +121,7 @@ class RiskConfig:
     max_daily_loss_pct: float = 0.03      # 3% max daily loss
 
     # Trade limits
-    default_stop_loss_pct: float = 0.02   # 2% default stop loss
+    default_stop_loss_pct: float = 0.015  # 1.5% default stop loss (tighter to reduce avg loss)
     default_take_profit_ratio: float = 2.5 # 2.5:1 reward/risk
     min_risk_reward: float = 1.5          # Minimum R:R to consider
 
@@ -129,9 +129,12 @@ class RiskConfig:
     pdt_enabled: bool = True
     pdt_limit: int = 3                    # Max day trades per 5 business days
 
-    # Confidence thresholds - lower since Ollama analysis is free
-    min_confidence_buy: float = 0.65      # Min confidence to generate BUY alert
-    min_confidence_sell: float = 0.60     # Min confidence to generate SELL alert
+    # Confidence thresholds - higher to filter more trades
+    min_confidence_buy: float = 0.70      # Min confidence to generate BUY alert
+    min_confidence_sell: float = 0.65     # Min confidence to generate SELL alert
+
+    # VIX filter - skip new entries when VIX exceeds this
+    max_vix_for_entry: float = 25.0       # Don't enter new positions if VIX > 25
 
     # Position sizing
     kelly_fraction: float = 0.25          # Fraction of Kelly criterion to use

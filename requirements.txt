@@ -45,3 +45,6 @@ rich>=13.7.0
 # AI Trading Agent - Async support
 aiohttp>=3.9.0
 asyncio-throttle>=1.0.0
+
+# Supabase (log storage + frontend auth)
+supabase>=2.3.0

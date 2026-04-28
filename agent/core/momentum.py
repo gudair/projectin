@@ -84,16 +84,19 @@ class MomentumConfig:
     # - Falls back to score >= 4 (decent) if no premium setups
     min_score_to_trade: float = 4.0  # Minimum score to consider for fallback
 
-    # Position sizing
-    stop_loss_pct: float = 0.02     # 2% stop loss
-    target_1_pct: float = 0.015     # +1.5% first target
-    target_2_pct: float = 0.025     # +2.5% second target
-    target_3_pct: float = 0.04      # +4% third target
+    # Position sizing (sync with RiskConfig!)
+    stop_loss_pct: float = 0.015    # 1.5% stop loss (tighter to reduce avg loss)
+    target_1_pct: float = 0.012     # +1.2% first target (take profit earlier)
+    target_2_pct: float = 0.02      # +2% second target
+    target_3_pct: float = 0.035     # +3.5% third target
+
+    # Trailing stop (after target 1)
+    trailing_stop_pct: float = 0.01  # 1% trailing after first target hit
 
     # Partial profit taking
-    partial_profit_1_pct: float = 0.30  # Sell 30% at target 1
-    partial_profit_2_pct: float = 0.30  # Sell 30% at target 2
-    # Remaining 40% uses trailing stop
+    partial_profit_1_pct: float = 0.35  # Sell 35% at target 1 (lock more gains)
+    partial_profit_2_pct: float = 0.35  # Sell 35% at target 2
+    # Remaining 30% uses trailing stop
 
 
 class MomentumScanner:
@@ -107,30 +110,6 @@ class MomentumScanner:
     - Time of day (morning momentum > afternoon)
     - Sector strength (leader in hot sector)
     """
-
-    # High-liquidity momentum stocks to always scan
-    DEFAULT_MOMENTUM_UNIVERSE = [
-        # Tech mega caps (high volume, good moves)
-        'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'AMD', 'NFLX',
-        # High beta tech
-        'COIN', 'PLTR', 'SOFI', 'RIVN', 'LCID', 'NIO', 'MARA', 'RIOT', 'HOOD',
-        # Consumer/Retail
-        'SNAP', 'UBER', 'LYFT', 'SQ', 'PYPL', 'SHOP', 'ROKU', 'DKNG', 'ABNB',
-        # China tech (volatile)
-        'BABA', 'JD', 'PDD', 'BIDU', 'LI', 'XPEV',
-        # Biotech/Healthcare (big movers)
-        'MRNA', 'BNTX', 'NVAX', 'BIIB',
-        # Energy (momentum plays)
-        'XOM', 'CVX', 'OXY', 'DVN', 'HAL', 'SLB',
-        # Financials
-        'JPM', 'BAC', 'WFC', 'C', 'GS', 'MS',
-        # Semiconductors
-        'MU', 'INTC', 'QCOM', 'AVGO', 'MRVL', 'ON',
-        # Growth stocks
-        'CRWD', 'ZS', 'DDOG', 'NET', 'SNOW', 'MDB',
-        # Meme/Retail favorites (volatile)
-        'GME', 'AMC', 'BBBY', 'BB',
-    ]
 
     def __init__(self, config: Optional[MomentumConfig] = None, alpaca_client=None):
         self.config = config or MomentumConfig()
@@ -160,14 +139,10 @@ class MomentumScanner:
         # Get DYNAMIC movers from Alpaca screener (real-time top gainers/losers)
         dynamic_movers = await self._get_market_movers()
 
-        # Combine: input symbols + dynamic movers + fallback universe
+        # Combine: input symbols (from watchlist + discovery) + dynamic movers
+        # No hardcoded fallback - rely entirely on dynamic discovery
         all_symbols = set(symbols)
         all_symbols.update(dynamic_movers)
-
-        # Only use hardcoded fallback if we have very few symbols
-        if len(all_symbols) < 20:
-            all_symbols.update(self.DEFAULT_MOMENTUM_UNIVERSE[:30])  # Add top 30 from fallback
-
         all_symbols = list(all_symbols)
 
         self.logger.info(f"🔍 Scanning {len(all_symbols)} symbols ({len(dynamic_movers)} from market movers)")
@@ -688,16 +663,17 @@ class PartialProfitManager:
 
         return None
 
-    def update_trailing_stop(self, symbol: str, current_price: float, trail_pct: float = 0.02):
+    def update_trailing_stop(self, symbol: str, current_price: float, trail_pct: Optional[float] = None):
         """Update trailing stop if price moved up"""
         if symbol not in self._position_exits:
             return
 
         pos = self._position_exits[symbol]
+        trail = trail_pct if trail_pct is not None else self.config.trailing_stop_pct
 
         # Only trail after first target hit
         if pos['current_target'] > 1:
-            new_stop = current_price * (1 - trail_pct)
+            new_stop = current_price * (1 - trail)
             if new_stop > pos['stop_price']:
                 old_stop = pos['stop_price']
                 pos['stop_price'] = new_stop

@@ -16,6 +16,9 @@ from agent.core.atr_stops import ATRStopManager, ATRResult, DynamicStopLevels
 from agent.core.periodic_reflection import PeriodicReflectionAgent, ReflectionReport
 from agent.core.layered_memory import LayeredMemorySystem, MemoryItem, LayeredMemoryQuery
 from agent.core.position_intelligence import PositionIntelligence, PositionRecommendation, MarketSession
+from agent.core.hindsight import HindsightAnalyzer, OptimalTrade, DailyHindsightReport, HindsightPattern
+from agent.core.pattern_analyzer import PatternAnalyzer, PatternType, PatternStats, SetupQuality
+from agent.core.volatility_detector import VolatilityDetector, VolatilityAssessment, VolatilityRegime, TradingMode as VolTradingMode
 
 __all__ = [
     'TradingAgent',
@@ -49,4 +52,19 @@ __all__ = [
     'PositionIntelligence',
     'PositionRecommendation',
     'MarketSession',
+    # Hindsight Analysis (Learning from optimal scenarios)
+    'HindsightAnalyzer',
+    'OptimalTrade',
+    'DailyHindsightReport',
+    'HindsightPattern',
+    # Pattern Analysis (Statistical backtesting)
+    'PatternAnalyzer',
+    'PatternType',
+    'PatternStats',
+    'SetupQuality',
+    # Volatility Detection (Pre-market assessment)
+    'VolatilityDetector',
+    'VolatilityAssessment',
+    'VolatilityRegime',
+    'VolTradingMode',
 ]

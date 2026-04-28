@@ -1,0 +1,60 @@
+{
+  "summary": {
+    "period": {
+      "start": "2025-10-01T00:00:00",
+      "end": "2025-10-01T00:00:00",
+      "trading_days": 1
+    },
+    "config": {
+      "initial_capital": 100000.0,
+      "use_ollama": true,
+      "time_step_minutes": 5
+    },
+    "agent_performance": {
+      "initial_capital": 100000.0,
+      "final_equity": 100000.0,
+      "total_return": 0.0,
+      "total_return_pct": 0.0,
+      "total_trades": 0,
+      "sell_trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "win_rate": 0,
+      "total_pnl": 0,
+      "total_wins": 0,
+      "total_losses": 0,
+      "avg_win": 0,
+      "avg_loss": 0,
+      "profit_factor": 0,
+      "avg_hold_duration_minutes": 0,
+      "max_drawdown_pct": 0,
+      "trading_days": 1,
+      "avg_daily_pnl": 0
+    },
+    "optimal_performance": {
+      "theoretical_max_trades": 80,
+      "avg_gain_per_optimal_trade": 4.291872050745012,
+      "realistic_return_pct": 2.5751232304470073,
+      "total_return": 2575.1232304470072
+    },
+    "efficiency_pct": 0.0,
+    "decisions_count": 0,
+    "errors_count": 78
+  },
+  "daily_stats": [
+    {
+      "date": "2025-10-01T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 100000.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    }
+  ],
+  "trades": [],
+  "decisions": [],
+  "symbol_breakdown": {}
+}

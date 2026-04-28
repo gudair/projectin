@@ -1,0 +1,790 @@
+{
+  "summary": {
+    "period": {
+      "start": "2025-10-01T00:00:00",
+      "end": "2025-10-01T00:00:00",
+      "trading_days": 1
+    },
+    "config": {
+      "initial_capital": 100000.0,
+      "use_ollama": true,
+      "time_step_minutes": 5
+    },
+    "agent_performance": {
+      "initial_capital": 100000.0,
+      "final_equity": 100424.71988883108,
+      "total_return": 424.71988883108133,
+      "total_return_pct": 0.42471988883108136,
+      "total_trades": 26,
+      "sell_trades": 13,
+      "winning_trades": 6,
+      "losing_trades": 7,
+      "win_rate": 46.15384615384615,
+      "total_pnl": 424.71988883107224,
+      "total_wins": 1389.4631460684031,
+      "total_losses": -964.7432572373309,
+      "avg_win": 231.57719101140052,
+      "avg_loss": -137.8204653196187,
+      "profit_factor": 1.4402413654046295,
+      "avg_hold_duration_minutes": 79.23076923076923,
+      "max_drawdown_pct": 0,
+      "trading_days": 1,
+      "avg_daily_pnl": 424.71988883107224
+    },
+    "optimal_performance": {
+      "theoretical_max_trades": 80,
+      "avg_gain_per_optimal_trade": 4.291872050745012,
+      "realistic_return_pct": 2.5751232304470073,
+      "total_return": 2575.1232304470072
+    },
+    "efficiency_pct": 16.493186959342353,
+    "decisions_count": 26,
+    "errors_count": 0
+  },
+  "daily_stats": [
+    {
+      "date": "2025-10-01T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 100424.71988883108,
+      "pnl": 424.71988883108133,
+      "pnl_pct": 0.42471988883108136,
+      "trades": 26,
+      "winning_trades": 6,
+      "losing_trades": 7,
+      "max_drawdown": 0.5870170230073137
+    }
+  ],
+  "trades": [
+    {
+      "timestamp": "2025-10-01T09:55:00",
+      "symbol": "SMCI",
+      "side": "buy",
+      "qty": 409.45849114546013,
+      "price": 48.845,
+      "value": 20000.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T11:00:00",
+      "symbol": "SMCI",
+      "side": "sell",
+      "qty": 409.45849114546013,
+      "price": 49.08,
+      "value": 20096.22274541918,
+      "pnl": 96.22274541918159,
+      "pnl_pct": 0.481113727095908,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-01T11:25:00",
+      "symbol": "REGN",
+      "side": "buy",
+      "qty": 32.70263419544538,
+      "price": 612.16,
+      "value": 20019.24454908384,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T11:25:00",
+      "symbol": "UPST",
+      "side": "buy",
+      "qty": 381.10189718777,
+      "price": 52.5299,
+      "value": 20019.24454908384,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T11:40:00",
+      "symbol": "MU",
+      "side": "buy",
+      "qty": 113.22533253434554,
+      "price": 176.98,
+      "value": 20038.61935192847,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T11:55:00",
+      "symbol": "MRNA",
+      "side": "buy",
+      "qty": 713.4803760977541,
+      "price": 28.045,
+      "value": 20009.557147661515,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T12:10:00",
+      "symbol": "BIIB",
+      "side": "buy",
+      "qty": 66.12106651133935,
+      "price": 151.31,
+      "value": 10004.778573830758,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T12:30:00",
+      "symbol": "UPST",
+      "side": "sell",
+      "qty": 381.10189718777,
+      "price": 52.39,
+      "value": 19965.928393667273,
+      "pnl": -53.3161554165672,
+      "pnl_pct": -0.2663245123253522,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-01T13:00:00",
+      "symbol": "MRNA",
+      "side": "sell",
+      "qty": 713.4803760977541,
+      "price": 27.591,
+      "value": 19685.637056913132,
+      "pnl": -323.9200907483828,
+      "pnl_pct": -1.6188268853628218,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-01T13:15:00",
+      "symbol": "REGN",
+      "side": "sell",
+      "qty": 32.70263419544538,
+      "price": 609.41,
+      "value": 19929.312305046366,
+      "pnl": -89.93224403747445,
+      "pnl_pct": -0.44922895974908356,
+      "hold_duration_minutes": 110
+    },
+    {
+      "timestamp": "2025-10-01T13:25:00",
+      "symbol": "BIIB",
+      "side": "sell",
+      "qty": 66.12106651133935,
+      "price": 150.905,
+      "value": 9977.999541893665,
+      "pnl": -26.77903193709244,
+      "pnl_pct": -0.26766241490978787,
+      "hold_duration_minutes": 75
+    },
+    {
+      "timestamp": "2025-10-01T14:00:00",
+      "symbol": "INTC",
+      "side": "buy",
+      "qty": 565.0279172749896,
+      "price": 35.41,
+      "value": 20007.63855070738,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T14:10:00",
+      "symbol": "REGN",
+      "side": "buy",
+      "qty": 33.03664136851434,
+      "price": 606.295,
+      "value": 20029.9504785234,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T14:15:00",
+      "symbol": "BIIB",
+      "side": "buy",
+      "qty": 130.75978179873104,
+      "price": 151.14,
+      "value": 19763.03342106021,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T14:35:00",
+      "symbol": "SMCI",
+      "side": "buy",
+      "qty": 194.7810766217787,
+      "price": 50.7314,
+      "value": 9881.516710530104,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T15:05:00",
+      "symbol": "INTC",
+      "side": "sell",
+      "qty": 565.0279172749896,
+      "price": 35.34,
+      "value": 19968.086596498135,
+      "pnl": -39.551954209244286,
+      "pnl_pct": -0.1976842699802067,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-01T15:20:00",
+      "symbol": "MRNA",
+      "side": "buy",
+      "qty": 533.50497420962,
+      "price": 27.975,
+      "value": 14924.80165351412,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T15:45:00",
+      "symbol": "REGN",
+      "side": "sell",
+      "qty": 33.03664136851434,
+      "price": 596.875,
+      "value": 19718.745316831995,
+      "pnl": -311.2051616914032,
+      "pnl_pct": -1.5536991068704087,
+      "hold_duration_minutes": 95
+    },
+    {
+      "timestamp": "2025-10-01T15:50:00",
+      "symbol": "INTC",
+      "side": "buy",
+      "qty": 482.97151777981475,
+      "price": 35.865,
+      "value": 17321.773485173057,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T15:50:00",
+      "symbol": "SMCI",
+      "side": "sell",
+      "qty": 194.7810766217787,
+      "price": 52.105,
+      "value": 10149.067997377779,
+      "pnl": 267.5512868476744,
+      "pnl_pct": 2.7075933248441713,
+      "hold_duration_minutes": 75
+    },
+    {
+      "timestamp": "2025-10-01T15:55:00",
+      "symbol": "MRK",
+      "side": "buy",
+      "qty": 152.4717848840031,
+      "price": 90.085,
+      "value": 13735.42074127542,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T15:55:00",
+      "symbol": "MU",
+      "side": "sell",
+      "qty": 113.22533253434554,
+      "price": 181.9,
+      "value": 20595.687987997455,
+      "pnl": 557.0686360689833,
+      "pnl_pct": 2.7799751384337377,
+      "hold_duration_minutes": 255
+    },
+    {
+      "timestamp": "2025-10-01T16:00:00",
+      "symbol": "BIIB",
+      "side": "sell",
+      "qty": 130.75978179873104,
+      "price": 154.22,
+      "value": 20165.7735490003,
+      "pnl": 402.74012794009104,
+      "pnl_pct": 2.0378457059679738,
+      "hold_duration_minutes": 105
+    },
+    {
+      "timestamp": "2025-10-01T16:00:00",
+      "symbol": "MRNA",
+      "side": "sell",
+      "qty": 533.50497420962,
+      "price": 27.75,
+      "value": 14804.763034316953,
+      "pnl": -120.03861919716655,
+      "pnl_pct": -0.8042895442359387,
+      "hold_duration_minutes": 40
+    },
+    {
+      "timestamp": "2025-10-01T16:00:00",
+      "symbol": "INTC",
+      "side": "sell",
+      "qty": 482.97151777981475,
+      "price": 35.9872,
+      "value": 17380.79260464575,
+      "pnl": 59.019119472694,
+      "pnl_pct": 0.34072215251638455,
+      "hold_duration_minutes": 10
+    },
+    {
+      "timestamp": "2025-10-01T16:00:00",
+      "symbol": "MRK",
+      "side": "sell",
+      "qty": 152.4717848840031,
+      "price": 90.13,
+      "value": 13742.2819715952,
+      "pnl": 6.86123031977877,
+      "pnl_pct": 0.04995282233445192,
+      "hold_duration_minutes": 5
+    }
+  ],
+  "decisions": [
+    {
+      "time": "2025-10-01T09:55:00",
+      "symbol": "SMCI",
+      "action": "BUY",
+      "price": 48.845,
+      "qty": 409.45849114546013,
+      "score": 7,
+      "momentum": 1.0760475944128216,
+      "volume_ratio": 0.7894730581123588,
+      "stop_loss": 48.112325,
+      "take_profit": 50.06612499999999,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "MACD bullish crossover with volume above average, RSI neutral indicating market not overbought",
+        "entry_price": 48.5,
+        "stop_loss": 47.0,
+        "take_profit": 51.0,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.7,\n\"entry_price\": 48.50,\n\"stop_loss\": 47.00,\n\"take_profit\": 51.00,\n\"reasoning\": \"MACD bullish crossover with volume above average, RSI neutral indicating market not overbought\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T11:00:00",
+      "symbol": "SMCI",
+      "action": "SELL",
+      "price": 49.08,
+      "qty": 409.45849114546013,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T11:25:00",
+      "symbol": "REGN",
+      "action": "BUY",
+      "price": 612.16,
+      "qty": 32.70263419544538,
+      "score": 6,
+      "momentum": 0.6941474487613767,
+      "volume_ratio": 0.5409336082008416,
+      "stop_loss": 602.9775999999999,
+      "take_profit": 627.4639999999999,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.75,
+        "reasoning": "Strong price movement today (+8.7%), MACD bullish, and neutral RSI indicate potential for further upside.",
+        "entry_price": 612.16,
+        "stop_loss": 608.0,
+        "take_profit": 620.0,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.75,\n\"entry_price\": 612.16,\n\"stop_loss\": 608.00,\n\"take_profit\": 620.00,\n\"reasoning\": \"Strong price movement today (+8.7%), MACD bullish, and neutral RSI indicate potential for further upside.\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T11:25:00",
+      "symbol": "UPST",
+      "action": "BUY",
+      "price": 52.5299,
+      "qty": 381.10189718777,
+      "score": 7,
+      "momentum": 0.3053274775634913,
+      "volume_ratio": 0.9335749570650299,
+      "stop_loss": 51.7419515,
+      "take_profit": 53.84314749999999,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Oversold RSI, potential for short-term bounce with neutral market conditions",
+        "entry_price": 52.5,
+        "stop_loss": 51.8,
+        "take_profit": 54.0,
+        "raw_response": "{\n\"recommendation\":\"BUY\",\n\"confidence\":0.7,\n\"entry_price\":52.50,\n\"stop_loss\":51.80,\n\"take_profit\":54.00,\n\"reasoning\":\"Oversold RSI, potential for short-term bounce with neutral market conditions\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T11:40:00",
+      "symbol": "MU",
+      "action": "BUY",
+      "price": 176.98,
+      "qty": 113.22533253434554,
+      "score": 6,
+      "momentum": 0.33448608197743834,
+      "volume_ratio": 2.221511733030582,
+      "stop_loss": 174.3253,
+      "take_profit": 181.40449999999998,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Strong price movement today (+6.9%), RSI neutral, MACD bullish, and increasing volume support the trade",
+        "entry_price": 176.0,
+        "stop_loss": 174.5,
+        "take_profit": 179.5,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.7,\n\"entry_price\": 176.00,\n\"stop_loss\": 174.50,\n\"take_profit\": 179.50,\n\"reasoning\": \"Strong price movement today (+6.9%), RSI neutral, MACD bullish, and increasing volume support the trade\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T11:55:00",
+      "symbol": "MRNA",
+      "action": "BUY",
+      "price": 28.045,
+      "qty": 713.4803760977541,
+      "score": 6,
+      "momentum": 0.3402516645855698,
+      "volume_ratio": 0.780589178941228,
+      "stop_loss": 27.624325000000002,
+      "take_profit": 28.746125,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.85,
+        "reasoning": "Oversold RSI with bullish potential, MACD signal is weak but price has rallied significantly today",
+        "entry_price": 28.05,
+        "stop_loss": 27.5,
+        "take_profit": 29.5,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.85,\n\"entry_price\": 28.05,\n\"stop_loss\": 27.50,\n\"take_profit\": 29.50,\n\"reasoning\": \"Oversold RSI with bullish potential, MACD signal is weak but price has rallied significantly today\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T12:10:00",
+      "symbol": "BIIB",
+      "action": "BUY",
+      "price": 151.31,
+      "qty": 66.12106651133935,
+      "score": 4,
+      "momentum": 0.23516942135072688,
+      "volume_ratio": 1.4692900685911499,
+      "stop_loss": 149.04035,
+      "take_profit": 155.09275,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Strong uptrend today, MACD above signal line, and RSI neutral suggests a potential continuation of the upward momentum.",
+        "entry_price": 151.31,
+        "stop_loss": 148.5,
+        "take_profit": 155.0,
+        "raw_response": "{\n  \"recommendation\": \"BUY\",\n  \"confidence\": 0.7,\n  \"entry_price\": 151.31,\n  \"stop_loss\": 148.50,\n  \"take_profit\": 155.00,\n  \"reasoning\": \"Strong uptrend today, MACD above signal line, and RSI neutral suggests a potential continuation of the upward momentum.\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T12:30:00",
+      "symbol": "UPST",
+      "action": "SELL",
+      "price": 52.39,
+      "qty": 381.10189718777,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T13:00:00",
+      "symbol": "MRNA",
+      "action": "SELL",
+      "price": 27.591,
+      "qty": 713.4803760977541,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-01T13:15:00",
+      "symbol": "REGN",
+      "action": "SELL",
+      "price": 609.41,
+      "qty": 32.70263419544538,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T13:25:00",
+      "symbol": "BIIB",
+      "action": "SELL",
+      "price": 150.905,
+      "qty": 66.12106651133935,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T14:00:00",
+      "symbol": "INTC",
+      "action": "BUY",
+      "price": 35.41,
+      "qty": 565.0279172749896,
+      "score": 9,
+      "momentum": 3.100888047750758,
+      "volume_ratio": 5.0048648250769565,
+      "stop_loss": 34.87884999999999,
+      "take_profit": 36.295249999999996,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.72,
+        "reasoning": "Bullish MACD, increased volume, and a rising market suggest a potential upward trend. The RSI is neutral, indicating neither overbought nor oversold conditions.",
+        "entry_price": 34.29,
+        "stop_loss": 33.5,
+        "take_profit": 36.2,
+        "raw_response": "{\n    \"recommendation\": \"BUY\",\n    \"confidence\": 0.72,\n    \"entry_price\": 34.29,\n    \"stop_loss\": 33.50,\n    \"take_profit\": 36.20,\n    \"reasoning\": \"Bullish MACD, increased volume, and a rising market suggest a potential upward trend. The RSI is neutral, indicating neither overbought nor oversold co"
+      }
+    },
+    {
+      "time": "2025-10-01T14:10:00",
+      "symbol": "REGN",
+      "action": "BUY",
+      "price": 606.295,
+      "qty": 33.03664136851434,
+      "score": 5,
+      "momentum": 0.2041119888936657,
+      "volume_ratio": 1.296236628431499,
+      "stop_loss": 597.200575,
+      "take_profit": 621.452375,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Neutral RSI, bearish MACD indicates potential upside, high volume and overall market risk-on sentiment",
+        "entry_price": 605.0,
+        "stop_loss": 592.0,
+        "take_profit": 620.0,
+        "raw_response": "{\n  \"recommendation\": \"BUY\",\n  \"confidence\": 0.7,\n  \"entry_price\": 605.00,\n  \"stop_loss\": 592.00,\n  \"take_profit\": 620.00,\n  \"reasoning\": \"Neutral RSI, bearish MACD indicates potential upside, high volume and overall market risk-on sentiment\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T14:15:00",
+      "symbol": "BIIB",
+      "action": "BUY",
+      "price": 151.14,
+      "qty": 130.75978179873104,
+      "score": 5,
+      "momentum": 0.22546419098141576,
+      "volume_ratio": 2.125604647582625,
+      "stop_loss": 148.8729,
+      "take_profit": 154.91849999999997,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.8,
+        "reasoning": "RSI indicates oversold conditions, potentially signaling a short-term bottom. Volume is elevated, suggesting increased interest in the stock.",
+        "entry_price": 150.0,
+        "stop_loss": 148.0,
+        "take_profit": 155.0,
+        "raw_response": "{\n    \"recommendation\": \"BUY\",\n    \"confidence\": 0.8,\n    \"entry_price\": 150.00,\n    \"stop_loss\": 148.00,\n    \"take_profit\": 155.00,\n    \"reasoning\": \"RSI indicates oversold conditions, potentially signaling a short-term bottom. Volume is elevated, suggesting increased interest in the stock.\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T14:35:00",
+      "symbol": "SMCI",
+      "action": "BUY",
+      "price": 50.7314,
+      "qty": 194.7810766217787,
+      "score": 8,
+      "momentum": 0.6575396825396868,
+      "volume_ratio": 1.2147739626575011,
+      "stop_loss": 49.970429,
+      "take_profit": 51.999685,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "MACD bullish signal with increasing volume in a RISK_ON market",
+        "entry_price": 50.5,
+        "stop_loss": 48.0,
+        "take_profit": 54.0,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.7,\n\"entry_price\": 50.50,\n\"stop_loss\": 48.00,\n\"take_profit\": 54.00,\n\"reasoning\": \"MACD bullish signal with increasing volume in a RISK_ON market\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T15:05:00",
+      "symbol": "INTC",
+      "action": "SELL",
+      "price": 35.34,
+      "qty": 565.0279172749896,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T15:20:00",
+      "symbol": "MRNA",
+      "action": "BUY",
+      "price": 27.975,
+      "qty": 533.50497420962,
+      "score": 4,
+      "momentum": 0.35874439461883917,
+      "volume_ratio": 0.5676567951844392,
+      "stop_loss": 27.555375,
+      "take_profit": 28.674374999999998,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.8,
+        "reasoning": "Oversold RSI with bearish MACD, suggesting a potential bounce",
+        "entry_price": 27.95,
+        "stop_loss": 26.8,
+        "take_profit": 29.0,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.8,\n\"entry_price\": 27.95,\n\"stop_loss\": 26.80,\n\"take_profit\": 29.00,\n\"reasoning\": \"Oversold RSI with bearish MACD, suggesting a potential bounce\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T15:45:00",
+      "symbol": "REGN",
+      "action": "SELL",
+      "price": 596.875,
+      "qty": 33.03664136851434,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-01T15:50:00",
+      "symbol": "INTC",
+      "action": "BUY",
+      "price": 35.865,
+      "qty": 482.97151777981475,
+      "score": 9,
+      "momentum": 0.4199916001679926,
+      "volume_ratio": 1.803828445142375,
+      "stop_loss": 35.327025,
+      "take_profit": 36.761625,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.75,
+        "reasoning": "Price has bounced back after a 7.8% gain today, RSI is neutral, MACD is bullish and volume is above average, indicating buying pressure.",
+        "entry_price": 35.8,
+        "stop_loss": 34.5,
+        "take_profit": 37.0,
+        "raw_response": "{\n    \"recommendation\": \"BUY\",\n    \"confidence\": 0.75,\n    \"entry_price\": 35.80,\n    \"stop_loss\": 34.50,\n    \"take_profit\": 37.00,\n    \"reasoning\": \"Price has bounced back after a 7.8% gain today, RSI is neutral, MACD is bullish and volume is above average, indicating buying pressure.\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T15:50:00",
+      "symbol": "SMCI",
+      "action": "SELL",
+      "price": 52.105,
+      "qty": 194.7810766217787,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T15:55:00",
+      "symbol": "MRK",
+      "action": "BUY",
+      "price": 90.085,
+      "qty": 152.4717848840031,
+      "score": 7,
+      "momentum": 0.25038949476963535,
+      "volume_ratio": 1.6271524401990531,
+      "stop_loss": 88.73372499999999,
+      "take_profit": 92.33712499999999,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.85,
+        "reasoning": "Oversold RSI, bearish MACD indicates potential reversal, volume is strong",
+        "entry_price": 90.0,
+        "stop_loss": 89.5,
+        "take_profit": 92.2,
+        "raw_response": "{\n  \"recommendation\": \"BUY\",\n  \"confidence\": 0.85,\n  \"entry_price\": 90.00,\n  \"stop_loss\": 89.50,\n  \"take_profit\": 92.20,\n  \"reasoning\": \"Oversold RSI, bearish MACD indicates potential reversal, volume is strong\"\n}"
+      }
+    },
+    {
+      "time": "2025-10-01T15:55:00",
+      "symbol": "MU",
+      "action": "SELL",
+      "price": 181.9,
+      "qty": 113.22533253434554,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T16:00:00",
+      "symbol": "BIIB",
+      "action": "SELL",
+      "price": 154.22,
+      "qty": 130.75978179873104,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-01T16:00:00",
+      "symbol": "MRNA",
+      "action": "SELL",
+      "price": 27.75,
+      "qty": 533.50497420962,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-01T16:00:00",
+      "symbol": "INTC",
+      "action": "SELL",
+      "price": 35.9872,
+      "qty": 482.97151777981475,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-01T16:00:00",
+      "symbol": "MRK",
+      "action": "SELL",
+      "price": 90.13,
+      "qty": 152.4717848840031,
+      "reason": "end_of_day"
+    }
+  ],
+  "symbol_breakdown": {
+    "SMCI": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "pnl": 363.774032266856,
+      "total_volume": 30245.290742796962,
+      "win_rate": 100.0
+    },
+    "UPST": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -53.3161554165672,
+      "total_volume": 19965.928393667273,
+      "win_rate": 0.0
+    },
+    "MRNA": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "pnl": -443.95870994554934,
+      "total_volume": 34490.40009123008,
+      "win_rate": 0.0
+    },
+    "REGN": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "pnl": -401.13740572887764,
+      "total_volume": 39648.05762187836,
+      "win_rate": 0.0
+    },
+    "BIIB": {
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "pnl": 375.9610960029986,
+      "total_volume": 30143.773090893963,
+      "win_rate": 50.0
+    },
+    "INTC": {
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "pnl": 19.467165263449715,
+      "total_volume": 37348.879201143885,
+      "win_rate": 50.0
+    },
+    "MU": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 557.0686360689833,
+      "total_volume": 20595.687987997455,
+      "win_rate": 100.0
+    },
+    "MRK": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 6.86123031977877,
+      "total_volume": 13742.2819715952,
+      "win_rate": 100.0
+    }
+  }
+}

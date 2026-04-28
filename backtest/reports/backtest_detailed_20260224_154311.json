@@ -1,0 +1,687 @@
+{
+  "summary": {
+    "period": {
+      "start": "2025-11-01T00:00:00",
+      "end": "2025-11-30T00:00:00",
+      "trading_days": 13
+    },
+    "config": {
+      "initial_capital": 100000.0,
+      "use_ollama": true,
+      "time_step_minutes": 5
+    },
+    "agent_performance": {
+      "initial_capital": 100000.0,
+      "final_equity": 97441.76474634791,
+      "total_return": -2558.235253652092,
+      "total_return_pct": -2.558235253652092,
+      "total_trades": 12,
+      "sell_trades": 6,
+      "winning_trades": 1,
+      "losing_trades": 5,
+      "win_rate": 16.666666666666664,
+      "total_pnl": -2558.2352536520866,
+      "total_wins": 22.351335542993183,
+      "total_losses": -2580.58658919508,
+      "avg_win": 22.351335542993183,
+      "avg_loss": -516.117317839016,
+      "profit_factor": 0.008661339106611753,
+      "avg_hold_duration_minutes": 28.333333333333332,
+      "max_drawdown_pct": 2.558235253652092,
+      "trading_days": 25,
+      "avg_daily_pnl": -102.32941014608346
+    },
+    "optimal_performance": {
+      "theoretical_max_trades": 881,
+      "avg_gain_per_optimal_trade": 4.28038923541192,
+      "realistic_return_pct": 33.387036036212976,
+      "total_return": 33387.03603621297
+    },
+    "efficiency_pct": -7.662361075949729,
+    "decisions_count": 12,
+    "errors_count": 0
+  },
+  "daily_stats": [
+    {
+      "date": "2025-11-03T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 97441.76474634791,
+      "pnl": -2558.235253652092,
+      "pnl_pct": -2.558235253652092,
+      "trades": 12,
+      "winning_trades": 1,
+      "losing_trades": 5,
+      "max_drawdown": 2.6436292980397993
+    },
+    {
+      "date": "2025-11-03T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 97441.76474634791,
+      "pnl": -2558.235253652092,
+      "pnl_pct": -2.558235253652092,
+      "trades": 12,
+      "winning_trades": 1,
+      "losing_trades": 5,
+      "max_drawdown": 2.6436292980397993
+    },
+    {
+      "date": "2025-11-04T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-04T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-05T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-05T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-06T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-06T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-07T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-07T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-08T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-08T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-10T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-10T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-11T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-11T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-12T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-12T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-13T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-13T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-14T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-14T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-15T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-15T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    },
+    {
+      "date": "2025-11-17T00:00:00",
+      "starting_equity": 97441.76474634791,
+      "ending_equity": 97441.76474634791,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "trades": 0,
+      "winning_trades": 0,
+      "losing_trades": 0,
+      "max_drawdown": 0.0
+    }
+  ],
+  "trades": [
+    {
+      "timestamp": "2025-11-03T10:00:00",
+      "symbol": "AMZN",
+      "side": "buy",
+      "qty": 77.98791187365958,
+      "price": 256.45,
+      "value": 20000.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-11-03T10:00:00",
+      "symbol": "MRVL",
+      "side": "buy",
+      "qty": 202.14271275520517,
+      "price": 98.94,
+      "value": 20000.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-11-03T10:05:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 1053.9513156338069,
+      "price": 18.72,
+      "value": 19729.968628664865,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-11-03T10:05:00",
+      "symbol": "MRVL",
+      "side": "sell",
+      "qty": 202.14271275520517,
+      "price": 92.01,
+      "value": 18599.151000606427,
+      "pnl": -1400.8489993935727,
+      "pnl_pct": -7.004244996967864,
+      "hold_duration_minutes": 5
+    },
+    {
+      "timestamp": "2025-11-03T10:30:00",
+      "symbol": "MU",
+      "side": "buy",
+      "qty": 83.18356302689624,
+      "price": 236.5,
+      "value": 19672.91265586096,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-11-03T10:35:00",
+      "symbol": "MRNA",
+      "side": "buy",
+      "qty": 739.2732877419954,
+      "price": 26.51,
+      "value": 19598.1348580403,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-11-03T10:35:00",
+      "symbol": "BNTX",
+      "side": "buy",
+      "qty": 90.26406990622834,
+      "price": 108.56,
+      "value": 9799.06742902015,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-11-03T10:35:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 1053.9513156338069,
+      "price": 18.43,
+      "value": 19424.32274713106,
+      "pnl": -305.64588153380464,
+      "pnl_pct": -1.5491452991453025,
+      "hold_duration_minutes": 30
+    },
+    {
+      "timestamp": "2025-11-03T10:40:00",
+      "symbol": "MRNA",
+      "side": "sell",
+      "qty": 739.2732877419954,
+      "price": 26.105,
+      "value": 19298.729176504792,
+      "pnl": -299.40568153550703,
+      "pnl_pct": -1.5277253866465426,
+      "hold_duration_minutes": 5
+    },
+    {
+      "timestamp": "2025-11-03T10:45:00",
+      "symbol": "BNTX",
+      "side": "sell",
+      "qty": 90.26406990622834,
+      "price": 106.05,
+      "value": 9572.504613555515,
+      "pnl": -226.5628154646347,
+      "pnl_pct": -2.312085482682403,
+      "hold_duration_minutes": 10
+    },
+    {
+      "timestamp": "2025-11-03T11:10:00",
+      "symbol": "AMZN",
+      "side": "sell",
+      "qty": 77.98791187365958,
+      "price": 256.7366,
+      "value": 20022.351335542993,
+      "pnl": 22.351335542993183,
+      "pnl_pct": 0.11175667771496592,
+      "hold_duration_minutes": 70
+    },
+    {
+      "timestamp": "2025-11-03T11:20:00",
+      "symbol": "MU",
+      "side": "sell",
+      "qty": 83.18356302689624,
+      "price": 232.315,
+      "value": 19324.7894445934,
+      "pnl": -348.1232112675607,
+      "pnl_pct": -1.7695560253699787,
+      "hold_duration_minutes": 50
+    }
+  ],
+  "decisions": [
+    {
+      "time": "2025-11-03T10:00:00",
+      "symbol": "AMZN",
+      "action": "BUY",
+      "price": 256.45,
+      "qty": 77.98791187365958,
+      "score": 9,
+      "momentum": 4.443267899323938,
+      "volume_ratio": 15.946447076310713,
+      "stop_loss": 252.60324999999997,
+      "take_profit": 262.86125,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Strong daily price increase, MACD bullish, and increased volume support a potential uptrend continuation.",
+        "entry_price": 255.0,
+        "stop_loss": 248.0,
+        "take_profit": 263.0,
+        "raw_response": "{\n    \"recommendation\": \"BUY\",\n    \"confidence\": 0.7,\n    \"entry_price\": 255.00,\n    \"stop_loss\": 248.00,\n    \"take_profit\": 263.00,\n    \"reasoning\": \"Strong daily price increase, MACD bullish, and increased volume support a potential uptrend continuation.\"\n}"
+      }
+    },
+    {
+      "time": "2025-11-03T10:00:00",
+      "symbol": "MRVL",
+      "action": "BUY",
+      "price": 98.94,
+      "qty": 202.14271275520517,
+      "score": 9,
+      "momentum": 3.6020942408376935,
+      "volume_ratio": 18.55992079173524,
+      "stop_loss": 97.4559,
+      "take_profit": 101.41349999999998,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Bullish MACD signal, increased trading volume indicates buyer interest.",
+        "entry_price": 98.0,
+        "stop_loss": 95.5,
+        "take_profit": 103.0,
+        "raw_response": "{\n    \"recommendation\": \"BUY\",\n    \"confidence\": 0.7,\n    \"entry_price\": 98.00,\n    \"stop_loss\": 95.50,\n    \"take_profit\": 103.00,\n    \"reasoning\": \"Bullish MACD signal, increased trading volume indicates buyer interest.\"\n}"
+      }
+    },
+    {
+      "time": "2025-11-03T10:05:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 18.72,
+      "qty": 1053.9513156338069,
+      "score": 7,
+      "momentum": 0.32315632084116047,
+      "volume_ratio": 1.48132882697222,
+      "stop_loss": 18.4392,
+      "take_profit": 19.188,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "MARA price has shown a strong increase today, with the MACD line above the signal line indicating bullish momentum. Volume is also increasing, indicating buying interest.",
+        "entry_price": 19.0,
+        "stop_loss": 18.2,
+        "take_profit": 20.5,
+        "raw_response": "{\n  \"recommendation\": \"BUY\",\n  \"confidence\": 0.7,\n  \"entry_price\": 19.00,\n  \"stop_loss\": 18.20,\n  \"take_profit\": 20.50,\n  \"reasoning\": \"MARA price has shown a strong increase today, with the MACD line above the signal line indicating bullish momentum. Volume is also increasing, indicating buying int"
+      }
+    },
+    {
+      "time": "2025-11-03T10:05:00",
+      "symbol": "MRVL",
+      "action": "SELL",
+      "price": 92.01,
+      "qty": 202.14271275520517,
+      "reason": "stop_loss",
+      "pnl": -1400.8489993935702
+    },
+    {
+      "time": "2025-11-03T10:30:00",
+      "symbol": "MU",
+      "action": "BUY",
+      "price": 236.5,
+      "qty": 83.18356302689624,
+      "score": 7,
+      "momentum": 1.484723652591833,
+      "volume_ratio": 17.417742388985356,
+      "stop_loss": 232.9525,
+      "take_profit": 242.41249999999997,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Bullish MACD signal supports a BUY recommendation, neutral RSI and increasing volume suggest a potential uptrend continuation.",
+        "entry_price": 235.0,
+        "stop_loss": 231.2,
+        "take_profit": 242.5,
+        "raw_response": "{\n\"recommendation\": \"BUY\",\n\"confidence\": 0.7,\n\"entry_price\": 235.00,\n\"stop_loss\": 231.20,\n\"take_profit\": 242.50,\n\"reasoning\": \"Bullish MACD signal supports a BUY recommendation, neutral RSI and increasing volume suggest a potential uptrend continuation.\"\n}"
+      }
+    },
+    {
+      "time": "2025-11-03T10:35:00",
+      "symbol": "MRNA",
+      "action": "BUY",
+      "price": 26.51,
+      "qty": 739.2732877419954,
+      "score": 9,
+      "momentum": 1.048218029350113,
+      "volume_ratio": 2.1645676226860138,
+      "stop_loss": 26.112350000000003,
+      "take_profit": 27.17275,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.85,
+        "reasoning": "Oversold RSI, bearish MACD indicating potential reversal",
+        "entry_price": 26.25,
+        "stop_loss": 24.5,
+        "take_profit": 28.0,
+        "raw_response": "{\n  \"recommendation\": \"BUY\",\n  \"confidence\": 0.85,\n  \"entry_price\": 26.25,\n  \"stop_loss\": 24.50,\n  \"take_profit\": 28.00,\n  \"reasoning\": \"Oversold RSI, bearish MACD indicating potential reversal\"\n}"
+      }
+    },
+    {
+      "time": "2025-11-03T10:35:00",
+      "symbol": "BNTX",
+      "action": "BUY",
+      "price": 108.56,
+      "qty": 90.26406990622834,
+      "score": 7,
+      "momentum": 1.3159122725151624,
+      "volume_ratio": 0.3359693041972767,
+      "stop_loss": 106.9316,
+      "take_profit": 111.27399999999999,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "confidence": 0.7,
+        "reasoning": "Price above range high, MACD bullish and RSI neutral suggest potential upward momentum.",
+        "entry_price": 108.0,
+        "stop_loss": 106.5,
+        "take_profit": 110.0,
+        "raw_response": "{\n  \"recommendation\": \"BUY\",\n  \"confidence\": 0.7,\n  \"entry_price\": 108.00,\n  \"stop_loss\": 106.50,\n  \"take_profit\": 110.00,\n  \"reasoning\": \"Price above range high, MACD bullish and RSI neutral suggest potential upward momentum.\"\n}"
+      }
+    },
+    {
+      "time": "2025-11-03T10:35:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 18.43,
+      "qty": 1053.9513156338069,
+      "reason": "stop_loss",
+      "pnl": -305.6458815338031
+    },
+    {
+      "time": "2025-11-03T10:40:00",
+      "symbol": "MRNA",
+      "action": "SELL",
+      "price": 26.105,
+      "qty": 739.2732877419954,
+      "reason": "stop_loss",
+      "pnl": -299.405681535509
+    },
+    {
+      "time": "2025-11-03T10:45:00",
+      "symbol": "BNTX",
+      "action": "SELL",
+      "price": 106.05,
+      "qty": 90.26406990622834,
+      "reason": "stop_loss",
+      "pnl": -226.56281546463362
+    },
+    {
+      "time": "2025-11-03T11:10:00",
+      "symbol": "AMZN",
+      "action": "SELL",
+      "price": 256.7366,
+      "qty": 77.98791187365958,
+      "reason": "time_exit",
+      "pnl": 22.351335542992498
+    },
+    {
+      "time": "2025-11-03T11:20:00",
+      "symbol": "MU",
+      "action": "SELL",
+      "price": 232.315,
+      "qty": 83.18356302689624,
+      "reason": "stop_loss",
+      "pnl": -348.1232112675609
+    }
+  ],
+  "symbol_breakdown": {
+    "MRVL": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -1400.8489993935727,
+      "total_volume": 18599.151000606427,
+      "win_rate": 0.0
+    },
+    "MARA": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -305.64588153380464,
+      "total_volume": 19424.32274713106,
+      "win_rate": 0.0
+    },
+    "MRNA": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -299.40568153550703,
+      "total_volume": 19298.729176504792,
+      "win_rate": 0.0
+    },
+    "BNTX": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -226.5628154646347,
+      "total_volume": 9572.504613555515,
+      "win_rate": 0.0
+    },
+    "AMZN": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 22.351335542993183,
+      "total_volume": 20022.351335542993,
+      "win_rate": 100.0
+    },
+    "MU": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -348.1232112675607,
+      "total_volume": 19324.7894445934,
+      "win_rate": 0.0
+    }
+  }
+}

@@ -21,8 +21,8 @@ from config.agent_config import (
 from agent.core.reasoning import ReasoningEngine, AnalysisResult, DecisionResult
 from agent.core.memory import TradingMemory, TradeRecord, PatternMatch
 from agent.core.context import MarketContext, MarketContextData
-from agent.core.discovery import StockDiscovery
-from agent.core.momentum import MomentumScanner, MomentumConfig, PartialProfitManager, MomentumSetup
+from agent.core.discovery import StockDiscovery, DiscoveredStock
+from agent.core.momentum import MomentumScanner, MomentumConfig, PartialProfitManager, MomentumSetup, SetupType
 from agent.core.trade_logger import TradeLogger
 from agent.core.analyst_ratings import AnalystRatingsProvider, AnalystRating
 from agent.core.risk_manager import RiskManager, RiskConfig, RiskCheckResult
@@ -32,6 +32,10 @@ from agent.core.atr_stops import ATRStopManager, ATRResult, DynamicStopLevels
 from agent.core.periodic_reflection import PeriodicReflectionAgent, ReflectionReport
 from agent.core.layered_memory import LayeredMemorySystem, MemoryItem
 from agent.core.position_intelligence import PositionIntelligence, PositionRecommendation, MarketSession
+from agent.core.hindsight import HindsightAnalyzer, DailyHindsightReport
+from agent.core.pattern_analyzer import PatternAnalyzer, PatternType, SetupQuality
+from agent.core.volatility_detector import VolatilityDetector, VolatilityAssessment, TradingMode as VolTradingMode
+from agent.core.circuit_breaker import CircuitBreaker, CircuitBreakerConfig
 from alerts.manager import AlertManager, Alert, TradingOpportunity, AlertAction
 from alpaca.client import AlpacaClient
 from alpaca.stream import AlpacaStreamer, StreamQuote, QuoteAggregator
@@ -179,6 +183,36 @@ class TradingAgent:
             max_sector_exposure_pct=0.40,
             use_half_kelly=True,  # Conservative approach
         )
+
+        # Hindsight Analyzer - Learn from optimal scenarios to improve future decisions
+        self.hindsight_analyzer = HindsightAnalyzer(
+            client=self.alpaca_client
+        )
+        self._last_hindsight_date: Optional[datetime] = None
+
+        # Pattern Analyzer - Statistical analysis of 30-60 days of patterns
+        self.pattern_analyzer = PatternAnalyzer(
+            alpaca_client=self.alpaca_client,
+            analysis_days=30,
+            min_win_rate=0.60,  # Only trade patterns with >60% win rate
+        )
+        self._pattern_stats_loaded: bool = False
+
+        # Volatility Detector - Pre-market volatility assessment
+        self.volatility_detector = VolatilityDetector(
+            alpaca_client=self.alpaca_client
+        )
+        self._current_volatility: Optional[VolatilityAssessment] = None
+
+        # Circuit Breaker - Protects against catastrophic losses
+        self.circuit_breaker = CircuitBreaker(CircuitBreakerConfig(
+            max_daily_loss_pct=0.02,  # Stop trading if daily loss exceeds 2%
+            min_trades_for_winrate_check=5,  # Need 5 trades to check win rate
+            min_win_rate_pct=35.0,  # Stop if win rate drops below 35%
+            max_losses_per_stock=2,  # Blacklist stock after 2 losses
+            reduce_size_after_losses=3,  # Reduce size after 3 consecutive losses
+            size_reduction_factor=0.5,  # Reduce to 50% of normal size
+        ))
 
         # State
         self._state = AgentState.STOPPED
@@ -350,8 +384,21 @@ class TradingAgent:
             try:
                 account = await self.alpaca_client.get_account()
                 self.logger.info(f"💰 Account: ${account.equity:.2f} equity, ${account.buying_power:.2f} buying power")
+
+                # Initialize circuit breaker with starting equity
+                self.circuit_breaker.initialize_day(account.equity)
+                self.logger.info(f"🛡️ Circuit Breaker initialized (max loss: 2%, min WR: 35%)")
             except Exception as e:
                 self.logger.warning(f"Could not get account info: {e}")
+
+            # Run daily hindsight analysis (learn from yesterday's optimal scenarios)
+            await self._run_daily_hindsight()
+
+            # Run pattern analysis (statistical analysis of 30 days of data)
+            await self._run_pattern_analysis()
+
+            # Run volatility assessment (detect market conditions)
+            await self._run_volatility_assessment()
 
             # Subscribe to watchlist
             from alpaca.stream import StreamType
@@ -491,6 +538,169 @@ class TradingAgent:
                 self.logger.error(f"Error in context loop: {e}")
                 await asyncio.sleep(60)
 
+    async def _run_daily_hindsight(self):
+        """
+        Run hindsight analysis on yesterday's data to learn optimal patterns.
+        Stores learned patterns in the layered memory for future decisions.
+        """
+        today = datetime.now().date()
+
+        # Only run once per day
+        if self._last_hindsight_date and self._last_hindsight_date == today:
+            self.logger.debug("Hindsight analysis already run today")
+            return
+
+        self.logger.info("📊 Running daily hindsight analysis (learning from yesterday)...")
+
+        try:
+            # Get yesterday's trades from trade logger
+            agent_trades = []
+            try:
+                # Load trade logs from yesterday
+                yesterday = datetime.now() - timedelta(days=1)
+                trade_logs = self.trade_logger.get_trades_for_date(yesterday)
+                agent_trades = [
+                    {
+                        'symbol': log.symbol,
+                        'entry_price': log.entry_price,
+                        'exit_price': log.exit_price,
+                        'entry_time': log.entry_time,
+                        'exit_time': log.exit_time,
+                        'pnl_pct': log.pnl_pct if hasattr(log, 'pnl_pct') else None,
+                    }
+                    for log in trade_logs
+                ]
+            except Exception as e:
+                self.logger.debug(f"Could not load yesterday's trades: {e}")
+
+            # Run analysis and learn
+            report = await self.hindsight_analyzer.run_and_learn(
+                memory_system=self.layered_memory,
+                agent_trades=agent_trades,
+            )
+
+            # Log summary
+            if report.optimal_trades:
+                self.logger.info(f"📈 Found {len(report.optimal_trades)} optimal opportunities:")
+                for trade in report.optimal_trades[:3]:
+                    self.logger.info(
+                        f"   {trade.symbol}: +{trade.max_gain_pct:.1f}% "
+                        f"(buy ${trade.optimal_buy_price:.2f} → sell ${trade.optimal_sell_price:.2f})"
+                    )
+
+            if report.top_patterns:
+                self.logger.info(f"🔍 Top patterns learned:")
+                for pattern in report.top_patterns[:3]:
+                    self.logger.info(
+                        f"   {pattern.pattern_type.value}: "
+                        f"{pattern.avg_gain_when_followed:.1f}% avg gain, "
+                        f"best during {pattern.time_of_day_bias}"
+                    )
+
+            if report.lessons_learned:
+                self.logger.info(f"📚 {len(report.lessons_learned)} lessons stored in memory")
+
+            self._last_hindsight_date = today
+            self.logger.info("✅ Hindsight analysis complete")
+
+        except Exception as e:
+            self.logger.error(f"Failed to run hindsight analysis: {e}")
+
+    async def _run_pattern_analysis(self):
+        """
+        Run statistical pattern analysis on 30 days of data.
+        Identifies which patterns have >60% win rate for trading.
+        """
+        if self._pattern_stats_loaded:
+            self.logger.debug("Pattern analysis already loaded")
+            return
+
+        self.logger.info("📊 Running pattern analysis (30 days of historical data)...")
+
+        try:
+            # Use watchlist + any discovered stocks
+            symbols = list(self.config.watchlist or [])
+
+            if not symbols:
+                self.logger.warning("No symbols to analyze")
+                return
+
+            # Run analysis (may take a few seconds)
+            profitable_patterns = await self.pattern_analyzer.analyze_symbols(
+                symbols=symbols[:20],  # Limit to 20 symbols for speed
+                force_refresh=False,
+            )
+
+            if profitable_patterns:
+                self.logger.info(f"✅ Found {len(profitable_patterns)} profitable patterns (>60% win rate)")
+                for pattern_type, stats in list(profitable_patterns.items())[:3]:
+                    self.logger.info(
+                        f"   {pattern_type.value}: "
+                        f"{stats.win_rate*100:.0f}% win rate, "
+                        f"{stats.avg_gain_pct*100:.2f}% avg gain, "
+                        f"profit factor {stats.profit_factor:.1f}x"
+                    )
+            else:
+                self.logger.info("⚠️ No patterns with >60% win rate found - using conservative sizing")
+
+            self._pattern_stats_loaded = True
+
+        except Exception as e:
+            self.logger.error(f"Failed to run pattern analysis: {e}")
+
+    async def _run_volatility_assessment(self):
+        """
+        Assess current market volatility conditions.
+        Determines trading mode (conservative/normal/aggressive).
+        """
+        self.logger.info("📈 Assessing market volatility...")
+
+        try:
+            # Use watchlist for assessment
+            watchlist = list(self.config.watchlist or [])
+
+            if not watchlist:
+                self.logger.warning("No watchlist for volatility assessment")
+                return
+
+            # Run assessment
+            assessment = await self.volatility_detector.assess_volatility(
+                watchlist=watchlist[:15],
+                force_refresh=True,
+            )
+
+            self._current_volatility = assessment
+
+            # Log the assessment (detailed logging is in VolatilityDetector)
+            self.logger.info(
+                f"📊 Trading Mode: {assessment.recommended_mode.value.upper()} "
+                f"(position mult: {assessment.position_multiplier:.2f}x)"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Failed to assess volatility: {e}")
+
+    def get_setup_quality(self, symbol: str, pattern_type: PatternType, current_price: float) -> Optional[SetupQuality]:
+        """
+        Get setup quality for a potential trade.
+        Used for dynamic position sizing decisions.
+        """
+        try:
+            # Get pre-market data for volume ratio
+            premarket = self.volatility_detector.get_premarket_data(symbol)
+            volume_ratio = premarket.volume_ratio if premarket else 1.0
+
+            # Evaluate the setup
+            return self.pattern_analyzer.evaluate_setup(
+                symbol=symbol,
+                current_pattern=pattern_type,
+                current_price=current_price,
+                volume_ratio=volume_ratio,
+            )
+        except Exception as e:
+            self.logger.debug(f"Could not evaluate setup for {symbol}: {e}")
+            return None
+
     async def _discovery_loop(self):
         """Stock discovery loop - finds new interesting stocks"""
         self.logger.info("Discovery loop started")
@@ -598,6 +808,13 @@ class TradingAgent:
 
             # Record trade for Position Intelligence (Kelly Criterion)
             self.position_intelligence.record_trade(symbol, pnl_dollars, pnl_percent)
+
+            # Record trade for Circuit Breaker (loss limit, win rate, blacklist)
+            try:
+                account = await self.alpaca_client.get_account()
+                self.circuit_breaker.record_trade(symbol, pnl_dollars, account.equity)
+            except Exception as cb_error:
+                self.logger.debug(f"Circuit breaker update failed: {cb_error}")
 
             # === PERIODIC REFLECTION: Record trade and check if reflection needed ===
             try:
@@ -708,12 +925,12 @@ class TradingAgent:
                             self.logger.error(f"  ❌ Failed to close: {r.error_message}")
                     continue
 
-                # Check stop-loss and take-profit triggers
-                self.logger.debug("Checking stop-loss triggers...")
-                triggers = await self.executor.check_stop_losses()
+                # Check all stops: price-based, trailing, AND time-based
+                self.logger.debug("Checking all stop triggers (price + time)...")
+                triggers = await self.executor.check_all_stops()
 
                 if triggers:
-                    self.logger.warning(f"🚨 {len(triggers)} STOP-LOSS/TAKE-PROFIT TRIGGERS!")
+                    self.logger.warning(f"🚨 {len(triggers)} STOP TRIGGERS (price/time)!")
 
                 for trigger in triggers:
                     symbol = trigger['symbol']
@@ -740,6 +957,10 @@ class TradingAgent:
                             quantity=trigger['qty'],
                             entry_time=datetime.now(),
                             exit_time=datetime.now(),
+                            stop_loss=trigger.get('stop_loss', 0),
+                            take_profit=trigger.get('take_profit', 0),
+                            technical_signals=trigger.get('technical_signals', {}),
+                            market_regime=trigger.get('market_regime', 'unknown'),
                             pnl=pnl,
                             pnl_pct=pnl_pct,
                             reasoning=reason,
@@ -1170,26 +1391,29 @@ If news turns negative or market conditions change, exit quickly."""
         2. Si no hay, buscar setups decentes (score >= 4) como fallback
         3. Ejecutar las mejores oportunidades
         """
-        self.logger.debug("Generating signals with momentum scanner...")
+        self.logger.info("🔍 Generating signals with momentum scanner...")
 
         # === POSITION INTELLIGENCE: Check if trading allowed ===
         session = self.position_intelligence.get_current_session()
         session_config = self.position_intelligence.get_session_config(session)
 
         if session_config.avoid_new_entries:
-            self.logger.debug(f"📵 {session.value}: Avoiding new entries")
+            self.logger.info(f"📵 {session.value}: Session config says avoid new entries - SKIPPING")
             return
 
         dd_mult, dd_reason = self.position_intelligence.get_drawdown_multiplier()
         if dd_mult == 0:
-            self.logger.warning(f"🚨 {dd_reason}")
+            self.logger.warning(f"🚨 Drawdown blocking: {dd_reason} - SKIPPING")
             return
 
         # Use dynamic watchlist (base + discovered stocks)
         watchlist = self.get_dynamic_watchlist()
+        self.logger.info(f"📋 Watchlist: {len(watchlist)} symbols to scan")
 
         # === MOMENTUM SCAN: Find setups ===
+        self.logger.info(f"🔍 Starting momentum scan for {len(watchlist)} symbols...")
         all_setups = await self.momentum_scanner.scan(watchlist, force=True)
+        self.logger.info(f"📊 Momentum scan complete: {len(all_setups)} total setups found")
 
         # Separate high-quality (score >= 6) from decent (score >= 4)
         high_quality_setups = [s for s in all_setups if s.score >= 6.0]
@@ -1204,7 +1428,23 @@ If news turns negative or market conditions change, exit quickly."""
             self.logger.info(f"📊 No premium setups - using {len(decent_setups)} DECENT setups (score 4-6)")
         else:
             momentum_setups = []
-            self.logger.info("📭 No tradeable setups found (all scores < 4)")
+            self.logger.info("📭 No momentum setups found (all scores < 4)")
+
+            # === FALLBACK: Use Discovery stocks with good scores ===
+            discovery_stocks = list(self.discovery._discovered.values())
+            good_discovery = [s for s in discovery_stocks if s.score >= 6.0]
+
+            if good_discovery:
+                self.logger.info(f"🔄 FALLBACK: Using {len(good_discovery)} Discovery stocks (score ≥6)")
+                for ds in good_discovery[:3]:  # Max 3
+                    # Convert DiscoveredStock to MomentumSetup
+                    momentum_setup = self._discovery_to_momentum_setup(ds)
+                    if momentum_setup:
+                        momentum_setups.append(momentum_setup)
+                        self.logger.info(
+                            f"  📊 {ds.symbol}: Discovery score {ds.score:.1f} | "
+                            f"{ds.change_pct:+.1f}% | Vol {ds.volume_ratio:.1f}x"
+                        )
 
         if momentum_setups:
             self.logger.info(f"🚀 Found {len(momentum_setups)} momentum setups")
@@ -1257,6 +1497,59 @@ If news turns negative or market conditions change, exit quickly."""
         # - Trade intelligence (reflection/debate)
         # - Analyst ratings
         # All trades now go through _momentum_setup_to_opportunity which has full protection
+
+    def _discovery_to_momentum_setup(self, ds: DiscoveredStock) -> Optional[MomentumSetup]:
+        """
+        Convert a DiscoveredStock to a MomentumSetup.
+
+        This allows Discovery stocks to go through the full analysis pipeline
+        (_momentum_setup_to_opportunity) with all protections.
+        """
+        try:
+            # Determine setup type based on discovery reason
+            if ds.change_pct > 0:
+                setup_type = SetupType.MOMENTUM_CONTINUATION
+            else:
+                # Losers can be bounce plays
+                setup_type = SetupType.MOMENTUM_CONTINUATION
+
+            # Calculate stops and targets (2% stop, 1.5%/2.5%/4% targets)
+            stop_loss_pct = 0.02
+            target_1_pct = 0.015
+            target_2_pct = 0.025
+            target_3_pct = 0.04
+
+            if ds.change_pct > 0:
+                # Long setup
+                stop_loss = ds.price * (1 - stop_loss_pct)
+                target_1 = ds.price * (1 + target_1_pct)
+                target_2 = ds.price * (1 + target_2_pct)
+                target_3 = ds.price * (1 + target_3_pct)
+            else:
+                # Bounce play (still long, expecting recovery)
+                stop_loss = ds.price * (1 - stop_loss_pct)
+                target_1 = ds.price * (1 + target_1_pct)
+                target_2 = ds.price * (1 + target_2_pct)
+                target_3 = ds.price * (1 + target_3_pct)
+
+            return MomentumSetup(
+                symbol=ds.symbol,
+                setup_type=setup_type,
+                score=ds.score,
+                current_price=ds.price,
+                entry_price=ds.price,
+                stop_loss=stop_loss,
+                target_1=target_1,
+                target_2=target_2,
+                target_3=target_3,
+                change_pct=ds.change_pct,
+                volume_ratio=ds.volume_ratio,
+                reasoning=f"Discovery: {ds.reason} | {ds.change_pct:+.1f}% | Vol {ds.volume_ratio:.1f}x",
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error converting discovery stock {ds.symbol}: {e}")
+            return None
 
     async def _momentum_setup_to_opportunity(self, setup: MomentumSetup) -> Optional[TradingOpportunity]:
         """
@@ -1440,6 +1733,70 @@ If news turns negative or market conditions change, exit quickly."""
 
             shares = pos_rec.final_shares
 
+            # === APPLY DYNAMIC POSITION SIZING (Pattern Analysis + Volatility) ===
+            # Get setup quality based on pattern analysis
+            setup_quality = None
+            try:
+                # Map momentum setup type to pattern type
+                pattern_mapping = {
+                    'gap_up': PatternType.GAP_UP,
+                    'gap_down': PatternType.GAP_DOWN,
+                    'volume_spike': PatternType.VOLUME_SPIKE,
+                    'momentum': PatternType.MORNING_MOMENTUM,
+                    'reversal': PatternType.REVERSAL,
+                }
+                pattern_type = pattern_mapping.get(
+                    setup.setup_type.value.lower(),
+                    PatternType.MORNING_MOMENTUM
+                )
+                setup_quality = self.get_setup_quality(
+                    setup.symbol, pattern_type, setup.current_price
+                )
+            except Exception as sq_err:
+                self.logger.debug(f"Setup quality unavailable: {sq_err}")
+
+            # Apply dynamic sizing if we have pattern stats
+            if setup_quality or self._current_volatility:
+                dynamic_sizing = self.risk_manager.calculate_dynamic_position(
+                    symbol=setup.symbol,
+                    entry_price=setup.entry_price,
+                    account_equity=account.equity,
+                    setup_quality=setup_quality,
+                    volatility=self._current_volatility,
+                )
+
+                # Use the dynamic sizing if it suggests a different size
+                dynamic_shares = dynamic_sizing['shares']
+                if dynamic_shares > 0:
+                    # Take the minimum of Position Intelligence and Dynamic sizing
+                    # (conservative approach - use the safer of the two)
+                    if dynamic_shares < shares:
+                        self.logger.info(
+                            f"📊 {setup.symbol} Dynamic Sizing: "
+                            f"{shares:.2f} → {dynamic_shares:.2f} shares "
+                            f"(Grade: {dynamic_sizing['quality_grade']}, "
+                            f"Vol: {dynamic_sizing['volatility_mode']})"
+                        )
+                        shares = dynamic_shares
+                    elif dynamic_shares > shares * 1.2:  # Allow up to 20% increase for A+ setups
+                        new_shares = min(dynamic_shares, shares * 1.2)
+                        self.logger.info(
+                            f"🚀 {setup.symbol} A+ Setup - Increasing position: "
+                            f"{shares:.2f} → {new_shares:.2f} shares "
+                            f"(Grade: {dynamic_sizing['quality_grade']})"
+                        )
+                        shares = new_shares
+
+                    # Also update stop loss if dynamic suggests tighter
+                    if dynamic_sizing['stop_loss_pct'] < 0.03:  # If suggesting tighter than 3%
+                        new_stop = setup.entry_price * (1 - dynamic_sizing['stop_loss_pct'])
+                        if new_stop > setup.stop_loss:  # Only if tighter
+                            self.logger.debug(
+                                f"📍 {setup.symbol} Tighter stop: "
+                                f"${setup.stop_loss:.2f} → ${new_stop:.2f}"
+                            )
+                            setup.stop_loss = new_stop
+
             # Log position intelligence reasoning
             if pos_rec.adjusted_size_pct != 0.20:
                 self.logger.info(
@@ -1527,10 +1884,11 @@ If news turns negative or market conditions change, exit quickly."""
                 current_price=setup.current_price,
                 target_price=setup.target_1,
                 stop_loss=setup.stop_loss,
-                confidence=adjusted_confidence,  # Use reflection-adjusted confidence
-                reasoning=" | ".join(reasoning_parts),
+                position_size=pos_rec.final_size_dollars,
                 shares=shares,
-                position_size_pct=0.20,
+                confidence=adjusted_confidence,  # Use reflection-adjusted confidence
+                risk_reward_ratio=setup.risk_reward,
+                reasoning=" | ".join(reasoning_parts),
                 technical_signals={
                     'change_pct': setup.change_pct,
                     'volume_ratio': setup.volume_ratio,
@@ -1553,6 +1911,12 @@ If news turns negative or market conditions change, exit quickly."""
     async def analyze_opportunity(self, symbol: str) -> Optional[TradingOpportunity]:
         """Analyze a symbol for trading opportunity"""
 
+        # CIRCUIT BREAKER CHECK - Skip if trading is halted or stock is blacklisted
+        can_trade, reason = self.circuit_breaker.can_trade(symbol)
+        if not can_trade:
+            self.logger.debug(f"🛑 {symbol}: Circuit breaker blocked - {reason}")
+            return None
+
         # Skip if we already have a large position in this symbol (saves Ollama calls)
         try:
             position = await self.alpaca_client.get_position(symbol)
@@ -1565,6 +1929,12 @@ If news turns negative or market conditions change, exit quickly."""
         except Exception:
             pass  # No position, continue with analysis
 
+        # VIX filter: Skip new entries when volatility is too high
+        context = self._current_context
+        if context and context.vix and context.vix.value > self.config.risk.max_vix_for_entry:
+            self.logger.debug(f"⚠️ {symbol}: SKIP - VIX {context.vix.value:.1f} > {self.config.risk.max_vix_for_entry}")
+            return None
+
         # Get current quote
         quote = self.quote_aggregator.get_last_quote(symbol)
         if not quote:
@@ -1572,9 +1942,6 @@ If news turns negative or market conditions change, exit quickly."""
 
         # Get technical data (from existing signal generator or Alpaca)
         technical_data = await self._get_technical_data(symbol, quote)
-
-        # Get market context
-        context = self._current_context
         context_dict = context.to_dict() if context else None
 
         # Get memory context
@@ -1661,9 +2028,14 @@ If news turns negative or market conditions change, exit quickly."""
             context.regime if context else MarketRegime.NEUTRAL
         )
 
+        # Apply circuit breaker multiplier (reduces size after consecutive losses)
+        cb_multiplier = self.circuit_breaker.get_position_size_multiplier()
+        if cb_multiplier < 1.0:
+            self.logger.info(f"⚠️ {symbol}: Position size reduced to {cb_multiplier:.0%} due to consecutive losses")
+
         position_size = min(
-            account.buying_power * decision.position_size_pct * regime_multiplier,
-            account.equity * self.config.risk.max_position_pct,
+            account.buying_power * decision.position_size_pct * regime_multiplier * cb_multiplier,
+            account.equity * self.config.risk.max_position_pct * cb_multiplier,
         )
 
         # Create opportunity
@@ -1800,6 +2172,33 @@ If news turns negative or market conditions change, exit quickly."""
                     pnl_pct=0,
                 )
                 self.memory.record_trade(trade_record)
+
+                # Add time-based stop for BUY orders
+                # If position doesn't move favorably in 30-60 minutes, exit
+                if opportunity.action == 'BUY':
+                    # Determine max hold time based on setup quality and volatility
+                    max_hold_minutes = 60  # Default
+                    min_profit_pct = 0.005  # 0.5% minimum profit to avoid time stop
+
+                    # Adjust based on volatility
+                    if self._current_volatility:
+                        if self._current_volatility.recommended_mode.value == 'aggressive':
+                            max_hold_minutes = 45  # Faster exit in aggressive mode
+                            min_profit_pct = 0.008  # Expect more profit
+                        elif self._current_volatility.recommended_mode.value == 'defensive':
+                            max_hold_minutes = 30  # Even faster exit in defensive mode
+                            min_profit_pct = 0.003  # Lower bar to keep
+
+                    self.executor.add_time_stop(
+                        symbol=opportunity.symbol,
+                        entry_time=datetime.now(),
+                        max_hold_minutes=max_hold_minutes,
+                        min_profit_pct=min_profit_pct,
+                    )
+                    self.logger.info(
+                        f"⏱️ {opportunity.symbol}: Time stop set - "
+                        f"{max_hold_minutes}min max hold, need >{min_profit_pct*100:.1f}% profit"
+                    )
 
             return result
 

@@ -161,6 +161,22 @@ class TradeLogger:
         self._write_decision(decision)
         self._decisions.append(decision)
 
+        # Mirror to Supabase (non-blocking — failure doesn't stop the agent)
+        try:
+            from agent.core.supabase_logger import log_trade
+            log_trade(
+                symbol=symbol,
+                action=action,
+                entry_price=entry_price,
+                stop_loss=stop_loss,
+                take_profit=t1,
+                confidence=confidence,
+                reasoning=reasoning,
+                executed=False,
+            )
+        except Exception as e:
+            self.logger.warning(f"Supabase mirror failed (non-critical): {e}")
+
         self.logger.info(
             f"📝 Logged {action} decision for {symbol} | "
             f"Confidence: {confidence:.0%} | "
@@ -189,6 +205,17 @@ class TradeLogger:
 
                 # Re-write to update the file
                 self._write_decision(decision, update=True)
+
+                # Update Supabase row to mark as executed
+                if success and order_id:
+                    try:
+                        from agent.core import supabase_logger
+                        supabase_logger._get_client() and supabase_logger._get_client().table("trades").update({
+                            "executed": True,
+                            "order_id": order_id,
+                        }).eq("symbol", symbol).eq("executed", False).execute()
+                    except Exception:
+                        pass
 
                 self.logger.info(
                     f"📝 Updated execution for {symbol}: "
@@ -222,6 +249,20 @@ class TradeLogger:
 
                 self._write_decision(decision, update=True)
 
+                # Update Supabase with outcome
+                if decision.order_id:
+                    try:
+                        from agent.core.supabase_logger import update_trade_outcome
+                        update_trade_outcome(
+                            order_id=decision.order_id,
+                            exit_price=exit_price,
+                            exit_reason=exit_reason,
+                            pnl_dollars=pnl_dollars,
+                            pnl_percent=pnl_percent,
+                        )
+                    except Exception:
+                        pass
+
                 emoji = "💰" if pnl_dollars > 0 else "📉"
                 self.logger.info(
                     f"{emoji} Trade outcome logged for {symbol}: "
@@ -247,6 +288,45 @@ class TradeLogger:
         if symbol:
             decisions = [d for d in decisions if d.symbol == symbol]
         return decisions[-limit:]
+
+    def get_trades_for_date(self, date: datetime) -> List[Dict]:
+        """
+        Load trade logs for a specific date.
+        Used by HindsightAnalyzer to compare agent trades with optimal scenarios.
+
+        Returns list of trade dictionaries with entry/exit info.
+        """
+        date_str = date.strftime("%Y-%m-%d")
+        log_file = self.log_dir / f"trades_{date_str}.jsonl"
+
+        if not log_file.exists():
+            return []
+
+        trades = []
+        try:
+            with open(log_file, 'r') as f:
+                for line in f:
+                    try:
+                        data = json.loads(line)
+                        # Only include executed trades with outcomes
+                        if data.get('executed') and data.get('outcome'):
+                            outcome = data['outcome']
+                            trades.append({
+                                'symbol': data.get('symbol'),
+                                'entry_price': data.get('execution', {}).get('fill_price'),
+                                'exit_price': outcome.get('exit_price'),
+                                'entry_time': data.get('execution', {}).get('fill_time'),
+                                'exit_time': outcome.get('exit_time'),
+                                'pnl_pct': outcome.get('pnl_percent'),
+                                'pnl_dollars': outcome.get('pnl_dollars'),
+                                'side': data.get('decision', {}).get('action'),
+                            })
+                    except json.JSONDecodeError:
+                        continue
+        except Exception as e:
+            self.logger.error(f"Error reading trade logs for {date_str}: {e}")
+
+        return trades
 
     def get_win_rate(self, days: int = 7) -> Dict[str, Any]:
         """Calculate win rate from logged trades"""

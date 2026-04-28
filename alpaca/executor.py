@@ -120,6 +120,12 @@ class OrderExecutor:
             if request.side == OrderSide.SELL:
                 await self._cancel_pending_orders_for_symbol(request.symbol)
 
+            # For BUY orders: cancel any pending SELL/STOP orders to avoid wash trade error
+            if request.side == OrderSide.BUY:
+                cancelled = await self._cancel_opposite_side_orders(request.symbol)
+                if cancelled > 0:
+                    self.logger.info(f"🗑️ Cancelled {cancelled} opposite-side order(s) for {request.symbol} to avoid wash trade")
+
             # Submit main order
             main_order = await self.client.submit_order(
                 symbol=request.symbol,
@@ -150,71 +156,14 @@ class OrderExecutor:
             if request.side == OrderSide.SELL:
                 await self._record_day_trade(request.symbol)
 
-            # Place bracket orders
+            # NOTE: No bracket orders placed here.
+            # The aggressive agent handles all stop loss / take profit / trailing stop
+            # in software via its position monitor loop. This avoids:
+            # 1. Dual stop tracking (Alpaca orders vs agent software) that caused conflicts
+            # 2. Bracket orders blocking full position close (shares locked by pending orders)
+            # 3. Wash trade rejections from Alpaca
             stop_order = None
             tp_order = None
-
-            if request.side == OrderSide.BUY and filled_order.filled_avg_price:
-                entry_price = filled_order.filled_avg_price
-                filled_qty = filled_order.filled_qty or request.quantity
-
-                # For fractional shares, we need to use different approach
-                # Alpaca allows fractional SELL orders with DAY time_in_force
-                whole_qty = int(filled_qty)
-                has_whole_shares = whole_qty > 0
-
-                # Stop loss - try with whole shares first (GTC), fallback to tracking
-                if request.stop_loss:
-                    # Round to 2 decimals to avoid sub-penny errors
-                    stop_price_rounded = round(request.stop_loss, 2)
-                    if has_whole_shares:
-                        try:
-                            stop_order = await self.client.submit_order(
-                                symbol=request.symbol,
-                                qty=whole_qty,
-                                side=OrderSide.SELL,
-                                order_type=OrderType.STOP,
-                                stop_price=stop_price_rounded,
-                                time_in_force=TimeInForce.GTC,
-                                client_order_id=f"{request.client_order_id}_sl",
-                            )
-                            self.logger.info(f"✅ Stop loss placed at ${request.stop_loss:.2f} for {whole_qty} shares")
-                        except Exception as e:
-                            # Alpaca often rejects stop orders right after buy (wash trade protection)
-                            # This is expected - we use software trailing stop instead
-                            self.logger.info(f"📍 Using software trailing stop (Alpaca rejected: wash trade protection)")
-                            self._track_stop_loss(request.symbol, request.stop_loss, filled_qty, entry_price)
-                    else:
-                        # Fractional shares - can't place GTC stop order
-                        # Track for software-based trailing stop monitoring
-                        self._track_stop_loss(request.symbol, request.stop_loss, filled_qty, entry_price)
-                        self.logger.warning(
-                            f"⚠️ Fractional position ({filled_qty:.4f} shares) - "
-                            f"trailing stop at ${request.stop_loss:.2f} (3% trail) monitored by agent"
-                        )
-
-                # Take profit - similar logic
-                if request.take_profit:
-                    if has_whole_shares:
-                        try:
-                            tp_order = await self.client.submit_order(
-                                symbol=request.symbol,
-                                qty=whole_qty,
-                                side=OrderSide.SELL,
-                                order_type=OrderType.LIMIT,
-                                limit_price=request.take_profit,
-                                time_in_force=TimeInForce.GTC,
-                                client_order_id=f"{request.client_order_id}_tp",
-                            )
-                            self.logger.info(f"✅ Take profit placed at ${request.take_profit:.2f} for {whole_qty} shares")
-                        except Exception as e:
-                            self.logger.error(f"Failed to place take profit order: {e}")
-                            self._track_take_profit(request.symbol, request.take_profit, filled_qty)
-                    else:
-                        self._track_take_profit(request.symbol, request.take_profit, filled_qty)
-                        self.logger.info(
-                            f"📈 Take profit at ${request.take_profit:.2f} will be monitored by agent"
-                        )
 
             execution_time = (datetime.now() - start_time).total_seconds()
 
@@ -252,18 +201,19 @@ class OrderExecutor:
             if not pdt_ok:
                 return False, pdt_msg
 
-        # Check buying power
+        # Check buying power (use daytrading_buying_power for PDT accounts)
         if request.side == OrderSide.BUY:
             # Use limit_price, current_price, or stop_loss as price estimate
             price_estimate = request.limit_price or request.current_price or request.stop_loss or 0
             if price_estimate > 0:
                 estimated_cost = request.quantity * price_estimate * 1.02  # Add 2% buffer for slippage
-                if estimated_cost > account.buying_power:
-                    return False, f"Insufficient buying power. Need ~${estimated_cost:.2f}, Available: ${account.buying_power:.2f}"
+                available_bp = min(account.buying_power, account.daytrading_buying_power) if account.daytrading_buying_power > 0 else account.buying_power
+                if estimated_cost > available_bp:
+                    return False, f"Insufficient buying power. Need ~${estimated_cost:.2f}, Available: ${available_bp:.2f} (DT BP: ${account.daytrading_buying_power:.2f})"
 
-        # Check position size
+        # Check position size (1% tolerance to avoid floating-point edge cases)
         position_pct = await self._calculate_position_pct(request, account)
-        if position_pct > self.risk.max_position_pct:
+        if position_pct > self.risk.max_position_pct * 1.01:
             return False, f"Position too large ({position_pct*100:.1f}% > {self.risk.max_position_pct*100:.0f}% limit)"
 
         # Check max positions
@@ -418,33 +368,96 @@ class OrderExecutor:
             self.logger.error(f"Error cancelling orders for {symbol}: {e}")
             return 0
 
+    async def _cancel_opposite_side_orders(self, symbol: str) -> int:
+        """
+        Cancel opposite-side (sell/stop) orders for a symbol to avoid wash trade errors.
+        This is called before placing a BUY order to ensure no conflicting sell orders exist.
+        """
+        try:
+            orders = await self.client.get_orders(status='open')
+            # Find sell-side orders for this symbol (sell, stop, stop_limit)
+            opposite_orders = [
+                o for o in orders
+                if o.symbol == symbol and o.side == 'sell'
+            ]
+
+            if not opposite_orders:
+                return 0
+
+            cancelled = 0
+            for order in opposite_orders:
+                try:
+                    await self.client.cancel_order(order.id)
+                    cancelled += 1
+                    self.logger.info(
+                        f"🗑️ Cancelled {order.side} {order.type} order for {symbol} "
+                        f"(qty: {order.qty}, id: {order.id[:8]}...) to avoid wash trade"
+                    )
+                except Exception as e:
+                    self.logger.warning(f"Failed to cancel order {order.id}: {e}")
+
+            # Wait briefly for cancellations to process
+            if cancelled > 0:
+                await asyncio.sleep(0.5)
+
+            return cancelled
+
+        except Exception as e:
+            self.logger.error(f"Error cancelling opposite-side orders for {symbol}: {e}")
+            return 0
+
     async def close_position(
         self,
         symbol: str,
         reason: str = "Manual close"
     ) -> ExecutionResult:
-        """Close entire position"""
-        position = await self.client.get_position(symbol)
+        """Close entire position using Alpaca's atomic DELETE endpoint.
 
-        if not position:
+        This is more reliable than submit sell + wait for fill:
+        - No qty mismatch possible (Alpaca closes everything)
+        - No timeout issues (Alpaca handles the liquidation)
+        - Cancels pending orders automatically
+        """
+        try:
+            # Cancel pending orders first to free shares
+            await self._cancel_pending_orders_for_symbol(symbol)
+
+            # Use atomic DELETE - Alpaca closes the entire position
+            order = await self.client.close_position_atomic(symbol)
+
+            if not order:
+                return ExecutionResult(
+                    status=ExecutionStatus.REJECTED,
+                    error_message=f"No position found for {symbol}",
+                )
+
+            # Wait for the liquidation order to fill
+            filled_order = await self._wait_for_fill(order.id, timeout=60)
+
+            if filled_order and filled_order.status == OrderStatus.FILLED.value:
+                self.logger.info(
+                    f"✅ Closed {symbol}: {filled_order.filled_qty:.2f} shares "
+                    f"@ ${filled_order.filled_avg_price:.2f} | Reason: {reason}"
+                )
+                return ExecutionResult(
+                    status=ExecutionStatus.FILLED,
+                    order=filled_order,
+                )
+
+            # Even if we didn't confirm the fill in time, return what we have
+            # The position may still be closing in Alpaca
             return ExecutionResult(
                 status=ExecutionStatus.REJECTED,
-                error_message=f"No position found for {symbol}",
+                order=filled_order or order,
+                error_message=f"Liquidation order submitted but not confirmed filled within timeout",
             )
 
-        # Cancel any existing orders for this symbol (to free up shares)
-        await self._cancel_pending_orders_for_symbol(symbol)
-
-        # Submit market sell
-        request = OrderRequest(
-            symbol=symbol,
-            side=OrderSide.SELL,
-            quantity=position.qty,
-            order_type=OrderType.MARKET,
-            reason=reason,
-        )
-
-        return await self.execute(request)
+        except Exception as e:
+            self.logger.error(f"Error closing position {symbol}: {e}")
+            return ExecutionResult(
+                status=ExecutionStatus.REJECTED,
+                error_message=str(e),
+            )
 
     async def close_all_positions(self) -> List[ExecutionResult]:
         """Close all positions"""
@@ -734,3 +747,147 @@ class OrderExecutor:
         except Exception as e:
             self.logger.error(f"Failed to auto-track positions: {e}")
             return 0
+
+    # ==================== TIME-BASED STOPS ====================
+
+    def add_time_stop(
+        self,
+        symbol: str,
+        entry_time: datetime,
+        max_hold_minutes: int,
+        min_profit_pct: float = 0.005,
+    ):
+        """
+        Add time-based stop to a position.
+
+        If position hasn't reached min_profit_pct within max_hold_minutes,
+        it will be flagged for exit.
+
+        Args:
+            symbol: Stock symbol
+            entry_time: When the position was opened
+            max_hold_minutes: Maximum time to hold without profit
+            min_profit_pct: Minimum profit to avoid time stop (default 0.5%)
+        """
+        if symbol not in self._tracked_stops:
+            self._tracked_stops[symbol] = {}
+
+        self._tracked_stops[symbol]['entry_time'] = entry_time
+        self._tracked_stops[symbol]['max_hold_minutes'] = max_hold_minutes
+        self._tracked_stops[symbol]['min_profit_pct'] = min_profit_pct
+        self._tracked_stops[symbol]['time_stop_enabled'] = True
+
+        self.logger.info(
+            f"⏱️ Time stop added for {symbol}: "
+            f"{max_hold_minutes}min max hold, "
+            f"need >{min_profit_pct*100:.1f}% profit to avoid exit"
+        )
+
+    async def check_time_stops(self) -> List[Dict]:
+        """
+        Check all positions for time-based stop triggers.
+
+        Returns list of positions that should be exited due to time.
+        """
+        triggers = []
+        now = datetime.now()
+
+        if not self._tracked_stops:
+            return triggers
+
+        positions = await self.client.get_positions()
+        position_map = {p.symbol: p for p in positions}
+
+        for symbol, tracking in list(self._tracked_stops.items()):
+            # Skip if time stop not enabled
+            if not tracking.get('time_stop_enabled', False):
+                continue
+
+            # Skip if position no longer exists
+            if symbol not in position_map:
+                continue
+
+            position = position_map[symbol]
+            entry_time = tracking.get('entry_time')
+            max_hold = tracking.get('max_hold_minutes', 60)
+            min_profit = tracking.get('min_profit_pct', 0.005)
+
+            if not entry_time:
+                continue
+
+            # Calculate time held
+            time_held = (now - entry_time).total_seconds() / 60  # minutes
+
+            # Check if time exceeded
+            if time_held >= max_hold:
+                # Check if profitable enough to keep
+                pnl_pct = position.unrealized_plpc
+
+                if pnl_pct < min_profit:
+                    triggers.append({
+                        'symbol': symbol,
+                        'action': 'TIME_STOP',
+                        'time_held_minutes': time_held,
+                        'max_hold_minutes': max_hold,
+                        'current_pnl_pct': pnl_pct,
+                        'min_profit_pct': min_profit,
+                        'current_price': position.current_price,
+                        'qty': position.qty,
+                        'pnl': position.unrealized_pl,
+                        'reason': (
+                            f"Time stop: held {time_held:.0f}min (max {max_hold}min) "
+                            f"with only {pnl_pct*100:+.2f}% gain (need >{min_profit*100:.1f}%)"
+                        )
+                    })
+                    self.logger.warning(
+                        f"⏱️ TIME STOP: {symbol} held {time_held:.0f}min "
+                        f"with only {pnl_pct*100:+.2f}% - exiting"
+                    )
+                else:
+                    # Profitable enough - disable time stop, let trailing handle it
+                    tracking['time_stop_enabled'] = False
+                    self.logger.info(
+                        f"✅ {symbol} profitable ({pnl_pct*100:+.2f}%) after {time_held:.0f}min - "
+                        f"time stop disabled, trailing stop active"
+                    )
+
+        return triggers
+
+    async def check_all_stops(self) -> List[Dict]:
+        """
+        Check all stop types: price-based, trailing, and time-based.
+
+        Returns combined list of all triggers.
+        """
+        triggers = []
+
+        # Price-based stops (including trailing)
+        price_triggers = await self.check_stop_losses()
+        triggers.extend(price_triggers)
+
+        # Time-based stops
+        time_triggers = await self.check_time_stops()
+        triggers.extend(time_triggers)
+
+        return triggers
+
+    def get_stop_summary(self) -> Dict:
+        """Get summary of all stop tracking"""
+        summary = {
+            'total_tracked': len(self._tracked_stops),
+            'positions': {}
+        }
+
+        for symbol, tracking in self._tracked_stops.items():
+            summary['positions'][symbol] = {
+                'stop_loss': tracking.get('stop_loss'),
+                'take_profit': tracking.get('take_profit'),
+                'is_trailing': tracking.get('is_trailing', False),
+                'trailing_pct': tracking.get('trailing_pct'),
+                'highest_price': tracking.get('highest_price'),
+                'time_stop_enabled': tracking.get('time_stop_enabled', False),
+                'max_hold_minutes': tracking.get('max_hold_minutes'),
+                'entry_time': tracking.get('entry_time').isoformat() if tracking.get('entry_time') else None,
+            }
+
+        return summary

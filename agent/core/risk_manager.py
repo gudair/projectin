@@ -1,14 +1,23 @@
 """
-Risk Manager - Independent Trade Validator
+Risk Manager - Independent Trade Validator with Dynamic Position Sizing
 
 Validates every trade before execution against risk rules.
 Acts as a "guardian" that can reject trades that violate risk parameters.
+
+Enhanced with:
+- Dynamic position sizing based on setup quality (A+, A, B, C)
+- Volatility-adjusted parameters
+- Pattern-based confidence scoring
 """
 import logging
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 from dataclasses import dataclass
 from enum import Enum
+
+if TYPE_CHECKING:
+    from agent.core.pattern_analyzer import SetupQuality
+    from agent.core.volatility_detector import VolatilityAssessment
 
 
 class RiskViolation(Enum):
@@ -207,9 +216,9 @@ class RiskManager:
 
         # === SOFT CHECKS (warnings) ===
 
-        # 9. Sector concentration
+        # 9. Sector concentration (calculate against total equity, not just positions)
         sector = self.SECTOR_MAP.get(symbol, 'other')
-        sector_exposure = self._calculate_sector_exposure(current_positions, sector)
+        sector_exposure = self._calculate_sector_exposure(current_positions, sector, account_equity)
         if sector_exposure + position_pct > self.config.max_sector_concentration_pct:
             warnings.append(f"High {sector} sector concentration: {(sector_exposure + position_pct)*100:.0f}%")
 
@@ -284,20 +293,20 @@ class RiskManager:
             if now.weekday() == 0:  # Monday
                 self._day_trades_this_week = 0
 
-    def _calculate_sector_exposure(self, positions: List[Dict], sector: str) -> float:
-        """Calculate current exposure to a sector"""
+    def _calculate_sector_exposure(self, positions: List[Dict], sector: str, account_equity: float = 0) -> float:
+        """Calculate current exposure to a sector as % of total portfolio equity"""
         sector_value = 0
-        total_value = 0
 
         for pos in positions:
             symbol = pos.get('symbol', '')
             value = pos.get('market_value', 0)
-            total_value += value
 
             if self.SECTOR_MAP.get(symbol, 'other') == sector:
                 sector_value += value
 
-        return sector_value / total_value if total_value > 0 else 0
+        # Use account equity (total portfolio) instead of just positions total
+        # This fixes the bug where 1 tech position = "100% tech exposure"
+        return sector_value / account_equity if account_equity > 0 else 0
 
     def _count_correlated_positions(self, symbol: str, positions: List[Dict]) -> int:
         """Count how many current positions are correlated with the new symbol"""
@@ -359,4 +368,153 @@ class RiskManager:
             "current_drawdown_pct": drawdown,
             "max_drawdown_pct": self.config.max_drawdown_pct,
             "daily_loss_limit_remaining": (account_equity * self.config.max_daily_loss_pct) + self._daily_pnl,
+        }
+
+    # ==================== DYNAMIC POSITION SIZING ====================
+
+    def calculate_dynamic_position(
+        self,
+        symbol: str,
+        entry_price: float,
+        account_equity: float,
+        setup_quality: Optional['SetupQuality'] = None,
+        volatility: Optional['VolatilityAssessment'] = None,
+    ) -> Dict:
+        """
+        Calculate position size dynamically based on setup quality and volatility.
+
+        Position sizing formula:
+        - Base: config.max_position_pct (20%)
+        - Adjusted by: setup quality grade multiplier
+        - Further adjusted by: volatility regime multiplier
+        - Capped at: 40% for A+ setups in favorable conditions
+
+        Returns dict with:
+        - position_pct: Recommended position as % of equity
+        - position_value: Dollar value
+        - shares: Number of shares
+        - stop_loss_pct: Adjusted stop loss percentage
+        - reasoning: Explanation of sizing decision
+        """
+        # Base position size
+        base_pct = self.config.max_position_pct  # 20%
+
+        # Quality grade multipliers
+        quality_multipliers = {
+            "A+": 1.75,  # 35% position for A+ setups
+            "A": 1.25,   # 25% position for A setups
+            "B": 0.75,   # 15% position for B setups
+            "C": 0.50,   # 10% position for C setups
+        }
+
+        # Apply quality multiplier
+        quality_mult = 1.0
+        quality_grade = "N/A"
+        if setup_quality:
+            quality_grade = setup_quality.quality_grade
+            quality_mult = quality_multipliers.get(quality_grade, 1.0)
+
+        # Apply volatility multiplier
+        vol_mult = 1.0
+        vol_mode = "normal"
+        stop_mult = 1.0
+        if volatility:
+            vol_mult = volatility.position_multiplier
+            stop_mult = volatility.stop_multiplier
+            vol_mode = volatility.recommended_mode.value
+
+        # Calculate final position size
+        final_pct = base_pct * quality_mult * vol_mult
+
+        # Apply caps
+        max_allowed = 0.40  # Never more than 40%
+        min_allowed = 0.05  # Never less than 5%
+        final_pct = max(min_allowed, min(max_allowed, final_pct))
+
+        # Calculate values
+        position_value = account_equity * final_pct
+        shares = position_value / entry_price if entry_price > 0 else 0
+
+        # Calculate adjusted stop loss
+        base_stop_pct = 0.02  # 2% base stop
+        if setup_quality:
+            base_stop_pct = setup_quality.stop_loss_pct
+        adjusted_stop_pct = base_stop_pct * stop_mult
+
+        # Build reasoning
+        reasoning_parts = [f"Base: {base_pct*100:.0f}%"]
+        if setup_quality:
+            reasoning_parts.append(f"Quality {quality_grade}: ×{quality_mult:.2f}")
+        if volatility:
+            reasoning_parts.append(f"Vol ({vol_mode}): ×{vol_mult:.2f}")
+        reasoning_parts.append(f"Final: {final_pct*100:.1f}%")
+
+        result = {
+            "symbol": symbol,
+            "position_pct": final_pct,
+            "position_value": round(position_value, 2),
+            "shares": round(shares, 4),
+            "stop_loss_pct": round(adjusted_stop_pct, 4),
+            "take_profit_pct": round(adjusted_stop_pct * 2, 4),  # 2:1 R:R minimum
+            "quality_grade": quality_grade,
+            "volatility_mode": vol_mode,
+            "reasoning": " → ".join(reasoning_parts),
+        }
+
+        self.logger.info(
+            f"📊 Position Sizing {symbol}: "
+            f"{final_pct*100:.1f}% (${position_value:.0f}) | "
+            f"Grade: {quality_grade} | Vol: {vol_mode} | "
+            f"Stop: {adjusted_stop_pct*100:.2f}%"
+        )
+
+        return result
+
+    def should_trade_pattern(
+        self,
+        pattern_type: str,
+        win_rate: float,
+        profit_factor: float,
+    ) -> Tuple[bool, str]:
+        """
+        Determine if a pattern should be traded based on historical stats.
+
+        Returns (should_trade, reason)
+        """
+        # Minimum requirements
+        if win_rate < 0.55:
+            return False, f"Win rate too low: {win_rate*100:.1f}% < 55%"
+
+        if profit_factor < 1.2:
+            return False, f"Profit factor too low: {profit_factor:.2f} < 1.2"
+
+        # Tiered recommendations
+        if win_rate >= 0.70 and profit_factor >= 2.0:
+            return True, f"STRONG: {win_rate*100:.0f}% win rate, {profit_factor:.1f}x profit factor"
+        elif win_rate >= 0.60 and profit_factor >= 1.5:
+            return True, f"GOOD: {win_rate*100:.0f}% win rate, {profit_factor:.1f}x profit factor"
+        elif win_rate >= 0.55:
+            return True, f"MARGINAL: {win_rate*100:.0f}% win rate - use smaller size"
+
+        return False, "Does not meet minimum criteria"
+
+    def get_position_sizing_summary(self) -> Dict:
+        """Get summary of position sizing parameters"""
+        return {
+            "base_position_pct": self.config.max_position_pct,
+            "quality_multipliers": {
+                "A+": "35% max position",
+                "A": "25% max position",
+                "B": "15% max position",
+                "C": "10% max position",
+            },
+            "volatility_adjustments": {
+                "conservative": "0.7x position",
+                "normal": "1.0x position",
+                "aggressive": "1.25x position",
+                "very_aggressive": "1.5x position",
+                "defensive": "0.5x position",
+            },
+            "absolute_max": "40% of equity",
+            "absolute_min": "5% of equity",
         }

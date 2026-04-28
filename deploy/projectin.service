@@ -1,0 +1,35 @@
+# systemd service for Oracle Cloud (or any Linux VPS)
+#
+# INSTALL:
+#   1. Copy to /etc/systemd/system/projectin.service
+#   2. Edit WorkingDirectory and ExecStart paths to match your VPS setup
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable projectin
+#   5. sudo systemctl start projectin
+#
+# USEFUL COMMANDS:
+#   sudo systemctl status projectin     # check status
+#   sudo journalctl -u projectin -f     # tail live logs
+#   sudo systemctl restart projectin    # restart
+
+[Unit]
+Description=Projectin Trading Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/projectin
+ExecStart=/home/ubuntu/projectin/.venv/bin/python -m cli.main --aggressive
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+# Environment variables are loaded from .env by python-dotenv
+# But you can also set them here as a backup:
+# Environment="ALPACA_API_KEY=xxx"
+
+[Install]
+WantedBy=multi-user.target

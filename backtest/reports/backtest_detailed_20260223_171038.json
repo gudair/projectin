@@ -1,0 +1,454 @@
+{
+  "summary": {
+    "period": {
+      "start": "2025-10-01T00:00:00",
+      "end": "2025-10-01T00:00:00",
+      "trading_days": 1
+    },
+    "config": {
+      "initial_capital": 100000.0,
+      "use_ollama": true,
+      "time_step_minutes": 5
+    },
+    "agent_performance": {
+      "initial_capital": 100000.0,
+      "final_equity": 101917.21443777805,
+      "total_return": 1917.2144377780496,
+      "total_return_pct": 1.9172144377780496,
+      "total_trades": 14,
+      "sell_trades": 7,
+      "winning_trades": 4,
+      "losing_trades": 3,
+      "win_rate": 57.14285714285714,
+      "total_pnl": 1917.214437778046,
+      "total_wins": 2546.0687215925936,
+      "total_losses": -628.8542838145477,
+      "avg_win": 636.5171803981484,
+      "avg_loss": -209.61809460484923,
+      "profit_factor": 4.0487419536183715,
+      "avg_hold_duration_minutes": 97.14285714285714,
+      "max_drawdown_pct": 0,
+      "trading_days": 1,
+      "avg_daily_pnl": 1917.214437778046
+    },
+    "optimal_performance": {
+      "theoretical_max_trades": 80,
+      "avg_gain_per_optimal_trade": 4.291872050745012,
+      "realistic_return_pct": 2.5751232304470073,
+      "total_return": 2575.1232304470072
+    },
+    "efficiency_pct": 74.45136664179161,
+    "decisions_count": 14,
+    "errors_count": 0
+  },
+  "daily_stats": [
+    {
+      "date": "2025-10-01T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 101917.21443777805,
+      "pnl": 1917.2144377780496,
+      "pnl_pct": 1.9172144377780496,
+      "trades": 14,
+      "winning_trades": 4,
+      "losing_trades": 3,
+      "max_drawdown": 1.9758289035332146
+    }
+  ],
+  "trades": [
+    {
+      "timestamp": "2025-10-01T09:30:00",
+      "symbol": "REGN",
+      "side": "buy",
+      "qty": 34.7798867914685,
+      "price": 575.045,
+      "value": 20000.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T09:35:00",
+      "symbol": "MRNA",
+      "side": "buy",
+      "qty": 754.7588861277218,
+      "price": 26.57,
+      "value": 20053.94360441357,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T09:50:00",
+      "symbol": "REGN",
+      "side": "sell",
+      "qty": 34.7798867914685,
+      "price": 593.28,
+      "value": 20634.21123564243,
+      "pnl": 634.2112356424295,
+      "pnl_pct": 3.171056178212148,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-01T09:55:00",
+      "symbol": "DELL",
+      "side": "buy",
+      "qty": 138.0824981529792,
+      "price": 146.41,
+      "value": 20216.658554577687,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T09:55:00",
+      "symbol": "MRK",
+      "side": "buy",
+      "qty": 232.57588213491732,
+      "price": 86.925,
+      "value": 20216.658554577687,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T10:05:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 1044.9438191907768,
+      "price": 19.2101,
+      "value": 20073.475261036743,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T10:05:00",
+      "symbol": "MRNA",
+      "side": "sell",
+      "qty": 754.7588861277218,
+      "price": 27.4,
+      "value": 20680.393479899576,
+      "pnl": 626.4498754860069,
+      "pnl_pct": 3.123823861497919,
+      "hold_duration_minutes": 30
+    },
+    {
+      "timestamp": "2025-10-01T10:20:00",
+      "symbol": "SMCI",
+      "side": "buy",
+      "qty": 410.5513434807826,
+      "price": 49.2726,
+      "value": 20228.932126791206,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T10:50:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 1044.9438191907768,
+      "price": 18.795,
+      "value": 19639.71908169065,
+      "pnl": -433.7561793460918,
+      "pnl_pct": -2.160842473490509,
+      "hold_duration_minutes": 45
+    },
+    {
+      "timestamp": "2025-10-01T11:10:00",
+      "symbol": "DELL",
+      "side": "sell",
+      "qty": 138.0824981529792,
+      "price": 145.71,
+      "value": 20120.0008058706,
+      "pnl": -96.65774870708628,
+      "pnl_pct": -0.4781094187555536,
+      "hold_duration_minutes": 75
+    },
+    {
+      "timestamp": "2025-10-01T13:40:00",
+      "symbol": "MRK",
+      "side": "sell",
+      "qty": 232.57588213491732,
+      "price": 89.685,
+      "value": 20858.56798927006,
+      "pnl": 641.9094346923739,
+      "pnl_pct": 3.175150992234695,
+      "hold_duration_minutes": 225
+    },
+    {
+      "timestamp": "2025-10-01T15:00:00",
+      "symbol": "SMCI",
+      "side": "sell",
+      "qty": 410.5513434807826,
+      "price": 50.84,
+      "value": 20872.43030256299,
+      "pnl": 643.4981757717833,
+      "pnl_pct": 3.1810783275086187,
+      "hold_duration_minutes": 280
+    },
+    {
+      "timestamp": "2025-10-01T15:55:00",
+      "symbol": "DELL",
+      "side": "buy",
+      "qty": 136.72271633524016,
+      "price": 149.23,
+      "value": 20403.130958707887,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T16:00:00",
+      "symbol": "DELL",
+      "side": "sell",
+      "qty": 136.72271633524016,
+      "price": 148.51,
+      "value": 20304.690602946517,
+      "pnl": -98.44035576136957,
+      "pnl_pct": -0.4824767137974775,
+      "hold_duration_minutes": 5
+    }
+  ],
+  "decisions": [
+    {
+      "time": "2025-10-01T09:30:00",
+      "symbol": "REGN",
+      "action": "BUY",
+      "price": 575.045,
+      "qty": 34.7798867914685,
+      "score": 9,
+      "momentum": 2.119479320203858,
+      "volume_ratio": 6.43754899399007,
+      "stop_loss": 563.5441,
+      "take_profit": 592.29635,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh 2.12% momentum, reasonable entry point within range, and supportive market conditions.",
+        "risk_flags": 0,
+        "trend": "UNKNOWN",
+        "spy_context": "SPY: \ud83d\udcc8 +0.04%"
+      }
+    },
+    {
+      "time": "2025-10-01T09:35:00",
+      "symbol": "MRNA",
+      "action": "BUY",
+      "price": 26.57,
+      "qty": 754.7588861277218,
+      "score": 9,
+      "momentum": 0.4548255745811873,
+      "volume_ratio": 2.807818143848278,
+      "stop_loss": 26.0386,
+      "take_profit": 27.3671,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point within recent range, fresh momentum, and market is supportive.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.25%"
+      }
+    },
+    {
+      "time": "2025-10-01T09:50:00",
+      "symbol": "REGN",
+      "action": "SELL",
+      "price": 593.28,
+      "qty": 34.7798867914685,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T09:55:00",
+      "symbol": "DELL",
+      "action": "BUY",
+      "price": 146.41,
+      "qty": 138.0824981529792,
+      "score": 6,
+      "momentum": 0.3736331539437065,
+      "volume_ratio": 0.6055370264920416,
+      "stop_loss": 143.4818,
+      "take_profit": 150.8023,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry at 77% in range, fresh momentum, and supportive market conditions.",
+        "risk_flags": 0,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.12%"
+      }
+    },
+    {
+      "time": "2025-10-01T09:55:00",
+      "symbol": "MRK",
+      "action": "BUY",
+      "price": 86.925,
+      "qty": 232.57588213491732,
+      "score": 7,
+      "momentum": 0.5378209576682899,
+      "volume_ratio": 1.1861380601028244,
+      "stop_loss": 85.1865,
+      "take_profit": 89.53275,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh 5-min momentum and moderate day change (+2.85%) in an uptrend.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.12%"
+      }
+    },
+    {
+      "time": "2025-10-01T10:05:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 19.2101,
+      "qty": 1044.9438191907768,
+      "score": 9,
+      "momentum": 1.8293135435992696,
+      "volume_ratio": 2.791638605340709,
+      "stop_loss": 18.825898,
+      "take_profit": 19.786403,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and market supportive despite being near range high.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.22%"
+      }
+    },
+    {
+      "time": "2025-10-01T10:05:00",
+      "symbol": "MRNA",
+      "action": "SELL",
+      "price": 27.4,
+      "qty": 754.7588861277218,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T10:20:00",
+      "symbol": "SMCI",
+      "action": "BUY",
+      "price": 49.2726,
+      "qty": 410.5513434807826,
+      "score": 4,
+      "momentum": 0.2698412698412627,
+      "volume_ratio": 0.4218651081049598,
+      "stop_loss": 48.287147999999995,
+      "take_profit": 50.750778,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry at +3.88% day change, morning momentum in market, and room to move within range.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.33%"
+      }
+    },
+    {
+      "time": "2025-10-01T10:50:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 18.795,
+      "qty": 1044.9438191907768,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-01T11:10:00",
+      "symbol": "DELL",
+      "action": "SELL",
+      "price": 145.71,
+      "qty": 138.0824981529792,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T13:40:00",
+      "symbol": "MRK",
+      "action": "SELL",
+      "price": 89.685,
+      "qty": 232.57588213491732,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T15:00:00",
+      "symbol": "SMCI",
+      "action": "SELL",
+      "price": 50.84,
+      "qty": 410.5513434807826,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T15:55:00",
+      "symbol": "DELL",
+      "action": "BUY",
+      "price": 149.23,
+      "qty": 136.72271633524016,
+      "score": 5,
+      "momentum": 0.2957187983063363,
+      "volume_ratio": 2.8325688073394497,
+      "stop_loss": 146.2454,
+      "take_profit": 153.7069,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point within recent range, and market context is supportive.",
+        "risk_flags": 2,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.86%"
+      }
+    },
+    {
+      "time": "2025-10-01T16:00:00",
+      "symbol": "DELL",
+      "action": "SELL",
+      "price": 148.51,
+      "qty": 136.72271633524016,
+      "reason": "end_of_day"
+    }
+  ],
+  "symbol_breakdown": {
+    "REGN": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 634.2112356424295,
+      "total_volume": 20634.21123564243,
+      "win_rate": 100.0
+    },
+    "MRNA": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 626.4498754860069,
+      "total_volume": 20680.393479899576,
+      "win_rate": 100.0
+    },
+    "MARA": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -433.7561793460918,
+      "total_volume": 19639.71908169065,
+      "win_rate": 0.0
+    },
+    "DELL": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "pnl": -195.09810446845586,
+      "total_volume": 40424.69140881712,
+      "win_rate": 0.0
+    },
+    "MRK": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 641.9094346923739,
+      "total_volume": 20858.56798927006,
+      "win_rate": 100.0
+    },
+    "SMCI": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 643.4981757717833,
+      "total_volume": 20872.43030256299,
+      "win_rate": 100.0
+    }
+  }
+}

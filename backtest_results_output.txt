@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/gustavoiribarne/Documents/projects/projectin/backtest_improvements_2026.py", line 20, in <module>
+    from backtest.daily_data import DailyDataLoader, DailyBar
+  File "/Users/gustavoiribarne/Documents/projects/projectin/backtest/__init__.py", line 7, in <module>
+    from backtest.engine import BacktestEngine
+  File "/Users/gustavoiribarne/Documents/projects/projectin/backtest/engine.py", line 16, in <module>
+    from backtest.historical_data import HistoricalDataLoader
+  File "/Users/gustavoiribarne/Documents/projects/projectin/backtest/historical_data.py", line 17, in <module>
+    from alpaca.client import AlpacaClient
+  File "/Users/gustavoiribarne/Documents/projects/projectin/alpaca/__init__.py", line 6, in <module>
+    from alpaca.client import AlpacaClient
+  File "/Users/gustavoiribarne/Documents/projects/projectin/alpaca/client.py", line 12, in <module>
+    import httpx
+ModuleNotFoundError: No module named 'httpx'

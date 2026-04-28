@@ -160,6 +160,19 @@ class StockDiscovery:
         self._discovered = {s.symbol: s for s in filtered}
         self._last_scan = now
 
+        # Write candidates to Supabase for human review (non-blocking)
+        try:
+            from agent.core.supabase_logger import add_discovered_candidate
+            for stock in filtered[:10]:  # top 10 by score
+                add_discovered_candidate(
+                    symbol=stock.symbol,
+                    reason=stock.reason,
+                    score=stock.score,
+                    change_pct=stock.change_pct,
+                )
+        except Exception:
+            pass
+
         self.logger.info(f"Discovery found {len(filtered)} interesting stocks")
         return filtered
 

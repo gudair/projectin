@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Logs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    #login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 12px;
+    }
+
+    #login-screen h2 { color: #aaa; font-size: 1rem; letter-spacing: 2px; margin-bottom: 8px; }
+
+    #login-screen input {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #e0e0e0;
+      padding: 10px 14px;
+      width: 260px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    #login-screen input:focus { border-color: #555; }
+
+    #login-screen button {
+      background: #222;
+      border: 1px solid #444;
+      color: #ccc;
+      padding: 10px 28px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      width: 260px;
+    }
+
+    #login-screen button:hover { background: #2a2a2a; border-color: #666; }
+
+    #login-error { color: #e05050; font-size: 0.8rem; }
+
+    #app { display: none; padding: 20px; max-width: 1100px; margin: 0 auto; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    header h1 { font-size: 1rem; color: #888; letter-spacing: 2px; }
+
+    #status-bar {
+      display: flex;
+      gap: 20px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    #status-bar span { display: flex; align-items: center; gap: 6px; }
+
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-green { background: #3a3; }
+    .dot-red { background: #a33; }
+    .dot-gray { background: #555; }
+
+    #logout-btn {
+      background: none;
+      border: none;
+      color: #555;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.75rem;
+    }
+
+    #logout-btn:hover { color: #888; }
+
+    #filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    #filters select, #filters input {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 6px 10px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      border-radius: 3px;
+      outline: none;
+    }
+
+    #refresh-btn {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #888;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8rem;
+      border-radius: 3px;
+      margin-left: auto;
+    }
+
+    #refresh-btn:hover { border-color: #555; color: #ccc; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+
+    th {
+      text-align: left;
+      color: #555;
+      font-weight: normal;
+      padding: 8px 10px;
+      border-bottom: 1px solid #1e1e1e;
+      letter-spacing: 1px;
+      font-size: 0.72rem;
+    }
+
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #161616;
+      color: #aaa;
+      vertical-align: top;
+    }
+
+    tr:hover td { background: #111; }
+
+    .action-buy  { color: #4a9; font-weight: bold; }
+    .action-sell { color: #a44; font-weight: bold; }
+    .action-skip { color: #666; }
+    .action-hold { color: #777; }
+
+    .pnl-pos { color: #4a9; }
+    .pnl-neg { color: #a44; }
+
+    .reasoning-cell {
+      max-width: 280px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #666;
+      font-size: 0.75rem;
+    }
+
+    #loading { text-align: center; color: #444; padding: 40px; font-size: 0.85rem; }
+    #empty   { text-align: center; color: #444; padding: 40px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <h2>AGENT LOGS</h2>
+  <input id="email" type="email" placeholder="email" autocomplete="username" />
+  <input id="password" type="password" placeholder="password" autocomplete="current-password" />
+  <button onclick="login()">Sign in</button>
+  <span id="login-error"></span>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <h1>AGENT LOGS</h1>
+    <div id="status-bar">
+      <span><span class="dot dot-gray" id="agent-dot"></span><span id="agent-status-text">—</span></span>
+      <span id="equity-text"></span>
+      <span id="heartbeat-text"></span>
+    </div>
+    <button id="logout-btn" onclick="logout()">sign out</button>
+  </header>
+
+  <div id="filters">
+    <select id="filter-action" onchange="loadTrades()">
+      <option value="">all actions</option>
+      <option value="BUY">BUY</option>
+      <option value="SELL">SELL</option>
+      <option value="SKIP">SKIP</option>
+    </select>
+    <input id="filter-symbol" type="text" placeholder="symbol..." onkeyup="debounceLoad()" maxlength="8" style="width:100px" />
+    <select id="filter-days" onchange="loadTrades()">
+      <option value="7">last 7 days</option>
+      <option value="30" selected>last 30 days</option>
+      <option value="90">last 90 days</option>
+    </select>
+    <button id="refresh-btn" onclick="loadTrades()">↻ refresh</button>
+  </div>
+
+  <div id="loading">loading...</div>
+  <div id="empty" style="display:none">no trades found</div>
+
+  <table id="trades-table" style="display:none">
+    <thead>
+      <tr>
+        <th>TIME (ET)</th>
+        <th>SYMBOL</th>
+        <th>ACTION</th>
+        <th>ENTRY</th>
+        <th>STOP</th>
+        <th>TARGET</th>
+        <th>EXIT</th>
+        <th>P&amp;L</th>
+        <th>CONF</th>
+        <th>REASONING</th>
+      </tr>
+    </thead>
+    <tbody id="trades-body"></tbody>
+  </table>
+</div>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────────────────────
+  // Replace these two values after creating your Supabase project
+  const SUPABASE_URL  = 'https://YOUR_PROJECT_ID.supabase.co';
+  const SUPABASE_ANON = 'YOUR_ANON_KEY';
+  // ────────────────────────────────────────────────────────────────────────
+
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  let _debounceTimer = null;
+  function debounceLoad() {
+    clearTimeout(_debounceTimer);
+    _debounceTimer = setTimeout(loadTrades, 400);
+  }
+
+  async function login() {
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const errEl    = document.getElementById('login-error');
+    errEl.textContent = '';
+
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) { errEl.textContent = error.message; return; }
+
+    showApp();
+  }
+
+  async function logout() {
+    await sb.auth.signOut();
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+  }
+
+  function showApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadStatus();
+    loadTrades();
+    setInterval(loadStatus, 60_000);
+  }
+
+  async function loadStatus() {
+    const { data } = await sb.from('agent_status').select('*').eq('id', 1).single();
+    if (!data) return;
+
+    const dot  = document.getElementById('agent-dot');
+    const text = document.getElementById('agent-status-text');
+    const eq   = document.getElementById('equity-text');
+    const hb   = document.getElementById('heartbeat-text');
+
+    const alive = data.is_running &&
+      (new Date() - new Date(data.last_heartbeat)) < 20 * 60 * 1000; // 20 min
+
+    dot.className = 'dot ' + (alive ? 'dot-green' : 'dot-red');
+    text.textContent = alive ? 'running' : 'offline';
+
+    if (data.equity) eq.textContent = `$${parseFloat(data.equity).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+
+    if (data.last_heartbeat) {
+      const mins = Math.round((new Date() - new Date(data.last_heartbeat)) / 60_000);
+      hb.textContent = `last seen ${mins}m ago`;
+    }
+  }
+
+  async function loadTrades() {
+    const action  = document.getElementById('filter-action').value;
+    const symbol  = document.getElementById('filter-symbol').value.trim().toUpperCase();
+    const days    = parseInt(document.getElementById('filter-days').value);
+    const since   = new Date(Date.now() - days * 86_400_000).toISOString();
+
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('trades-table').style.display = 'none';
+    document.getElementById('empty').style.display = 'none';
+
+    let q = sb.from('trades')
+      .select('*')
+      .gte('ts', since)
+      .order('ts', { ascending: false })
+      .limit(200);
+
+    if (action) q = q.eq('action', action);
+    if (symbol) q = q.eq('symbol', symbol);
+
+    const { data, error } = await q;
+    document.getElementById('loading').style.display = 'none';
+
+    if (error) { console.error(error); return; }
+    if (!data || data.length === 0) { document.getElementById('empty').style.display = 'block'; return; }
+
+    const tbody = document.getElementById('trades-body');
+    tbody.innerHTML = '';
+
+    data.forEach(row => {
+      const tr = document.createElement('tr');
+
+      const ts = new Date(row.ts).toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+        month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hour12: false
+      });
+
+      const actionClass = {
+        BUY: 'action-buy', SELL: 'action-sell',
+        SKIP: 'action-skip', HOLD: 'action-hold'
+      }[row.action] || '';
+
+      const pnl = row.pnl_percent != null
+        ? `<span class="${row.pnl_percent >= 0 ? 'pnl-pos' : 'pnl-neg'}">${row.pnl_percent >= 0 ? '+' : ''}${parseFloat(row.pnl_percent).toFixed(2)}%</span>`
+        : '—';
+
+      const fmt = v => v != null ? `$${parseFloat(v).toFixed(2)}` : '—';
+      const conf = row.confidence != null ? `${Math.round(row.confidence * 100)}%` : '—';
+
+      tr.innerHTML = `
+        <td>${ts}</td>
+        <td>${row.symbol || '—'}</td>
+        <td class="${actionClass}">${row.action || '—'}</td>
+        <td>${fmt(row.entry_price)}</td>
+        <td>${fmt(row.stop_loss)}</td>
+        <td>${fmt(row.take_profit)}</td>
+        <td>${fmt(row.exit_price)}</td>
+        <td>${pnl}</td>
+        <td>${conf}</td>
+        <td class="reasoning-cell" title="${(row.reasoning || '').replace(/"/g, '&quot;')}">${row.reasoning || '—'}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('trades-table').style.display = 'table';
+  }
+
+  // Auto-login if session already exists
+  sb.auth.getSession().then(({ data: { session } }) => {
+    if (session) showApp();
+  });
+
+  document.getElementById('password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') login();
+  });
+</script>
+</body>
+</html>

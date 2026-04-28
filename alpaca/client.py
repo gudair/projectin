@@ -224,26 +224,60 @@ class AlpacaClient:
         if self._client and not self._client.is_closed:
             await self._client.aclose()
 
-    async def _request(self, method: str, url: str, silent_errors: list = None, **kwargs) -> Dict:
-        """Make API request
+    async def _request(
+        self,
+        method: str,
+        url: str,
+        silent_errors: list = None,
+        max_retries: int = 3,
+        **kwargs
+    ) -> Dict:
+        """Make API request with retry and exponential backoff
 
         Args:
             silent_errors: List of HTTP status codes that are expected and shouldn't be logged as errors
+            max_retries: Maximum number of retries for network errors (default: 3)
         """
         client = await self._get_client()
         silent_errors = silent_errors or []
 
-        try:
-            response = await client.request(method, url, **kwargs)
-            response.raise_for_status()
-            return response.json()
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code not in silent_errors:
-                self.logger.error(f"HTTP error: {e.response.status_code} - {e.response.text}")
-            raise
-        except Exception as e:
-            self.logger.error(f"Request error: {e}")
-            raise
+        last_exception = None
+
+        for attempt in range(max_retries + 1):
+            try:
+                response = await client.request(method, url, **kwargs)
+                response.raise_for_status()
+                # Handle empty responses (e.g., 204 No Content from DELETE)
+                if response.status_code == 204 or not response.content:
+                    return {}
+                return response.json()
+
+            except httpx.HTTPStatusError as e:
+                # HTTP errors (4xx, 5xx) - don't retry, these are API responses
+                if e.response.status_code not in silent_errors:
+                    self.logger.error(f"HTTP error: {e.response.status_code} - {e.response.text}")
+                raise
+
+            except (httpx.ConnectError, httpx.TimeoutException, OSError) as e:
+                # Network errors - retry with backoff
+                last_exception = e
+                if attempt < max_retries:
+                    wait_time = 2 ** attempt  # 1s, 2s, 4s
+                    self.logger.warning(
+                        f"Network error (attempt {attempt + 1}/{max_retries + 1}): {e}. "
+                        f"Retrying in {wait_time}s..."
+                    )
+                    await asyncio.sleep(wait_time)
+                else:
+                    self.logger.error(f"Network error after {max_retries + 1} attempts: {e}")
+
+            except Exception as e:
+                # Other unexpected errors - don't retry
+                self.logger.error(f"Request error: {e}")
+                raise
+
+        # If we get here, all retries failed
+        raise last_exception
 
     # Account endpoints
     async def get_account(self) -> Account:
@@ -268,6 +302,31 @@ class AlpacaClient:
             if e.response.status_code == 404:
                 return None  # No position - expected behavior
             raise
+
+    async def close_position_atomic(self, symbol: str) -> Optional[Order]:
+        """Close entire position atomically using DELETE /v2/positions/{symbol}.
+
+        This is Alpaca's recommended way to liquidate a position.
+        Returns the liquidation order, or None if no position exists.
+        """
+        try:
+            url = f"{self.config.base_url}/v2/positions/{symbol}"
+            data = await self._request('DELETE', url, silent_errors=[404])
+            if not data:
+                return None
+            return Order.from_dict(data)
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 404:
+                return None
+            raise
+
+    async def close_all_positions_atomic(self) -> List[Order]:
+        """Close all positions atomically using DELETE /v2/positions."""
+        url = f"{self.config.base_url}/v2/positions"
+        data = await self._request('DELETE', url)
+        if not data:
+            return []
+        return [Order.from_dict(o) for o in data]
 
     # Order endpoints
     async def get_orders(
@@ -351,8 +410,10 @@ class AlpacaClient:
     async def get_quote(self, symbol: str) -> Optional[Quote]:
         """Get latest quote for symbol"""
         url = f"{self.config.data_url}/v2/stocks/{symbol}/quotes/latest"
+        # Use IEX feed (free) instead of SIP (paid)
+        params = {'feed': 'iex'}
         try:
-            data = await self._request('GET', url)
+            data = await self._request('GET', url, params=params)
             quote_data = data.get('quote', {})
 
             return Quote(
@@ -372,7 +433,8 @@ class AlpacaClient:
     async def get_quotes(self, symbols: List[str]) -> Dict[str, Quote]:
         """Get latest quotes for multiple symbols"""
         url = f"{self.config.data_url}/v2/stocks/quotes/latest"
-        params = {'symbols': ','.join(symbols)}
+        # Use IEX feed (free) instead of SIP (paid)
+        params = {'symbols': ','.join(symbols), 'feed': 'iex'}
 
         try:
             data = await self._request('GET', url, params=params)
@@ -409,18 +471,25 @@ class AlpacaClient:
         params = {
             'timeframe': timeframe,
             'limit': limit,
+            'feed': 'iex',  # Use IEX feed (free) instead of SIP (paid)
         }
 
         if start:
-            params['start'] = start.isoformat()
+            # Alpaca wants RFC3339 (with Z) or just date (YYYY-MM-DD)
+            params['start'] = start.strftime('%Y-%m-%d')
         if end:
-            params['end'] = end.isoformat()
+            params['end'] = end.strftime('%Y-%m-%d')
 
         try:
             data = await self._request('GET', url, params=params)
             bars = []
 
-            for bar_data in data.get('bars', []):
+            # Handle None or missing 'bars' key
+            bars_data = data.get('bars') if data else None
+            if not bars_data:
+                return []
+
+            for bar_data in bars_data:
                 bars.append(Bar(
                     symbol=symbol,
                     open=float(bar_data.get('o', 0)),
@@ -436,6 +505,68 @@ class AlpacaClient:
             return bars
         except Exception as e:
             self.logger.error(f"Error getting bars for {symbol}: {e}")
+            return []
+
+    async def get_assets(
+        self,
+        status: str = 'active',
+        asset_class: str = 'us_equity',
+    ) -> List:
+        """
+        Get all tradeable assets from Alpaca.
+
+        Args:
+            status: 'active' or 'inactive'
+            asset_class: 'us_equity', 'crypto', etc.
+
+        Returns:
+            List of asset objects with symbol, exchange, tradable, etc.
+        """
+        url = f"{self.config.base_url}/v2/assets"
+
+        params = {
+            'status': status,
+            'asset_class': asset_class,
+        }
+
+        try:
+            data = await self._request('GET', url, params=params)
+
+            if not data:
+                return []
+
+            # Convert to simple objects
+            from dataclasses import dataclass
+
+            @dataclass
+            class Asset:
+                symbol: str
+                name: str
+                exchange: str
+                asset_class: str
+                tradable: bool
+                status: str
+                fractionable: bool = False
+                marginable: bool = False
+
+            assets = []
+            for item in data:
+                assets.append(Asset(
+                    symbol=item.get('symbol', ''),
+                    name=item.get('name', ''),
+                    exchange=item.get('exchange', ''),
+                    asset_class=item.get('class', ''),
+                    tradable=item.get('tradable', False),
+                    status=item.get('status', ''),
+                    fractionable=item.get('fractionable', False),
+                    marginable=item.get('marginable', False),
+                ))
+
+            self.logger.info(f"Fetched {len(assets)} assets from Alpaca")
+            return assets
+
+        except Exception as e:
+            self.logger.error(f"Error getting assets: {e}")
             return []
 
     # Market status

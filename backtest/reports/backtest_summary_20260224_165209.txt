@@ -1,0 +1,78 @@
+======================================================================
+BACKTEST REPORT
+======================================================================
+
+CONFIGURATION
+----------------------------------------
+Period: 2025-11-01T00:00:00 to 2025-11-30T00:00:00
+Trading Days: 13
+Initial Capital: $100,000.00
+Ollama Analysis: Enabled
+
+AGENT PERFORMANCE
+----------------------------------------
+Final Equity: $98,284.59
+Total Return: $-1,715.41 (-1.72%)
+Total Trades: 180
+Winning Trades: 41
+Losing Trades: 49
+Win Rate: 45.6%
+Profit Factor: 0.78
+Max Drawdown: 3.69%
+Avg Daily P&L: $-68.62
+Avg Hold Duration: 77 min
+
+OLLAMA ANALYSIS BREAKDOWN
+----------------------------------------
+Total Momentum Signals: 1654
+Ollama Calls Made: 891
+Ollama No Response: 0
+Rejected - HOLD: 9
+Rejected - SELL/SKIP: 650
+Rejected - BUY Low Conf (<70%): 142
+APPROVED - BUY (conf>=70%): 90
+
+SAMPLE REJECTION REASONS (first 10):
+  1. RIOT: BUY LOW CONF=65% - Oversold RSI condition met, neutral market environ
+  2. DELL: BUY LOW CONF=65% - Bullish MACD signal and increasing volume are indi
+  3. RIOT: SKIP conf=45% - Neutral RSI, bullish MACD, but price hasn't broken
+  4. RIOT: SKIP conf=40% - RSI indicates overbought conditions, MACD is bulli
+  5. AMZN: BUY LOW CONF=65% - Strong price movement, RSI in neutral zone, MACD b
+  6. MRVL: BUY LOW CONF=65% - Bullish MACD and high volume indicate strength, pr
+  7. NVDA: SKIP conf=70% - RSI neutral, MACD bullish but price action is neut
+  8. ORCL: SKIP conf=40% - Overbought RSI indicates potential reversal, but M
+  9. RIOT: SKIP conf=40% - Price has risen significantly today (+5.5%), but R
+  10. AMZN: SKIP conf=42% - The stock is overbought based on RSI, but MACD rem
+
+OPTIMAL BENCHMARK (Hindsight)
+----------------------------------------
+Realistic Return: $+33,387.04 (+33.39%)
+Theoretical Max Trades: 881
+Avg Gain per Optimal Trade: 4.28%
+
+EFFICIENCY
+----------------------------------------
+Agent vs Optimal: -5.1%
+
+TRADE BREAKDOWN
+----------------------------------------
+  RIOT: 4 trades, $+658.54 (50% win rate)
+  RIVN: 4 trades, $+415.48 (50% win rate)
+  BNTX: 2 trades, $+343.60 (100% win rate)
+  MU: 4 trades, $+304.50 (75% win rate)
+  OXY: 1 trades, $+292.29 (100% win rate)
+  NFLX: 1 trades, $+292.20 (100% win rate)
+  NIO: 1 trades, $+252.78 (100% win rate)
+  UAL: 3 trades, $+245.77 (67% win rate)
+  PLTR: 3 trades, $+220.24 (33% win rate)
+  GS: 1 trades, $+171.83 (100% win rate)
+
+DAILY PERFORMANCE
+----------------------------------------
+  Best Day: 2025-11-05 ($+867.93)
+  Worst Day: 2025-11-06 ($-2,545.53)
+  Profitable Days: 14/25 (56%)
+
+======================================================================
+Report generated: 2026-02-24 16:52:09
+======================================================================

@@ -16,6 +16,11 @@ from dataclasses import dataclass, field
 from enum import Enum
 import math
 
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:
+    from backports.zoneinfo import ZoneInfo
+
 
 class MarketSession(Enum):
     """Market trading sessions with different characteristics"""
@@ -65,7 +70,7 @@ SESSION_CONFIGS = {
         position_size_multiplier=0.7,  # Reduced (choppy)
         min_score_to_trade=7.0,        # Higher bar
         prefer_quick_trades=True,
-        avoid_new_entries=True,        # Avoid new entries
+        avoid_new_entries=False,       # FIX: Allow entries (was True - blocked all trading)
         max_hold_minutes=30,
     ),
     MarketSession.AFTERNOON: SessionConfig(
@@ -163,17 +168,30 @@ class PositionIntelligence:
         'GOOG': 'technology', 'META': 'technology', 'NVDA': 'technology',
         'AMD': 'technology', 'INTC': 'technology', 'CRM': 'technology',
         'ADBE': 'technology', 'ORCL': 'technology', 'CSCO': 'technology',
+        'PLTR': 'technology', 'SNOW': 'technology', 'NET': 'technology',
+        'DDOG': 'technology', 'MDB': 'technology', 'ZS': 'technology',
+        'CRWD': 'technology', 'PANW': 'technology', 'NOW': 'technology',
+        'TEAM': 'technology', 'SHOP': 'technology', 'SQ': 'technology',
+        'PYPL': 'technology', 'COIN': 'technology', 'HOOD': 'technology',
+        'U': 'technology', 'RBLX': 'technology', 'SNAP': 'technology',
+        'PINS': 'technology', 'UBER': 'technology', 'LYFT': 'technology',
+        'ABNB': 'technology', 'DASH': 'technology', 'DKNG': 'technology',
         # Finance
         'JPM': 'finance', 'BAC': 'finance', 'WFC': 'finance',
         'GS': 'finance', 'MS': 'finance', 'C': 'finance',
         'V': 'finance', 'MA': 'finance', 'AXP': 'finance',
+        'SOFI': 'finance', 'AFRM': 'finance', 'UPST': 'finance',
         # Healthcare
         'JNJ': 'healthcare', 'PFE': 'healthcare', 'UNH': 'healthcare',
         'ABBV': 'healthcare', 'MRK': 'healthcare', 'LLY': 'healthcare',
-        # Consumer
+        'MRNA': 'healthcare', 'BNTX': 'healthcare',
+        # Consumer / Automotive
         'AMZN': 'consumer', 'WMT': 'consumer', 'HD': 'consumer',
         'NKE': 'consumer', 'MCD': 'consumer', 'SBUX': 'consumer',
         'COST': 'consumer', 'TGT': 'consumer',
+        'TSLA': 'automotive', 'RIVN': 'automotive', 'LCID': 'automotive',
+        'NIO': 'automotive', 'F': 'automotive', 'GM': 'automotive',
+        'LI': 'automotive', 'XPEV': 'automotive',
         # Energy
         'XOM': 'energy', 'CVX': 'energy', 'COP': 'energy',
         'SLB': 'energy', 'EOG': 'energy',
@@ -183,6 +201,13 @@ class PositionIntelligence:
         # Communication
         'DIS': 'communication', 'NFLX': 'communication', 'CMCSA': 'communication',
         'T': 'communication', 'VZ': 'communication',
+        # Crypto-related
+        'MARA': 'crypto', 'RIOT': 'crypto', 'MSTR': 'crypto',
+        'CLSK': 'crypto', 'HUT': 'crypto',
+        # ETFs (treated as diversified)
+        'SPY': 'etf', 'QQQ': 'etf', 'IWM': 'etf',
+        'DIA': 'etf', 'ARKK': 'etf', 'XLF': 'etf',
+        'XLE': 'etf', 'XLK': 'etf', 'TQQQ': 'etf', 'SQQQ': 'etf',
     }
 
     # Drawdown thresholds
@@ -220,11 +245,22 @@ class PositionIntelligence:
 
     def get_current_session(self, now: Optional[datetime] = None) -> MarketSession:
         """Determine current market session based on time (ET)"""
-        if now is None:
-            now = datetime.now()
-
-        # Convert to ET (simplified - assumes local is close to ET)
-        current_time = now.time()
+        # Always get current time in ET (Eastern Time)
+        try:
+            et_tz = ZoneInfo("America/New_York")
+            if now is None:
+                # Get current time directly in ET
+                et_now = datetime.now(et_tz)
+            elif now.tzinfo is None:
+                # Naive datetime - assume it's already in ET for backtest compatibility
+                et_now = now
+            else:
+                # Convert timezone-aware datetime to ET
+                et_now = now.astimezone(et_tz)
+            current_time = et_now.time()
+        except Exception:
+            # Fallback: use provided time as-is
+            current_time = (now or datetime.now()).time()
 
         # Session boundaries (ET)
         if current_time < time(9, 30):
@@ -415,10 +451,13 @@ class PositionIntelligence:
         """Get sector for a symbol"""
         return self.SECTOR_MAP.get(symbol, 'unknown')
 
-    def update_sector_exposure(self, positions: List[Dict]):
-        """Update sector exposure from current positions"""
+    def update_sector_exposure(self, positions: List[Dict], account_equity: float = 0):
+        """Update sector exposure from current positions as % of total portfolio"""
         self._sector_exposure = {}
-        total_value = sum(p.get('market_value', 0) for p in positions)
+
+        # Use account equity (total portfolio) instead of just positions sum
+        # This fixes bug where 1 tech position = "100% tech exposure"
+        total_value = account_equity if account_equity > 0 else sum(p.get('market_value', 0) for p in positions)
 
         if total_value <= 0:
             return
@@ -436,6 +475,13 @@ class PositionIntelligence:
         """Reduce size if sector already has high exposure"""
         sector = self.get_sector(symbol)
         exposure = self._sector_exposure.get(sector, 0)
+
+        # "unknown" sector is inherently diverse - don't block trades for it
+        # Also ETFs are diversified, so allow higher exposure
+        if sector in ('unknown', 'etf'):
+            if exposure > 0.6:  # Only warn if >60% in unknown
+                return 0.7, f"{sector}: {exposure*100:.0f}% (diversified, allowing)"
+            return 1.0, f"{sector}: {exposure*100:.0f}% (diversified)"
 
         if exposure < self.max_sector_exposure_pct * 0.5:
             return 1.0, f"{sector}: {exposure*100:.0f}% exposure"
@@ -472,9 +518,8 @@ class PositionIntelligence:
         reasoning = []
         warnings = []
 
-        # Update sector exposure
-        if positions:
-            self.update_sector_exposure(positions)
+        # Update sector exposure (always update, even with empty positions)
+        self.update_sector_exposure(positions or [], account_equity)
 
         # 1. Kelly Criterion
         kelly = self.calculate_kelly()

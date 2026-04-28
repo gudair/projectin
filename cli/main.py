@@ -8,7 +8,7 @@ import asyncio
 import logging
 import signal
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 try:
@@ -20,6 +20,10 @@ except ImportError:
 
 from config.agent_config import AgentConfig, TradingMode, LLMProvider, DEFAULT_CONFIG
 from agent.core.agent import TradingAgent, AgentState
+from agent.core.swing_agent import SwingTradingAgent, SwingAgentConfig
+from agent.core.aggressive_agent import AggressiveTradingAgent, AggressiveAgentConfig
+from agent.core.hindsight import HindsightAnalyzer, run_hindsight_analysis
+from agent.core.trade_logger import TradeLogger
 from cli.dashboard import Dashboard
 from alerts.manager import AlertAction
 
@@ -136,6 +140,31 @@ Examples:
         '--ollama-model',
         default=None,
         help='Ollama model to use (default: llama3.1:8b)'
+    )
+
+    parser.add_argument(
+        '--hindsight',
+        action='store_true',
+        help='Run hindsight analysis on yesterday\'s data and exit'
+    )
+
+    parser.add_argument(
+        '--hindsight-days',
+        type=int,
+        default=1,
+        help='Number of days back to analyze for hindsight (default: 1 = yesterday)'
+    )
+
+    parser.add_argument(
+        '--swing',
+        action='store_true',
+        help='Use Swing Trading mode (mean reversion, multi-day holds) instead of day trading'
+    )
+
+    parser.add_argument(
+        '--legacy',
+        action='store_true',
+        help='Use legacy day trading agent (NOT RECOMMENDED - use for testing only)'
     )
 
     return parser.parse_args()
@@ -481,6 +510,53 @@ def print_more_info(alert):
     print("\n" + "=" * 60 + "\n")
 
 
+async def run_hindsight_cli(days_back: int = 1):
+    """
+    Run hindsight analysis from CLI.
+    Analyzes the specified number of days and prints a detailed report.
+    """
+    from alpaca.client import AlpacaClient
+    from agent.core.layered_memory import LayeredMemorySystem
+
+    print("\n" + "=" * 70)
+    print("📊 HINDSIGHT ANALYSIS - Learn from Optimal Trading Scenarios")
+    print("=" * 70 + "\n")
+
+    # Initialize components
+    client = AlpacaClient()
+    analyzer = HindsightAnalyzer(client=client)
+    trade_logger = TradeLogger(log_dir="logs/trades")
+    memory_system = LayeredMemorySystem(memory_dir="data/memory")
+
+    try:
+        for i in range(days_back):
+            date = datetime.now() - timedelta(days=i+1)
+            print(f"\n🔍 Analyzing {date.strftime('%Y-%m-%d')}...\n")
+
+            # Get agent's trades for that day
+            agent_trades = trade_logger.get_trades_for_date(date)
+
+            # Run analysis
+            report = await analyzer.run_and_learn(
+                memory_system=memory_system,
+                date=date,
+                agent_trades=agent_trades,
+            )
+
+            # Print formatted report
+            print(analyzer.format_report(report))
+
+        print("\n✅ Hindsight analysis complete!")
+        print("   Patterns have been stored in memory for future learning.\n")
+
+    except Exception as e:
+        logging.error(f"Hindsight analysis failed: {e}", exc_info=True)
+        print(f"\n❌ Error: {e}")
+
+    finally:
+        await client.close()
+
+
 def validate_config(config: AgentConfig) -> bool:
     """Validate configuration"""
     print("Validating configuration...")
@@ -544,14 +620,78 @@ def run_cli():
         success = validate_config(config)
         sys.exit(0 if success else 1)
 
-    # Run the agent
+    # Run hindsight analysis?
+    if args.hindsight:
+        try:
+            asyncio.run(run_hindsight_cli(args.hindsight_days))
+        except KeyboardInterrupt:
+            print("\nInterrupted")
+        sys.exit(0)
+
+    # Run swing trading agent?
+    if args.swing:
+        print("=" * 60)
+        print("🔄 SWING TRADING MODE")
+        print("=" * 60)
+        print("Strategy: Mean Reversion (RSI + Bollinger Bands)")
+        print("Hold time: 1-5 days")
+        print("Entry: End of day analysis")
+        print("Exit: Intraday stop loss / take profit monitoring")
+        print("=" * 60)
+
+        try:
+            swing_agent = SwingTradingAgent(config)
+            asyncio.run(swing_agent.start())
+        except KeyboardInterrupt:
+            print("\nInterrupted by user")
+        except Exception as e:
+            logging.error(f"Fatal error: {e}", exc_info=True)
+            sys.exit(1)
+        sys.exit(0)
+
+    # Run legacy day trading agent (only if explicitly requested)
+    if args.legacy:
+        print("⚠️  WARNING: Running LEGACY agent (not optimized)")
+        print("   Consider using default aggressive agent instead")
+        print("=" * 60)
+        try:
+            asyncio.run(run_agent(
+                config,
+                use_dashboard=args.dashboard,
+                analysis_only=args.no_trade,
+                autonomous=args.auto,
+            ))
+        except KeyboardInterrupt:
+            print("\nInterrupted by user")
+        except Exception as e:
+            logging.error(f"Fatal error: {e}", exc_info=True)
+            sys.exit(1)
+        sys.exit(0)
+
+    # Run aggressive dip buyer agent (DEFAULT)
+    # Create agent first to get config
+    print("📝 Initializing Aggressive Trading Agent...")
+    aggressive_agent = AggressiveTradingAgent(config)
+    print("✅ Agent object created")
+    agent_cfg = aggressive_agent.agent_config
+
+    print("=" * 60)
+    print("🚀 AGGRESSIVE DIP BUYER (Optimized Strategy)")
+    print("=" * 60)
+    print("Performance: +199.9% (12-month backtest) | +16.7% monthly avg")
+    print(f"Symbols: {', '.join(agent_cfg.symbols)}")
+    print(f"Position size: {agent_cfg.position_size_pct:.0%} per trade | Max positions: {agent_cfg.max_positions}")
+    print(f"Stop loss: {agent_cfg.stop_loss_pct:.0%} | Trailing: {agent_cfg.trailing_stop_pct:.0%} | Take profit: {agent_cfg.take_profit_pct:.0%}")
+    print(f"Entry: Daily at {agent_cfg.entry_check_time} ET (after red day + volatility)")
+    if agent_cfg.use_ai_filter and aggressive_agent.groq_client:
+        print(f"🤖 AI Filter: ON (Groq {aggressive_agent.groq_client.MODEL}, min confidence: {agent_cfg.ai_min_confidence:.0%})")
+    else:
+        print("🤖 AI Filter: OFF (rule-based only)")
+    print("=" * 60)
+    print("🚀 Starting agent event loop...")
+
     try:
-        asyncio.run(run_agent(
-            config,
-            use_dashboard=args.dashboard,
-            analysis_only=args.no_trade,
-            autonomous=args.auto,
-        ))
+        asyncio.run(aggressive_agent.start())
     except KeyboardInterrupt:
         print("\nInterrupted by user")
     except Exception as e:

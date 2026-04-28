@@ -1,0 +1,21 @@
+# Crontab entries for the trading agent server
+# Install with: crontab -e  (then paste these lines)
+#
+# All times are in the server's local timezone.
+# If using Oracle Cloud (UTC), adjust accordingly:
+#   4 AM UTC Sunday = 4 AM UTC (Oracle default is UTC)
+
+# Weekly: clean up logs older than 30 days (Sunday 4 AM)
+0 4 * * 0 /home/ubuntu/projectin/.venv/bin/python /home/ubuntu/projectin/scripts/cleanup_logs.py >> /home/ubuntu/projectin/logs/cleanup.log 2>&1
+
+# Weekly: ping Supabase to prevent free tier project from pausing (every 5 days)
+# Supabase pauses projects inactive for 7 days on free tier
+0 10 * * 1,5 /home/ubuntu/projectin/.venv/bin/python -c "
+import os, sys
+sys.path.insert(0, '/home/ubuntu/projectin')
+from dotenv import load_dotenv; load_dotenv('/home/ubuntu/projectin/.env')
+from agent.core.supabase_logger import _get_client
+c = _get_client()
+c and c.table('agent_status').select('id').limit(1).execute()
+print('Supabase keepalive OK')
+" >> /home/ubuntu/projectin/logs/keepalive.log 2>&1

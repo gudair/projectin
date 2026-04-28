@@ -1,0 +1,52 @@
+======================================================================
+BACKTEST REPORT
+======================================================================
+
+CONFIGURATION
+----------------------------------------
+Period: 2025-11-01T00:00:00 to 2025-11-30T00:00:00
+Trading Days: 13
+Initial Capital: $100,000.00
+Ollama Analysis: Enabled
+
+AGENT PERFORMANCE
+----------------------------------------
+Final Equity: $97,441.76
+Total Return: $-2,558.24 (-2.56%)
+Total Trades: 12
+Winning Trades: 1
+Losing Trades: 5
+Win Rate: 16.7%
+Profit Factor: 0.01
+Max Drawdown: 2.56%
+Avg Daily P&L: $-102.33
+Avg Hold Duration: 28 min
+
+OPTIMAL BENCHMARK (Hindsight)
+----------------------------------------
+Realistic Return: $+33,387.04 (+33.39%)
+Theoretical Max Trades: 881
+Avg Gain per Optimal Trade: 4.28%
+
+EFFICIENCY
+----------------------------------------
+Agent vs Optimal: -7.7%
+
+TRADE BREAKDOWN
+----------------------------------------
+  AMZN: 1 trades, $+22.35 (100% win rate)
+  BNTX: 1 trades, $-226.56 (0% win rate)
+  MRNA: 1 trades, $-299.41 (0% win rate)
+  MARA: 1 trades, $-305.65 (0% win rate)
+  MU: 1 trades, $-348.12 (0% win rate)
+  MRVL: 1 trades, $-1,400.85 (0% win rate)
+
+DAILY PERFORMANCE
+----------------------------------------
+  Best Day: 2025-11-04 ($+0.00)
+  Worst Day: 2025-11-03 ($-2,558.24)
+  Profitable Days: 0/25 (0%)
+
+======================================================================
+Report generated: 2026-02-24 15:43:11
+======================================================================

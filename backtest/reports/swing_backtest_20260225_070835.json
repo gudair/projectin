@@ -1,0 +1,1307 @@
+{
+  "period": {
+    "start": "2025-10-01T00:00:00",
+    "end": "2025-12-31T00:00:00",
+    "trading_days": 64
+  },
+  "config": {
+    "initial_capital": 100000.0,
+    "max_positions": 5,
+    "position_size_pct": 0.02,
+    "stop_loss_pct": 0.03,
+    "take_profit_pct": 0.05,
+    "max_hold_days": 5
+  },
+  "performance": {
+    "final_equity": 100620.50779937673,
+    "total_return": 620.5077993767336,
+    "total_return_pct": 0.6205077993767336,
+    "max_drawdown_pct": 0.5200334677782182
+  },
+  "trades": {
+    "total": 80,
+    "winning": 41,
+    "losing": 35,
+    "win_rate": 51.24999999999999,
+    "avg_win": 55.07893387580966,
+    "avg_loss": -46.792242558039774,
+    "profit_factor": 1.3788831929976082,
+    "avg_hold_days": 4.8125
+  },
+  "stats": {
+    "signals_generated": 1631,
+    "buy_signals": 80,
+    "sell_signals": 76,
+    "trades_executed": 80,
+    "skipped_no_cash": 0,
+    "skipped_max_positions": 0
+  },
+  "trade_list": [
+    {
+      "symbol": "META",
+      "entry_date": "2025-10-01T00:00:00",
+      "exit_date": "2025-10-06T00:00:00",
+      "entry_price": 717.34,
+      "exit_price": 715.66,
+      "pnl": -4.6839713385565105,
+      "pnl_pct": -0.002341985669278255,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2025-10-01T00:00:00",
+      "exit_date": "2025-10-06T00:00:00",
+      "entry_price": 397.02,
+      "exit_price": 389.33,
+      "pnl": -38.7386025892902,
+      "pnl_pct": -0.019369301294645102,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-10-01T00:00:00",
+      "exit_date": "2025-10-06T00:00:00",
+      "entry_price": 917.34,
+      "exit_price": 910.94,
+      "pnl": -13.953386966664436,
+      "pnl_pct": -0.006976693483332218,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-10-01T00:00:00",
+      "exit_date": "2025-10-06T00:00:00",
+      "entry_price": 1170.9,
+      "exit_price": 1163.31,
+      "pnl": -12.964386369459637,
+      "pnl_pct": -0.006482193184729819,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2025-10-06T00:00:00",
+      "exit_date": "2025-10-10T00:00:00",
+      "entry_price": 389.33,
+      "exit_price": 375.75,
+      "pnl": -69.71180120125106,
+      "pnl_pct": -0.03488043562016794,
+      "hold_days": 4,
+      "exit_reason": "Stop loss triggered (-3.5%)"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2025-10-06T00:00:00",
+      "exit_date": "2025-10-13T00:00:00",
+      "entry_price": 715.66,
+      "exit_price": 715.7,
+      "pnl": 0.11170629589797297,
+      "pnl_pct": 5.589246290148577e-05,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2025-10-06T00:00:00",
+      "exit_date": "2025-10-13T00:00:00",
+      "entry_price": 150.41,
+      "exit_price": 147.49,
+      "pnl": -38.79989444664423,
+      "pnl_pct": -0.01941360281896142,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-10-06T00:00:00",
+      "exit_date": "2025-10-13T00:00:00",
+      "entry_price": 910.94,
+      "exit_price": 935.56,
+      "pnl": 54.016032244721934,
+      "pnl_pct": 0.027027027027026907,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "MCD",
+      "entry_date": "2025-10-06T00:00:00",
+      "exit_date": "2025-10-13T00:00:00",
+      "entry_price": 296.04,
+      "exit_price": 300.11,
+      "pnl": 27.476943304055865,
+      "pnl_pct": 0.013748142142953631,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_date": "2025-10-10T00:00:00",
+      "exit_date": "2025-10-15T00:00:00",
+      "entry_price": 236.57,
+      "exit_price": 251.03,
+      "pnl": 122.08799422617726,
+      "pnl_pct": 0.061123557509405284,
+      "hold_days": 5,
+      "exit_reason": "Take profit reached (6.1%)"
+    },
+    {
+      "symbol": "BAC",
+      "entry_date": "2025-10-13T00:00:00",
+      "exit_date": "2025-10-15T00:00:00",
+      "entry_price": 48.86,
+      "exit_price": 52.28,
+      "pnl": 139.94526850166633,
+      "pnl_pct": 0.06999590667212448,
+      "hold_days": 2,
+      "exit_reason": "Take profit reached (7.0%)"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2025-10-13T00:00:00",
+      "exit_date": "2025-10-20T00:00:00",
+      "entry_price": 147.49,
+      "exit_price": 151.96,
+      "pnl": 60.59412574088998,
+      "pnl_pct": 0.030307139467082505,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2025-10-13T00:00:00",
+      "exit_date": "2025-10-20T00:00:00",
+      "entry_price": 379.37,
+      "exit_price": 388.89,
+      "pnl": 50.171783565457275,
+      "pnl_pct": 0.025094235179376288,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "MMM",
+      "entry_date": "2025-10-13T00:00:00",
+      "exit_date": "2025-10-20T00:00:00",
+      "entry_price": 151.1,
+      "exit_price": 154.78,
+      "pnl": 48.69326888178398,
+      "pnl_pct": 0.02435473196558575,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "JPM",
+      "entry_date": "2025-10-16T00:00:00",
+      "exit_date": "2025-10-21T00:00:00",
+      "entry_price": 298.54,
+      "exit_price": 297.09,
+      "pnl": -9.737231028745413,
+      "pnl_pct": -0.0048569705902058195,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "XOM",
+      "entry_date": "2025-10-16T00:00:00",
+      "exit_date": "2025-10-21T00:00:00",
+      "entry_price": 110.64,
+      "exit_price": 112.71,
+      "pnl": 37.508368920859326,
+      "pnl_pct": 0.01870932754880688,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "JPM",
+      "entry_date": "2025-10-22T00:00:00",
+      "exit_date": "2025-10-27T00:00:00",
+      "entry_price": 294.11,
+      "exit_price": 304.15,
+      "pnl": 68.51410987903267,
+      "pnl_pct": 0.03413688755907641,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "TXN",
+      "entry_date": "2025-10-22T00:00:00",
+      "exit_date": "2025-10-27T00:00:00",
+      "entry_price": 170.71,
+      "exit_price": 169.41,
+      "pnl": -15.284121736636907,
+      "pnl_pct": -0.007615253939429508,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-10-22T00:00:00",
+      "exit_date": "2025-10-27T00:00:00",
+      "entry_price": 1116.37,
+      "exit_price": 1094.56,
+      "pnl": -39.210610706287774,
+      "pnl_pct": -0.019536533586534885,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "TXN",
+      "entry_date": "2025-10-28T00:00:00",
+      "exit_date": "2025-10-29T00:00:00",
+      "entry_price": 166.91,
+      "exit_price": 160.26,
+      "pnl": -79.98693533109748,
+      "pnl_pct": -0.03984183092684684,
+      "hold_days": 1,
+      "exit_reason": "Stop loss triggered (-4.0%)"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2025-10-29T00:00:00",
+      "exit_date": "2025-10-31T00:00:00",
+      "entry_price": 355.26,
+      "exit_price": 341.56,
+      "pnl": -77.35550554958631,
+      "pnl_pct": -0.03856330574790291,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-3.9%)"
+    },
+    {
+      "symbol": "ABBV",
+      "entry_date": "2025-10-29T00:00:00",
+      "exit_date": "2025-10-31T00:00:00",
+      "entry_price": 225.14,
+      "exit_price": 218.04,
+      "pnl": -63.259049195335024,
+      "pnl_pct": -0.031535933197121765,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-3.2%)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-10-27T00:00:00",
+      "exit_date": "2025-11-03T00:00:00",
+      "entry_price": 1094.56,
+      "exit_price": 1100.09,
+      "pnl": 10.141503012010784,
+      "pnl_pct": 0.005052258441748257,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "JNJ",
+      "entry_date": "2025-10-29T00:00:00",
+      "exit_date": "2025-11-03T00:00:00",
+      "entry_price": 186.6,
+      "exit_price": 186.26,
+      "pnl": -3.6549736532047756,
+      "pnl_pct": -0.001822079314040747,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-10-29T00:00:00",
+      "exit_date": "2025-11-03T00:00:00",
+      "entry_price": 912.42,
+      "exit_price": 928.04,
+      "pnl": 34.34023052853185,
+      "pnl_pct": 0.017119309090112014,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2025-10-31T00:00:00",
+      "exit_date": "2025-11-04T00:00:00",
+      "entry_price": 648.35,
+      "exit_price": 627.32,
+      "pnl": -65.01007149036738,
+      "pnl_pct": -0.032436184159790195,
+      "hold_days": 4,
+      "exit_reason": "Stop loss triggered (-3.2%)"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2025-10-31T00:00:00",
+      "exit_date": "2025-11-04T00:00:00",
+      "entry_price": 341.56,
+      "exit_price": 330.83,
+      "pnl": -62.96273766563432,
+      "pnl_pct": -0.03141468556037012,
+      "hold_days": 4,
+      "exit_reason": "Stop loss triggered (-3.1%)"
+    },
+    {
+      "symbol": "V",
+      "entry_date": "2025-11-03T00:00:00",
+      "exit_date": "2025-11-10T00:00:00",
+      "entry_price": 336.9,
+      "exit_price": 334.85,
+      "pnl": -12.182899388864515,
+      "pnl_pct": -0.006084891659245932,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "JNJ",
+      "entry_date": "2025-11-03T00:00:00",
+      "exit_date": "2025-11-10T00:00:00",
+      "entry_price": 186.26,
+      "exit_price": 188.41,
+      "pnl": 23.110889914788395,
+      "pnl_pct": 0.011543004402448221,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "ABBV",
+      "entry_date": "2025-11-03T00:00:00",
+      "exit_date": "2025-11-10T00:00:00",
+      "entry_price": 211.96,
+      "exit_price": 218.71,
+      "pnl": 63.75990621270623,
+      "pnl_pct": 0.031845631251179465,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2025-11-04T00:00:00",
+      "exit_date": "2025-11-10T00:00:00",
+      "entry_price": 627.32,
+      "exit_price": 631.76,
+      "pnl": 14.172733924109732,
+      "pnl_pct": 0.007077727475610439,
+      "hold_days": 6,
+      "exit_reason": "Max hold time (6 days)"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2025-11-04T00:00:00",
+      "exit_date": "2025-11-10T00:00:00",
+      "entry_price": 330.83,
+      "exit_price": 321.58,
+      "pnl": -55.98821805051334,
+      "pnl_pct": -0.027959979445636732,
+      "hold_days": 6,
+      "exit_reason": "Max hold time (6 days)"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2025-11-10T00:00:00",
+      "exit_date": "2025-11-12T00:00:00",
+      "entry_price": 631.76,
+      "exit_price": 609.01,
+      "pnl": -72.08667534054429,
+      "pnl_pct": -0.036010510320374826,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-3.6%)"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2025-11-10T00:00:00",
+      "exit_date": "2025-11-12T00:00:00",
+      "entry_price": 321.58,
+      "exit_price": 339.06,
+      "pnl": 108.81233192290641,
+      "pnl_pct": 0.05435661421730213,
+      "hold_days": 2,
+      "exit_reason": "Take profit reached (5.4%)"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2025-11-10T00:00:00",
+      "exit_date": "2025-11-17T00:00:00",
+      "entry_price": 145.5,
+      "exit_price": 145.82,
+      "pnl": 4.402635237099871,
+      "pnl_pct": 0.0021993127147765853,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2025-11-10T00:00:00",
+      "exit_date": "2025-11-17T00:00:00",
+      "entry_price": 370.43,
+      "exit_price": 358.03,
+      "pnl": -67.01025239903439,
+      "pnl_pct": -0.03347461058769547,
+      "hold_days": 7,
+      "exit_reason": "Stop loss triggered (-3.3%)"
+    },
+    {
+      "symbol": "PEP",
+      "entry_date": "2025-11-10T00:00:00",
+      "exit_date": "2025-11-17T00:00:00",
+      "entry_price": 142.62,
+      "exit_price": 147.83,
+      "pnl": 73.12788473434256,
+      "pnl_pct": 0.03653064086383402,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2025-11-12T00:00:00",
+      "exit_date": "2025-11-17T00:00:00",
+      "entry_price": 609.01,
+      "exit_price": 602.01,
+      "pnl": -23.03204616463556,
+      "pnl_pct": -0.011494064136877884,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "TSLA",
+      "entry_date": "2025-11-13T00:00:00",
+      "exit_date": "2025-11-18T00:00:00",
+      "entry_price": 401.99,
+      "exit_price": 401.25,
+      "pnl": -3.6885153496997924,
+      "pnl_pct": -0.0018408418119853953,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2025-11-17T00:00:00",
+      "exit_date": "2025-11-18T00:00:00",
+      "entry_price": 358.03,
+      "exit_price": 336.48,
+      "pnl": -120.56144495800876,
+      "pnl_pct": -0.06019048683071239,
+      "hold_days": 1,
+      "exit_reason": "Stop loss triggered (-6.0%)"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2025-11-17T00:00:00",
+      "exit_date": "2025-11-19T00:00:00",
+      "entry_price": 320.52,
+      "exit_price": 309.09,
+      "pnl": -71.42852545601677,
+      "pnl_pct": -0.035660801198053184,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-3.6%)"
+    },
+    {
+      "symbol": "MSFT",
+      "entry_date": "2025-11-18T00:00:00",
+      "exit_date": "2025-11-20T00:00:00",
+      "entry_price": 493.79,
+      "exit_price": 478.43,
+      "pnl": -62.17269472817897,
+      "pnl_pct": -0.031106340752141626,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-3.1%)"
+    },
+    {
+      "symbol": "V",
+      "entry_date": "2025-11-17T00:00:00",
+      "exit_date": "2025-11-24T00:00:00",
+      "entry_price": 325.75,
+      "exit_price": 329.3,
+      "pnl": 21.828531365743114,
+      "pnl_pct": 0.010897927858787449,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2025-11-17T00:00:00",
+      "exit_date": "2025-11-24T00:00:00",
+      "entry_price": 145.82,
+      "exit_price": 146.98,
+      "pnl": 15.93387786055604,
+      "pnl_pct": 0.007955013029762698,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2025-11-18T00:00:00",
+      "exit_date": "2025-11-24T00:00:00",
+      "entry_price": 597.69,
+      "exit_price": 613.05,
+      "pnl": 51.36484620761141,
+      "pnl_pct": 0.025698940922551653,
+      "hold_days": 6,
+      "exit_reason": "Max hold time (6 days)"
+    },
+    {
+      "symbol": "UNH",
+      "entry_date": "2025-11-19T00:00:00",
+      "exit_date": "2025-11-24T00:00:00",
+      "entry_price": 309.09,
+      "exit_price": 319.05,
+      "pnl": 64.36610960441273,
+      "pnl_pct": 0.03222362418713008,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "MSFT",
+      "entry_date": "2025-11-20T00:00:00",
+      "exit_date": "2025-11-25T00:00:00",
+      "entry_price": 478.43,
+      "exit_price": 476.99,
+      "pnl": -6.011573514021264,
+      "pnl_pct": -0.0030098447003741357,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2025-11-24T00:00:00",
+      "exit_date": "2025-11-26T00:00:00",
+      "entry_price": 336.58,
+      "exit_price": 355.47,
+      "pnl": 112.23832383279519,
+      "pnl_pct": 0.05612335848832386,
+      "hold_days": 2,
+      "exit_reason": "Take profit reached (5.6%)"
+    },
+    {
+      "symbol": "JPM",
+      "entry_date": "2025-11-24T00:00:00",
+      "exit_date": "2025-11-28T00:00:00",
+      "entry_price": 298.0,
+      "exit_price": 313.08,
+      "pnl": 101.20048595320178,
+      "pnl_pct": 0.05060402684563753,
+      "hold_days": 4,
+      "exit_reason": "Take profit reached (5.1%)"
+    },
+    {
+      "symbol": "CVX",
+      "entry_date": "2025-11-24T00:00:00",
+      "exit_date": "2025-12-01T00:00:00",
+      "entry_price": 149.75,
+      "exit_price": 152.54,
+      "pnl": 37.2593172667137,
+      "pnl_pct": 0.01863105175292148,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-11-24T00:00:00",
+      "exit_date": "2025-12-01T00:00:00",
+      "entry_price": 886.12,
+      "exit_price": 911.96,
+      "pnl": 58.31731105953105,
+      "pnl_pct": 0.029160836004152972,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "MSFT",
+      "entry_date": "2025-11-25T00:00:00",
+      "exit_date": "2025-12-01T00:00:00",
+      "entry_price": 476.99,
+      "exit_price": 486.74,
+      "pnl": 40.93323482445339,
+      "pnl_pct": 0.020440680098115265,
+      "hold_days": 6,
+      "exit_reason": "Max hold time (6 days)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-11-26T00:00:00",
+      "exit_date": "2025-12-01T00:00:00",
+      "entry_price": 106.14,
+      "exit_price": 109.13,
+      "pnl": 56.48966131409371,
+      "pnl_pct": 0.02817034105897866,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-12-01T00:00:00",
+      "exit_date": "2025-12-03T00:00:00",
+      "entry_price": 109.13,
+      "exit_price": 103.96,
+      "pnl": -95.13922144564856,
+      "pnl_pct": -0.04737469073581968,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-4.7%)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-12-03T00:00:00",
+      "exit_date": "2025-12-05T00:00:00",
+      "entry_price": 103.96,
+      "exit_price": 100.24,
+      "pnl": -71.79255234852427,
+      "pnl_pct": -0.035782993459022694,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-3.6%)"
+    },
+    {
+      "symbol": "GE",
+      "entry_date": "2025-12-01T00:00:00",
+      "exit_date": "2025-12-08T00:00:00",
+      "entry_price": 288.45,
+      "exit_price": 287.19,
+      "pnl": -8.772294577747516,
+      "pnl_pct": -0.004368174726989048,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "MSFT",
+      "entry_date": "2025-12-03T00:00:00",
+      "exit_date": "2025-12-08T00:00:00",
+      "entry_price": 477.73,
+      "exit_price": 491.02,
+      "pnl": 55.81426254021177,
+      "pnl_pct": 0.02781906097586495,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2025-12-05T00:00:00",
+      "exit_date": "2025-12-08T00:00:00",
+      "entry_price": 143.45,
+      "exit_price": 138.34,
+      "pnl": -71.4124133247923,
+      "pnl_pct": -0.03562216800278833,
+      "hold_days": 3,
+      "exit_reason": "Stop loss triggered (-3.6%)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-12-05T00:00:00",
+      "exit_date": "2025-12-08T00:00:00",
+      "entry_price": 100.24,
+      "exit_price": 96.79,
+      "pnl": -68.99718930042069,
+      "pnl_pct": -0.034417398244213776,
+      "hold_days": 3,
+      "exit_reason": "Stop loss triggered (-3.4%)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-12-09T00:00:00",
+      "exit_date": "2025-12-10T00:00:00",
+      "entry_price": 96.71,
+      "exit_price": 92.71,
+      "pnl": -82.87098600525,
+      "pnl_pct": -0.04136076931030917,
+      "hold_days": 1,
+      "exit_reason": "Stop loss triggered (-4.1%)"
+    },
+    {
+      "symbol": "PEP",
+      "entry_date": "2025-12-09T00:00:00",
+      "exit_date": "2025-12-12T00:00:00",
+      "entry_price": 144.64,
+      "exit_price": 150.65,
+      "pnl": 83.25301242735793,
+      "pnl_pct": 0.04155143805309748,
+      "hold_days": 3,
+      "exit_reason": "Price at upper BB (98%)"
+    },
+    {
+      "symbol": "PG",
+      "entry_date": "2025-12-08T00:00:00",
+      "exit_date": "2025-12-15T00:00:00",
+      "entry_price": 138.34,
+      "exit_price": 145.13,
+      "pnl": 98.31231270309974,
+      "pnl_pct": 0.049081971953158825,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "CVX",
+      "entry_date": "2025-12-08T00:00:00",
+      "exit_date": "2025-12-15T00:00:00",
+      "entry_price": 148.71,
+      "exit_price": 149.8,
+      "pnl": 14.68156100232059,
+      "pnl_pct": 0.0073297021047676915,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "MMM",
+      "entry_date": "2025-12-08T00:00:00",
+      "exit_date": "2025-12-15T00:00:00",
+      "entry_price": 163.96,
+      "exit_price": 165.7,
+      "pnl": 21.256768767610644,
+      "pnl_pct": 0.010612344474261896,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-12-10T00:00:00",
+      "exit_date": "2025-12-15T00:00:00",
+      "entry_price": 874.41,
+      "exit_price": 860.56,
+      "pnl": -31.747223488648846,
+      "pnl_pct": -0.015839251609656824,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "AVGO",
+      "entry_date": "2025-12-15T00:00:00",
+      "exit_date": "2025-12-17T00:00:00",
+      "entry_price": 339.81,
+      "exit_price": 326.02,
+      "pnl": -81.36918068581414,
+      "pnl_pct": -0.04058150142726824,
+      "hold_days": 2,
+      "exit_reason": "Stop loss triggered (-4.1%)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-12-15T00:00:00",
+      "exit_date": "2025-12-22T00:00:00",
+      "entry_price": 860.56,
+      "exit_price": 850.0,
+      "pnl": -24.604502875121362,
+      "pnl_pct": -0.012271079297201759,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "NFLX",
+      "entry_date": "2025-12-15T00:00:00",
+      "exit_date": "2025-12-22T00:00:00",
+      "entry_price": 93.77,
+      "exit_price": 93.23,
+      "pnl": -11.546800861145268,
+      "pnl_pct": -0.0057587714620880035,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "CVX",
+      "entry_date": "2025-12-16T00:00:00",
+      "exit_date": "2025-12-22T00:00:00",
+      "entry_price": 146.75,
+      "exit_price": 149.8,
+      "pnl": 41.68348498010148,
+      "pnl_pct": 0.020783645655877418,
+      "hold_days": 6,
+      "exit_reason": "Max hold time (6 days)"
+    },
+    {
+      "symbol": "MRK",
+      "entry_date": "2025-12-16T00:00:00",
+      "exit_date": "2025-12-22T00:00:00",
+      "entry_price": 98.27,
+      "exit_price": 104.72,
+      "pnl": 131.6379318416897,
+      "pnl_pct": 0.06563549404701337,
+      "hold_days": 6,
+      "exit_reason": "Take profit reached (6.6%)"
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_date": "2025-12-17T00:00:00",
+      "exit_date": "2025-12-22T00:00:00",
+      "entry_price": 296.72,
+      "exit_price": 309.78,
+      "pnl": 88.25426990045395,
+      "pnl_pct": 0.04401455918037188,
+      "hold_days": 5,
+      "exit_reason": "Max hold time (5 days)"
+    },
+    {
+      "symbol": "NKE",
+      "entry_date": "2025-12-22T00:00:00",
+      "exit_date": "2025-12-26T00:00:00",
+      "entry_price": 57.22,
+      "exit_price": 60.93,
+      "pnl": 130.19115470461017,
+      "pnl_pct": 0.06483746941628803,
+      "hold_days": 4,
+      "exit_reason": "Take profit reached (6.5%)"
+    },
+    {
+      "symbol": "AAPL",
+      "entry_date": "2025-12-22T00:00:00",
+      "exit_date": "2025-12-29T00:00:00",
+      "entry_price": 270.97,
+      "exit_price": 273.76,
+      "pnl": 20.674661832778224,
+      "pnl_pct": 0.01029634276857203,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "COST",
+      "entry_date": "2025-12-22T00:00:00",
+      "exit_date": "2025-12-29T00:00:00",
+      "entry_price": 850.0,
+      "exit_price": 867.84,
+      "pnl": 42.143572424293275,
+      "pnl_pct": 0.020988235294117686,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "MMM",
+      "entry_date": "2025-12-22T00:00:00",
+      "exit_date": "2025-12-29T00:00:00",
+      "entry_price": 160.0,
+      "exit_price": 161.72,
+      "pnl": 21.58558817415801,
+      "pnl_pct": 0.010749999999999992,
+      "hold_days": 7,
+      "exit_reason": "Max hold time (7 days)"
+    },
+    {
+      "symbol": "PEP",
+      "entry_date": "2025-12-23T00:00:00",
+      "exit_date": "2025-12-29T00:00:00",
+      "entry_price": 143.68,
+      "exit_price": 144.24,
+      "pnl": 7.828291273359999,
+      "pnl_pct": 0.0038975501113585904,
+      "hold_days": 6,
+      "exit_reason": "Max hold time (6 days)"
+    },
+    {
+      "symbol": "PEP",
+      "entry_date": "2025-12-31T00:00:00",
+      "exit_date": "2025-12-31T00:00:00",
+      "entry_price": 143.52,
+      "exit_price": 143.52,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_days": 0,
+      "exit_reason": "backtest_end"
+    },
+    {
+      "symbol": "QCOM",
+      "entry_date": "2025-12-31T00:00:00",
+      "exit_date": "2025-12-31T00:00:00",
+      "entry_price": 171.05,
+      "exit_price": 171.05,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_days": 0,
+      "exit_reason": "backtest_end"
+    },
+    {
+      "symbol": "TXN",
+      "entry_date": "2025-12-31T00:00:00",
+      "exit_date": "2025-12-31T00:00:00",
+      "entry_price": 173.49,
+      "exit_price": 173.49,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_days": 0,
+      "exit_reason": "backtest_end"
+    },
+    {
+      "symbol": "IWM",
+      "entry_date": "2025-12-31T00:00:00",
+      "exit_date": "2025-12-31T00:00:00",
+      "entry_price": 246.16,
+      "exit_price": 246.16,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_days": 0,
+      "exit_reason": "backtest_end"
+    }
+  ],
+  "daily_equity": [
+    {
+      "date": "2025-10-01T00:00:00",
+      "equity": 100000.0,
+      "cash": 100000.0,
+      "positions": 0
+    },
+    {
+      "date": "2025-10-02T00:00:00",
+      "equity": 100001.40738624183,
+      "cash": 92000.0,
+      "positions": 4
+    },
+    {
+      "date": "2025-10-03T00:00:00",
+      "equity": 99936.9218637408,
+      "cash": 92000.0,
+      "positions": 4
+    },
+    {
+      "date": "2025-10-06T00:00:00",
+      "equity": 99929.65965273602,
+      "cash": 92000.0,
+      "positions": 4
+    },
+    {
+      "date": "2025-10-07T00:00:00",
+      "equity": 99948.18015568634,
+      "cash": 89936.69368746241,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-08T00:00:00",
+      "equity": 99908.42606491667,
+      "cash": 89936.69368746241,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-09T00:00:00",
+      "equity": 99977.05755673061,
+      "cash": 89936.69368746241,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-10T00:00:00",
+      "equity": 99869.83677070102,
+      "cash": 89936.69368746241,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-13T00:00:00",
+      "equity": 99966.75173964056,
+      "cash": 89868.17834390186,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-14T00:00:00",
+      "equity": 100113.62438827111,
+      "cash": 89908.01576434754,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-15T00:00:00",
+      "equity": 100242.25892189117,
+      "cash": 89908.01576434754,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-16T00:00:00",
+      "equity": 100239.75694212293,
+      "cash": 94166.78079728222,
+      "positions": 3
+    },
+    {
+      "date": "2025-10-17T00:00:00",
+      "equity": 100326.61176338032,
+      "cash": 90157.19051959731,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-20T00:00:00",
+      "equity": 100387.22481618173,
+      "cash": 90157.19051959731,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-21T00:00:00",
+      "equity": 100352.01621774091,
+      "cash": 96314.65480216387,
+      "positions": 2
+    },
+    {
+      "date": "2025-10-22T00:00:00",
+      "equity": 100352.01621774091,
+      "cash": 100352.01621774091,
+      "positions": 0
+    },
+    {
+      "date": "2025-10-23T00:00:00",
+      "equity": 100367.35301218604,
+      "cash": 94330.89524467645,
+      "positions": 3
+    },
+    {
+      "date": "2025-10-24T00:00:00",
+      "equity": 100337.65988312263,
+      "cash": 94330.89524467645,
+      "positions": 3
+    },
+    {
+      "date": "2025-10-27T00:00:00",
+      "equity": 100366.03559517702,
+      "cash": 94330.89524467645,
+      "positions": 3
+    },
+    {
+      "date": "2025-10-28T00:00:00",
+      "equity": 100380.59681288323,
+      "cash": 98358.71488327348,
+      "positions": 1
+    },
+    {
+      "date": "2025-10-29T00:00:00",
+      "equity": 100296.7770129418,
+      "cash": 96351.10294701581,
+      "positions": 2
+    },
+    {
+      "date": "2025-10-30T00:00:00",
+      "equity": 100287.1698701984,
+      "cash": 90254.98578690701,
+      "positions": 5
+    },
+    {
+      "date": "2025-10-31T00:00:00",
+      "equity": 100212.26783352294,
+      "cash": 90254.98578690701,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-03T00:00:00",
+      "equity": 100107.77570996452,
+      "cash": 90117.75159933882,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-04T00:00:00",
+      "equity": 100122.0658251423,
+      "cash": 90171.30360904952,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-05T00:00:00",
+      "equity": 100128.43308588059,
+      "cash": 90046.93888022873,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-06T00:00:00",
+      "equity": 100050.29494106761,
+      "cash": 90046.93888022873,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-07T00:00:00",
+      "equity": 100066.42431126704,
+      "cash": 90046.93888022873,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-10T00:00:00",
+      "equity": 100091.16046844452,
+      "cash": 90046.93888022873,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-11T00:00:00",
+      "equity": 100209.81492370559,
+      "cash": 90082.04442160009,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-12T00:00:00",
+      "equity": 100191.04596231929,
+      "cash": 90082.04442160009,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-13T00:00:00",
+      "equity": 100185.55982606766,
+      "cash": 92118.59557767384,
+      "positions": 4
+    },
+    {
+      "date": "2025-11-14T00:00:00",
+      "equity": 100172.71127678237,
+      "cash": 90114.88438115249,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-17T00:00:00",
+      "equity": 100149.91679423657,
+      "cash": 90114.88438115249,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-18T00:00:00",
+      "equity": 99935.72568303211,
+      "cash": 90099.66980637435,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-19T00:00:00",
+      "equity": 99874.10049009966,
+      "cash": 89984.70035115145,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-20T00:00:00",
+      "equity": 99865.17764976382,
+      "cash": 89918.78815177816,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-21T00:00:00",
+      "equity": 99973.75489818277,
+      "cash": 89858.02641771536,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-24T00:00:00",
+      "equity": 99992.52259301778,
+      "cash": 89858.02641771536,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-25T00:00:00",
+      "equity": 100126.89066110781,
+      "cash": 90014.31117054434,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-26T00:00:00",
+      "equity": 100264.42561668756,
+      "cash": 90003.06533680344,
+      "positions": 5
+    },
+    {
+      "date": "2025-11-28T00:00:00",
+      "equity": 100389.13299911216,
+      "cash": 90109.86560016284,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-01T00:00:00",
+      "equity": 100411.44329171782,
+      "cash": 92210.9165379764,
+      "positions": 4
+    },
+    {
+      "date": "2025-12-02T00:00:00",
+      "equity": 100421.54882976791,
+      "cash": 96394.9855600491,
+      "positions": 2
+    },
+    {
+      "date": "2025-12-03T00:00:00",
+      "equity": 100316.58255581431,
+      "cash": 96394.9855600491,
+      "positions": 2
+    },
+    {
+      "date": "2025-12-04T00:00:00",
+      "equity": 100338.82477395868,
+      "cash": 94295.41190220523,
+      "positions": 3
+    },
+    {
+      "date": "2025-12-05T00:00:00",
+      "equity": 100235.91674600277,
+      "cash": 94295.41190220523,
+      "positions": 3
+    },
+    {
+      "date": "2025-12-08T00:00:00",
+      "equity": 100151.14388326091,
+      "cash": 92220.5143311329,
+      "positions": 4
+    },
+    {
+      "date": "2025-12-09T00:00:00",
+      "equity": 100180.6632070966,
+      "cash": 94142.07525026525,
+      "positions": 3
+    },
+    {
+      "date": "2025-12-10T00:00:00",
+      "equity": 100216.93029136964,
+      "cash": 90134.84872198137,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-11T00:00:00",
+      "equity": 100271.10335959747,
+      "cash": 90051.25239429066,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-12T00:00:00",
+      "equity": 100317.33147035514,
+      "cash": 90051.25239429066,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-15T00:00:00",
+      "equity": 100254.02932866737,
+      "cash": 92138.11867085994,
+      "positions": 4
+    },
+    {
+      "date": "2025-12-16T00:00:00",
+      "equity": 100279.53148901425,
+      "cash": 94238.78756894734,
+      "positions": 3
+    },
+    {
+      "date": "2025-12-17T00:00:00",
+      "equity": 100255.76939074582,
+      "cash": 90227.60630938677,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-18T00:00:00",
+      "equity": 100271.68329257703,
+      "cash": 90146.20232745938,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-19T00:00:00",
+      "equity": 100316.17692484209,
+      "cash": 90146.20232745938,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-22T00:00:00",
+      "equity": 100398.08453096755,
+      "cash": 90146.20232745938,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-23T00:00:00",
+      "equity": 100425.79376396073,
+      "cash": 92366.23776849013,
+      "positions": 4
+    },
+    {
+      "date": "2025-12-24T00:00:00",
+      "equity": 100573.4310567462,
+      "cash": 90357.72189321091,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-26T00:00:00",
+      "equity": 100628.94394913316,
+      "cash": 90357.72189321091,
+      "positions": 5
+    },
+    {
+      "date": "2025-12-29T00:00:00",
+      "equity": 100620.50779937673,
+      "cash": 92495.87473853487,
+      "positions": 4
+    },
+    {
+      "date": "2025-12-30T00:00:00",
+      "equity": 100620.50779937673,
+      "cash": 100620.50779937673,
+      "positions": 0
+    },
+    {
+      "date": "2025-12-31T00:00:00",
+      "equity": 100620.50779937673,
+      "cash": 100620.50779937673,
+      "positions": 0
+    }
+  ]
+}

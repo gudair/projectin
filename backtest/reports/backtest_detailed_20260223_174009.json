@@ -1,0 +1,3397 @@
+{
+  "summary": {
+    "period": {
+      "start": "2025-10-01T00:00:00",
+      "end": "2025-10-10T00:00:00",
+      "trading_days": 8
+    },
+    "config": {
+      "initial_capital": 100000.0,
+      "use_ollama": true,
+      "time_step_minutes": 5
+    },
+    "agent_performance": {
+      "initial_capital": 100000.0,
+      "final_equity": 97247.88290574479,
+      "total_return": -2752.1170942552126,
+      "total_return_pct": -2.7521170942552122,
+      "total_trades": 120,
+      "sell_trades": 60,
+      "winning_trades": 24,
+      "losing_trades": 36,
+      "win_rate": 40.0,
+      "total_pnl": -2752.11709425528,
+      "total_wins": 5660.940004415894,
+      "total_losses": -8413.057098671174,
+      "avg_win": 235.87250018399558,
+      "avg_loss": -233.6960305186437,
+      "profit_factor": 0.6728755003112993,
+      "avg_hold_duration_minutes": 90.33333333333333,
+      "max_drawdown_pct": 3.8949732600337774,
+      "trading_days": 15,
+      "avg_daily_pnl": -183.47447295035198
+    },
+    "optimal_performance": {
+      "theoretical_max_trades": 624,
+      "avg_gain_per_optimal_trade": 4.2436219306812495,
+      "realistic_return_pct": 20.369385267269998,
+      "total_return": 20369.385267269998
+    },
+    "efficiency_pct": -13.511046397052434,
+    "decisions_count": 120,
+    "errors_count": 0
+  },
+  "daily_stats": [
+    {
+      "date": "2025-10-01T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 101189.1741821901,
+      "pnl": 1189.1741821900941,
+      "pnl_pct": 1.1891741821900943,
+      "trades": 14,
+      "winning_trades": 5,
+      "losing_trades": 2,
+      "max_drawdown": 1.2824563681888568
+    },
+    {
+      "date": "2025-10-01T00:00:00",
+      "starting_equity": 100000.0,
+      "ending_equity": 101189.1741821901,
+      "pnl": 1189.1741821900941,
+      "pnl_pct": 1.1891741821900943,
+      "trades": 14,
+      "winning_trades": 5,
+      "losing_trades": 2,
+      "max_drawdown": 1.2824563681888568
+    },
+    {
+      "date": "2025-10-02T00:00:00",
+      "starting_equity": 101189.1741821901,
+      "ending_equity": 101007.18749467444,
+      "pnl": -181.98668751565856,
+      "pnl_pct": -0.1798479817495035,
+      "trades": 18,
+      "winning_trades": 3,
+      "losing_trades": 6,
+      "max_drawdown": 1.254002688656813
+    },
+    {
+      "date": "2025-10-02T00:00:00",
+      "starting_equity": 101189.1741821901,
+      "ending_equity": 101007.18749467444,
+      "pnl": -181.98668751565856,
+      "pnl_pct": -0.1798479817495035,
+      "trades": 18,
+      "winning_trades": 3,
+      "losing_trades": 6,
+      "max_drawdown": 1.254002688656813
+    },
+    {
+      "date": "2025-10-03T00:00:00",
+      "starting_equity": 101007.18749467444,
+      "ending_equity": 100473.65026532066,
+      "pnl": -533.5372293537803,
+      "pnl_pct": -0.5282170928498636,
+      "trades": 14,
+      "winning_trades": 3,
+      "losing_trades": 4,
+      "max_drawdown": 1.221661974917076
+    },
+    {
+      "date": "2025-10-03T00:00:00",
+      "starting_equity": 101007.18749467444,
+      "ending_equity": 100473.65026532066,
+      "pnl": -533.5372293537803,
+      "pnl_pct": -0.5282170928498636,
+      "trades": 14,
+      "winning_trades": 3,
+      "losing_trades": 4,
+      "max_drawdown": 1.221661974917076
+    },
+    {
+      "date": "2025-10-06T00:00:00",
+      "starting_equity": 100473.65026532066,
+      "ending_equity": 100628.38671114003,
+      "pnl": 154.73644581937697,
+      "pnl_pct": 0.1540069912964888,
+      "trades": 12,
+      "winning_trades": 3,
+      "losing_trades": 3,
+      "max_drawdown": 0.5857336120879993
+    },
+    {
+      "date": "2025-10-06T00:00:00",
+      "starting_equity": 100473.65026532066,
+      "ending_equity": 100628.38671114003,
+      "pnl": 154.73644581937697,
+      "pnl_pct": 0.1540069912964888,
+      "trades": 12,
+      "winning_trades": 3,
+      "losing_trades": 3,
+      "max_drawdown": 0.5857336120879993
+    },
+    {
+      "date": "2025-10-07T00:00:00",
+      "starting_equity": 100628.38671114003,
+      "ending_equity": 100155.40373523129,
+      "pnl": -472.98297590874427,
+      "pnl_pct": -0.470029373785422,
+      "trades": 16,
+      "winning_trades": 4,
+      "losing_trades": 4,
+      "max_drawdown": 0.8417474355462454
+    },
+    {
+      "date": "2025-10-07T00:00:00",
+      "starting_equity": 100628.38671114003,
+      "ending_equity": 100155.40373523129,
+      "pnl": -472.98297590874427,
+      "pnl_pct": -0.470029373785422,
+      "trades": 16,
+      "winning_trades": 4,
+      "losing_trades": 4,
+      "max_drawdown": 0.8417474355462454
+    },
+    {
+      "date": "2025-10-08T00:00:00",
+      "starting_equity": 100155.40373523129,
+      "ending_equity": 100697.19526466215,
+      "pnl": 541.7915294308623,
+      "pnl_pct": 0.5409508715706752,
+      "trades": 16,
+      "winning_trades": 4,
+      "losing_trades": 4,
+      "max_drawdown": 1.2056347399837262
+    },
+    {
+      "date": "2025-10-08T00:00:00",
+      "starting_equity": 100155.40373523129,
+      "ending_equity": 100697.19526466215,
+      "pnl": 541.7915294308623,
+      "pnl_pct": 0.5409508715706752,
+      "trades": 16,
+      "winning_trades": 4,
+      "losing_trades": 4,
+      "max_drawdown": 1.2056347399837262
+    },
+    {
+      "date": "2025-10-09T00:00:00",
+      "starting_equity": 100697.19526466215,
+      "ending_equity": 99477.37837643237,
+      "pnl": -1219.816888229776,
+      "pnl_pct": -1.2113712651317992,
+      "trades": 14,
+      "winning_trades": 1,
+      "losing_trades": 6,
+      "max_drawdown": 1.2271670654002125
+    },
+    {
+      "date": "2025-10-09T00:00:00",
+      "starting_equity": 100697.19526466215,
+      "ending_equity": 99477.37837643237,
+      "pnl": -1219.816888229776,
+      "pnl_pct": -1.2113712651317992,
+      "trades": 14,
+      "winning_trades": 1,
+      "losing_trades": 6,
+      "max_drawdown": 1.2271670654002125
+    },
+    {
+      "date": "2025-10-10T00:00:00",
+      "starting_equity": 99477.37837643237,
+      "ending_equity": 97247.88290574479,
+      "pnl": -2229.495470687587,
+      "pnl_pct": -2.2412085109952864,
+      "trades": 16,
+      "winning_trades": 1,
+      "losing_trades": 7,
+      "max_drawdown": 3.0097237617513204
+    }
+  ],
+  "trades": [
+    {
+      "timestamp": "2025-10-01T09:30:00",
+      "symbol": "REGN",
+      "side": "buy",
+      "qty": 34.7798867914685,
+      "price": 575.045,
+      "value": 20000.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T09:35:00",
+      "symbol": "DELL",
+      "side": "buy",
+      "qty": 139.38933484683093,
+      "price": 143.87,
+      "value": 20053.943604413565,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T09:35:00",
+      "symbol": "AAL",
+      "side": "buy",
+      "qty": 1771.5341387808915,
+      "price": 11.3201,
+      "value": 20053.94360441357,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T09:50:00",
+      "symbol": "REGN",
+      "side": "sell",
+      "qty": 34.7798867914685,
+      "price": 593.28,
+      "value": 20634.21123564243,
+      "pnl": 634.2112356424295,
+      "pnl_pct": 3.171056178212148,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-01T09:55:00",
+      "symbol": "AFRM",
+      "side": "buy",
+      "qty": 270.82633607372884,
+      "price": 74.46,
+      "value": 20165.72898404985,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T10:05:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 1048.9372753470561,
+      "price": 19.2101,
+      "value": 20150.189953144483,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T10:15:00",
+      "symbol": "MU",
+      "side": "buy",
+      "qty": 59.07229734200734,
+      "price": 171.065,
+      "value": 10105.202544810485,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T10:35:00",
+      "symbol": "MU",
+      "side": "sell",
+      "qty": 59.07229734200734,
+      "price": 176.47,
+      "value": 10424.488311944035,
+      "pnl": 319.2857671335496,
+      "pnl_pct": 3.159617689182474,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-01T10:50:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 1048.9372753470561,
+      "price": 18.795,
+      "value": 19714.776090147923,
+      "pnl": -435.41386299656006,
+      "pnl_pct": -2.1608424734904927,
+      "hold_duration_minutes": 45
+    },
+    {
+      "timestamp": "2025-10-01T10:55:00",
+      "symbol": "AAL",
+      "side": "sell",
+      "qty": 1771.5341387808915,
+      "price": 11.2907,
+      "value": 20001.860500733408,
+      "pnl": -52.083103680161,
+      "pnl_pct": -0.259715020185348,
+      "hold_duration_minutes": 80
+    },
+    {
+      "timestamp": "2025-10-01T15:30:00",
+      "symbol": "DELL",
+      "side": "sell",
+      "qty": 139.38933484683093,
+      "price": 148.435,
+      "value": 20690.25591798935,
+      "pnl": 636.3123135757851,
+      "pnl_pct": 3.1730034058525156,
+      "hold_duration_minutes": 355
+    },
+    {
+      "timestamp": "2025-10-01T15:35:00",
+      "symbol": "AFRM",
+      "side": "sell",
+      "qty": 270.82633607372884,
+      "price": 74.745,
+      "value": 20242.914489830862,
+      "pnl": 77.18550578101349,
+      "pnl_pct": 0.38275584206285634,
+      "hold_duration_minutes": 340
+    },
+    {
+      "timestamp": "2025-10-01T15:55:00",
+      "symbol": "INTC",
+      "side": "buy",
+      "qty": 562.5771356989495,
+      "price": 35.97,
+      "value": 20235.899571091213,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-01T16:00:00",
+      "symbol": "INTC",
+      "side": "sell",
+      "qty": 562.5771356989495,
+      "price": 35.9872,
+      "value": 20245.575897825238,
+      "pnl": 9.67632673402477,
+      "pnl_pct": 0.0478176257992912,
+      "hold_duration_minutes": 5
+    },
+    {
+      "timestamp": "2025-10-02T09:30:00",
+      "symbol": "MRVL",
+      "side": "buy",
+      "qty": 235.0230500108933,
+      "price": 86.11,
+      "value": 20237.83483643802,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T09:35:00",
+      "symbol": "NIO",
+      "side": "buy",
+      "qty": 2545.2848502940737,
+      "price": 7.95,
+      "value": 20235.014559837888,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T09:35:00",
+      "symbol": "BABA",
+      "side": "buy",
+      "qty": 105.72638209564266,
+      "price": 191.3904,
+      "value": 20235.014559837888,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T09:40:00",
+      "symbol": "SOFI",
+      "side": "buy",
+      "qty": 777.8023632870675,
+      "price": 25.905,
+      "value": 20148.970220951483,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T09:55:00",
+      "symbol": "RIVN",
+      "side": "buy",
+      "qty": 741.2446228627348,
+      "price": 13.715,
+      "value": 10166.170002562407,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T09:55:00",
+      "symbol": "NIO",
+      "side": "sell",
+      "qty": 2545.2848502940737,
+      "price": 7.7608,
+      "value": 19753.446666162246,
+      "pnl": -481.56789367564124,
+      "pnl_pct": -2.37987421383649,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-02T10:15:00",
+      "symbol": "NFLX",
+      "side": "buy",
+      "qty": 13.128281747735716,
+      "price": 1139.51,
+      "value": 14959.808334362326,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T10:40:00",
+      "symbol": "MRVL",
+      "side": "sell",
+      "qty": 235.0230500108933,
+      "price": 85.83,
+      "value": 20172.02838243497,
+      "pnl": -65.80645400305002,
+      "pnl_pct": -0.32516548600627054,
+      "hold_duration_minutes": 70
+    },
+    {
+      "timestamp": "2025-10-02T11:50:00",
+      "symbol": "RIVN",
+      "side": "sell",
+      "qty": 741.2446228627348,
+      "price": 13.435,
+      "value": 9958.621508160842,
+      "pnl": -207.5484944015643,
+      "pnl_pct": -2.041560335399184,
+      "hold_duration_minutes": 115
+    },
+    {
+      "timestamp": "2025-10-02T12:10:00",
+      "symbol": "SOFI",
+      "side": "sell",
+      "qty": 777.8023632870675,
+      "price": 25.845,
+      "value": 20102.30207915426,
+      "pnl": -46.66814179722496,
+      "pnl_pct": -0.2316155182397266,
+      "hold_duration_minutes": 150
+    },
+    {
+      "timestamp": "2025-10-02T12:15:00",
+      "symbol": "MRVL",
+      "side": "buy",
+      "qty": 231.54815554295337,
+      "price": 86.755,
+      "value": 20087.960234128917,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T13:20:00",
+      "symbol": "MRVL",
+      "side": "sell",
+      "qty": 231.54815554295337,
+      "price": 86.6814,
+      "value": 20070.918289880956,
+      "pnl": -17.04194424796151,
+      "pnl_pct": -0.0848366088409897,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-02T14:05:00",
+      "symbol": "AFRM",
+      "side": "buy",
+      "qty": 260.42272076114125,
+      "price": 77.17,
+      "value": 20096.82136113727,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T15:10:00",
+      "symbol": "AFRM",
+      "side": "sell",
+      "qty": 260.42272076114125,
+      "price": 77.49,
+      "value": 20180.156631780836,
+      "pnl": 83.33527064356531,
+      "pnl_pct": 0.41466891278994483,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-02T15:35:00",
+      "symbol": "AMC",
+      "side": "buy",
+      "qty": 6526.450590202098,
+      "price": 3.08,
+      "value": 20101.467817822464,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-02T16:00:00",
+      "symbol": "BABA",
+      "side": "sell",
+      "qty": 105.72638209564266,
+      "price": 189.34,
+      "value": 20018.233185988982,
+      "pnl": -216.7813738489058,
+      "pnl_pct": -1.071318101639372,
+      "hold_duration_minutes": 385
+    },
+    {
+      "timestamp": "2025-10-02T16:00:00",
+      "symbol": "NFLX",
+      "side": "sell",
+      "qty": 13.128281747735716,
+      "price": 1163.37,
+      "value": 15273.0491368633,
+      "pnl": 313.2408025009736,
+      "pnl_pct": 2.0938824582495945,
+      "hold_duration_minutes": 345
+    },
+    {
+      "timestamp": "2025-10-02T16:00:00",
+      "symbol": "AMC",
+      "side": "sell",
+      "qty": 6526.450590202098,
+      "price": 3.15,
+      "value": 20558.31935913661,
+      "pnl": 456.85154131414674,
+      "pnl_pct": 2.2727272727272716,
+      "hold_duration_minutes": 25
+    },
+    {
+      "timestamp": "2025-10-03T09:40:00",
+      "symbol": "COIN",
+      "side": "buy",
+      "qty": 53.00127902121183,
+      "price": 381.15,
+      "value": 20201.437498934887,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T09:40:00",
+      "symbol": "ORCL",
+      "side": "buy",
+      "qty": 68.62717204468903,
+      "price": 294.365,
+      "value": 20201.437498934887,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T09:45:00",
+      "symbol": "LUV",
+      "side": "buy",
+      "qty": 605.3188724320224,
+      "price": 33.3,
+      "value": 20157.118451986345,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T10:05:00",
+      "symbol": "COIN",
+      "side": "sell",
+      "qty": 53.00127902121183,
+      "price": 372.9637,
+      "value": 19767.55312848354,
+      "pnl": -433.8843704513456,
+      "pnl_pct": -2.147789584153217,
+      "hold_duration_minutes": 25
+    },
+    {
+      "timestamp": "2025-10-03T10:10:00",
+      "symbol": "ORCL",
+      "side": "sell",
+      "qty": 68.62717204468903,
+      "price": 288.33,
+      "value": 19787.27251564519,
+      "pnl": -414.1649832896983,
+      "pnl_pct": -2.0501758021503913,
+      "hold_duration_minutes": 30
+    },
+    {
+      "timestamp": "2025-10-03T10:15:00",
+      "symbol": "SHOP",
+      "side": "buy",
+      "qty": 126.78801258870621,
+      "price": 157.67,
+      "value": 19990.665944861306,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T10:20:00",
+      "symbol": "BIIB",
+      "side": "buy",
+      "qty": 125.93319988368022,
+      "price": 158.605,
+      "value": 19973.6351675511,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T10:55:00",
+      "symbol": "MU",
+      "side": "buy",
+      "qty": 105.11070482931571,
+      "price": 190.455,
+      "value": 20018.859288267326,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T11:25:00",
+      "symbol": "BIIB",
+      "side": "sell",
+      "qty": 125.93319988368022,
+      "price": 159.33,
+      "value": 20064.93673746677,
+      "pnl": 91.30156991567128,
+      "pnl_pct": 0.4571104315753128,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-03T12:00:00",
+      "symbol": "MU",
+      "side": "sell",
+      "qty": 105.11070482931571,
+      "price": 190.44,
+      "value": 20017.282627694884,
+      "pnl": -1.5766605724420515,
+      "pnl_pct": -0.007875876191237842,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-03T12:45:00",
+      "symbol": "LUV",
+      "side": "sell",
+      "qty": 605.3188724320224,
+      "price": 33.225,
+      "value": 20111.719536553945,
+      "pnl": -45.39891543240083,
+      "pnl_pct": -0.225225225225221,
+      "hold_duration_minutes": 180
+    },
+    {
+      "timestamp": "2025-10-03T13:50:00",
+      "symbol": "SHOP",
+      "side": "sell",
+      "qty": 126.78801258870621,
+      "price": 158.155,
+      "value": 20052.15813096683,
+      "pnl": 61.492186105522705,
+      "pnl_pct": 0.30760449039132465,
+      "hold_duration_minutes": 215
+    },
+    {
+      "timestamp": "2025-10-03T15:10:00",
+      "symbol": "TSLA",
+      "side": "buy",
+      "qty": 47.109242521648106,
+      "price": 425.67,
+      "value": 20052.99126418995,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-03T16:00:00",
+      "symbol": "TSLA",
+      "side": "sell",
+      "qty": 47.109242521648106,
+      "price": 430.1,
+      "value": 20261.68520856085,
+      "pnl": 208.6939443709016,
+      "pnl_pct": 1.0407122888622666,
+      "hold_duration_minutes": 50
+    },
+    {
+      "timestamp": "2025-10-06T09:35:00",
+      "symbol": "MRVL",
+      "side": "buy",
+      "qty": 222.97747506728953,
+      "price": 90.12,
+      "value": 20094.730053064133,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-06T09:40:00",
+      "symbol": "SMCI",
+      "side": "buy",
+      "qty": 363.8801765733138,
+      "price": 55.21,
+      "value": 20089.824548612654,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-06T09:40:00",
+      "symbol": "AFRM",
+      "side": "buy",
+      "qty": 267.2585412879161,
+      "price": 75.17,
+      "value": 20089.824548612654,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-06T09:50:00",
+      "symbol": "AMC",
+      "side": "buy",
+      "qty": 6778.966461219428,
+      "price": 2.965,
+      "value": 20099.635557515605,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-06T10:55:00",
+      "symbol": "AMC",
+      "side": "sell",
+      "qty": 6778.966461219428,
+      "price": 2.97,
+      "value": 20133.530389821703,
+      "pnl": 33.89483230609767,
+      "pnl_pct": 0.16863406408094697,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-06T12:40:00",
+      "symbol": "SMCI",
+      "side": "sell",
+      "qty": 363.8801765733138,
+      "price": 54.94,
+      "value": 19991.57690093786,
+      "pnl": -98.24764767479428,
+      "pnl_pct": -0.48904184024633,
+      "hold_duration_minutes": 180
+    },
+    {
+      "timestamp": "2025-10-06T13:00:00",
+      "symbol": "MRVL",
+      "side": "sell",
+      "qty": 222.97747506728953,
+      "price": 89.73,
+      "value": 20007.76883778789,
+      "pnl": -86.961215276242,
+      "pnl_pct": -0.4327563249001286,
+      "hold_duration_minutes": 205
+    },
+    {
+      "timestamp": "2025-10-06T15:00:00",
+      "symbol": "AFRM",
+      "side": "sell",
+      "qty": 267.2585412879161,
+      "price": 75.495,
+      "value": 20176.683574531227,
+      "pnl": 86.85902591857302,
+      "pnl_pct": 0.43235333244645613,
+      "hold_duration_minutes": 320
+    },
+    {
+      "timestamp": "2025-10-06T15:45:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 991.9406792847053,
+      "price": 20.245,
+      "value": 20081.83905211886,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-06T15:55:00",
+      "symbol": "HOOD",
+      "side": "buy",
+      "qty": 139.14609086176324,
+      "price": 144.6,
+      "value": 20120.524738610962,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-06T16:00:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 991.9406792847053,
+      "price": 20.48,
+      "value": 20314.945111750767,
+      "pnl": 233.10605963190756,
+      "pnl_pct": 1.1607804396147285,
+      "hold_duration_minutes": 15
+    },
+    {
+      "timestamp": "2025-10-06T16:00:00",
+      "symbol": "HOOD",
+      "side": "sell",
+      "qty": 139.14609086176324,
+      "price": 144.5,
+      "value": 20106.61012952479,
+      "pnl": -13.914609086172277,
+      "pnl_pct": -0.06915629322266316,
+      "hold_duration_minutes": 5
+    },
+    {
+      "timestamp": "2025-10-07T09:30:00",
+      "symbol": "BNTX",
+      "side": "buy",
+      "qty": 189.27562627883015,
+      "price": 106.33,
+      "value": 20125.67734222801,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T09:35:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 970.370713683526,
+      "price": 20.7597,
+      "value": 20144.604904855893,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T09:35:00",
+      "symbol": "SHOP",
+      "side": "buy",
+      "qty": 120.65888955021347,
+      "price": 166.955,
+      "value": 20144.604904855893,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T09:40:00",
+      "symbol": "INTC",
+      "side": "buy",
+      "qty": 536.2300422599475,
+      "price": 37.4965,
+      "value": 20106.74977960012,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T10:00:00",
+      "symbol": "NIO",
+      "side": "buy",
+      "qty": 1359.482743718737,
+      "price": 7.395,
+      "value": 10053.37488980006,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T10:00:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 970.370713683526,
+      "price": 20.305,
+      "value": 19703.377341343996,
+      "pnl": -441.22756351189673,
+      "pnl_pct": -2.1903014012726456,
+      "hold_duration_minutes": 25
+    },
+    {
+      "timestamp": "2025-10-07T10:40:00",
+      "symbol": "SHOP",
+      "side": "sell",
+      "qty": 120.65888955021347,
+      "price": 166.16,
+      "value": 20048.68108766347,
+      "pnl": -95.92381719242258,
+      "pnl_pct": -0.47617621514780845,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-07T10:45:00",
+      "symbol": "INTC",
+      "side": "sell",
+      "qty": 536.2300422599475,
+      "price": 37.6042,
+      "value": 20164.501755151516,
+      "pnl": 57.751975551396754,
+      "pnl_pct": 0.2872268078354,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-07T11:10:00",
+      "symbol": "NIO",
+      "side": "sell",
+      "qty": 1359.482743718737,
+      "price": 7.3701,
+      "value": 10019.523769481464,
+      "pnl": -33.85112031859535,
+      "pnl_pct": -0.3367139959431929,
+      "hold_duration_minutes": 70
+    },
+    {
+      "timestamp": "2025-10-07T13:05:00",
+      "symbol": "UPST",
+      "side": "buy",
+      "qty": 388.3153036016656,
+      "price": 51.48,
+      "value": 19990.471829413746,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T14:20:00",
+      "symbol": "ORCL",
+      "side": "buy",
+      "qty": 70.45630678828982,
+      "price": 284.345,
+      "value": 20033.89855371627,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T14:55:00",
+      "symbol": "BNTX",
+      "side": "sell",
+      "qty": 189.27562627883015,
+      "price": 105.835,
+      "value": 20031.985907219987,
+      "pnl": -93.69143500802238,
+      "pnl_pct": -0.4655318348537644,
+      "hold_duration_minutes": 325
+    },
+    {
+      "timestamp": "2025-10-07T15:25:00",
+      "symbol": "ORCL",
+      "side": "sell",
+      "qty": 70.45630678828982,
+      "price": 284.62,
+      "value": 20053.27403808305,
+      "pnl": 19.375484366781166,
+      "pnl_pct": 0.09671349944610272,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-07T15:40:00",
+      "symbol": "SOFI",
+      "side": "buy",
+      "qty": 712.9275779866382,
+      "price": 28.11,
+      "value": 20040.3942172044,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-07T15:50:00",
+      "symbol": "UPST",
+      "side": "sell",
+      "qty": 388.3153036016656,
+      "price": 51.72,
+      "value": 20083.667502278146,
+      "pnl": 93.19567286439997,
+      "pnl_pct": 0.46620046620046734,
+      "hold_duration_minutes": 165
+    },
+    {
+      "timestamp": "2025-10-07T16:00:00",
+      "symbol": "SOFI",
+      "side": "sell",
+      "qty": 712.9275779866382,
+      "price": 28.14,
+      "value": 20061.782044544,
+      "pnl": 21.387827339600335,
+      "pnl_pct": 0.10672358591249259,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-08T09:35:00",
+      "symbol": "DELL",
+      "side": "buy",
+      "qty": 127.82162823746013,
+      "price": 156.7112,
+      "value": 20031.08074704626,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T09:35:00",
+      "symbol": "MRNA",
+      "side": "buy",
+      "qty": 718.9906944381286,
+      "price": 27.86,
+      "value": 20031.08074704626,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T09:35:00",
+      "symbol": "XPEV",
+      "side": "buy",
+      "qty": 835.6729556548295,
+      "price": 23.97,
+      "value": 20031.08074704626,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T09:55:00",
+      "symbol": "DELL",
+      "side": "sell",
+      "qty": 127.82162823746013,
+      "price": 161.7225,
+      "value": 20671.633272632647,
+      "pnl": 640.5525255863868,
+      "pnl_pct": 3.1977931379505886,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-08T10:00:00",
+      "symbol": "NIO",
+      "side": "buy",
+      "qty": 2608.082053072225,
+      "price": 7.7501,
+      "value": 20212.89671951505,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T10:25:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 973.7346806601996,
+      "price": 20.73,
+      "value": 20185.51993008594,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T10:40:00",
+      "symbol": "XPEV",
+      "side": "sell",
+      "qty": 835.6729556548295,
+      "price": 24.045,
+      "value": 20093.756218720377,
+      "pnl": 62.675471674116125,
+      "pnl_pct": 0.312891113892385,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-08T10:55:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 973.7346806601996,
+      "price": 20.265,
+      "value": 19732.733303578945,
+      "pnl": -452.78662650699334,
+      "pnl_pct": -2.2431259044862544,
+      "hold_duration_minutes": 30
+    },
+    {
+      "timestamp": "2025-10-08T11:05:00",
+      "symbol": "NIO",
+      "side": "sell",
+      "qty": 2608.082053072225,
+      "price": 7.725,
+      "value": 20147.433859982935,
+      "pnl": -65.46285953211554,
+      "pnl_pct": -0.3238667888156415,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-08T11:10:00",
+      "symbol": "MRNA",
+      "side": "sell",
+      "qty": 718.9906944381286,
+      "price": 28.84,
+      "value": 20735.69162759563,
+      "pnl": 704.6108805493677,
+      "pnl_pct": 3.5175879396985015,
+      "hold_duration_minutes": 95
+    },
+    {
+      "timestamp": "2025-10-08T14:25:00",
+      "symbol": "DELL",
+      "side": "buy",
+      "qty": 124.09197522581692,
+      "price": 162.855,
+      "value": 20208.998625400414,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T15:25:00",
+      "symbol": "REGN",
+      "side": "buy",
+      "qty": 35.16719091276252,
+      "price": 575.165,
+      "value": 20226.937361339053,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T15:30:00",
+      "symbol": "DELL",
+      "side": "sell",
+      "qty": 124.09197522581692,
+      "price": 163.4135,
+      "value": 20278.303993564034,
+      "pnl": 69.30536816361928,
+      "pnl_pct": 0.34294310890055835,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-08T15:50:00",
+      "symbol": "REGN",
+      "side": "sell",
+      "qty": 35.16719091276252,
+      "price": 563.45,
+      "value": 19814.953719796045,
+      "pnl": -411.98364154300725,
+      "pnl_pct": -2.036806829344595,
+      "hold_duration_minutes": 25
+    },
+    {
+      "timestamp": "2025-10-08T15:55:00",
+      "symbol": "MU",
+      "side": "buy",
+      "qty": 102.39177921059755,
+      "price": 196.7,
+      "value": 20140.462970724537,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-08T16:00:00",
+      "symbol": "MU",
+      "side": "sell",
+      "qty": 102.39177921059755,
+      "price": 196.65,
+      "value": 20135.343381764007,
+      "pnl": -5.119588960529654,
+      "pnl_pct": -0.025419420437212927,
+      "hold_duration_minutes": 5
+    },
+    {
+      "timestamp": "2025-10-09T09:30:00",
+      "symbol": "DAL",
+      "side": "buy",
+      "qty": 326.46197200409193,
+      "price": 61.69,
+      "value": 20139.43905293243,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T09:30:00",
+      "symbol": "AFRM",
+      "side": "buy",
+      "qty": 264.50537237893917,
+      "price": 76.14,
+      "value": 20139.43905293243,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T09:35:00",
+      "symbol": "LUV",
+      "side": "buy",
+      "qty": 601.2721371498723,
+      "price": 33.51,
+      "value": 20148.62931589222,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T09:40:00",
+      "symbol": "LCID",
+      "side": "buy",
+      "qty": 917.1336525502086,
+      "price": 21.9541,
+      "value": 20134.843921452535,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T09:40:00",
+      "symbol": "AFRM",
+      "side": "sell",
+      "qty": 264.50537237893917,
+      "price": 78.8625,
+      "value": 20859.55492923409,
+      "pnl": 720.115876301661,
+      "pnl_pct": 3.5756501182033054,
+      "hold_duration_minutes": 10
+    },
+    {
+      "timestamp": "2025-10-09T10:10:00",
+      "symbol": "DAL",
+      "side": "sell",
+      "qty": 326.46197200409193,
+      "price": 60.365,
+      "value": 19706.87694002701,
+      "pnl": -432.5621129054198,
+      "pnl_pct": -2.147835953963355,
+      "hold_duration_minutes": 40
+    },
+    {
+      "timestamp": "2025-10-09T10:25:00",
+      "symbol": "LUV",
+      "side": "sell",
+      "qty": 601.2721371498723,
+      "price": 32.475,
+      "value": 19526.312653942103,
+      "pnl": -622.3166619501171,
+      "pnl_pct": -3.0886302596239896,
+      "hold_duration_minutes": 50
+    },
+    {
+      "timestamp": "2025-10-09T10:30:00",
+      "symbol": "LCID",
+      "side": "sell",
+      "qty": 917.1336525502086,
+      "price": 21.4724,
+      "value": 19693.0606410191,
+      "pnl": -441.7832804334357,
+      "pnl_pct": -2.1941231933898466,
+      "hold_duration_minutes": 50
+    },
+    {
+      "timestamp": "2025-10-09T15:25:00",
+      "symbol": "ORCL",
+      "side": "buy",
+      "qty": 66.73945870434308,
+      "price": 299.435,
+      "value": 19984.12981713497,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T15:40:00",
+      "symbol": "NIO",
+      "side": "buy",
+      "qty": 2661.503807400433,
+      "price": 7.505,
+      "value": 19974.58607454025,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T15:55:00",
+      "symbol": "LCID",
+      "side": "buy",
+      "qty": 921.6341374482132,
+      "price": 21.65,
+      "value": 19953.379075753815,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-09T16:00:00",
+      "symbol": "ORCL",
+      "side": "sell",
+      "qty": 66.73945870434308,
+      "price": 297.04,
+      "value": 19824.28881353807,
+      "pnl": -159.8410035968991,
+      "pnl_pct": -0.7998396980980718,
+      "hold_duration_minutes": 35
+    },
+    {
+      "timestamp": "2025-10-09T16:00:00",
+      "symbol": "NIO",
+      "side": "sell",
+      "qty": 2661.503807400433,
+      "price": 7.45,
+      "value": 19828.203365133224,
+      "pnl": -146.3827094070257,
+      "pnl_pct": -0.7328447701532406,
+      "hold_duration_minutes": 20
+    },
+    {
+      "timestamp": "2025-10-09T16:00:00",
+      "symbol": "LCID",
+      "side": "sell",
+      "qty": 921.6341374482132,
+      "price": 21.5013,
+      "value": 19816.33207951527,
+      "pnl": -137.04699623854685,
+      "pnl_pct": -0.6868360277136135,
+      "hold_duration_minutes": 5
+    },
+    {
+      "timestamp": "2025-10-10T09:30:00",
+      "symbol": "INTC",
+      "side": "buy",
+      "qty": 510.04885470009174,
+      "price": 39.007,
+      "value": 19895.475675286478,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T09:35:00",
+      "symbol": "MARA",
+      "side": "buy",
+      "qty": 930.32625155402,
+      "price": 21.405,
+      "value": 19913.6334145138,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T09:35:00",
+      "symbol": "RIOT",
+      "side": "buy",
+      "qty": 853.929391702993,
+      "price": 23.32,
+      "value": 19913.6334145138,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T09:35:00",
+      "symbol": "SOFI",
+      "side": "buy",
+      "qty": 683.6566787982512,
+      "price": 29.075,
+      "value": 19877.317936059153,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T10:20:00",
+      "symbol": "AFRM",
+      "side": "buy",
+      "qty": 131.62043395615913,
+      "price": 75.51,
+      "value": 9938.658968029576,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T10:20:00",
+      "symbol": "MARA",
+      "side": "sell",
+      "qty": 930.32625155402,
+      "price": 20.97,
+      "value": 19508.941495087798,
+      "pnl": -404.6919194260008,
+      "pnl_pct": -2.032235459004916,
+      "hold_duration_minutes": 45
+    },
+    {
+      "timestamp": "2025-10-10T10:25:00",
+      "symbol": "DVN",
+      "side": "buy",
+      "qty": 436.90801874061384,
+      "price": 33.7,
+      "value": 14723.800231558687,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T10:35:00",
+      "symbol": "INTC",
+      "side": "sell",
+      "qty": 510.04885470009174,
+      "price": 39.059,
+      "value": 19921.99821573088,
+      "pnl": 26.522540444402694,
+      "pnl_pct": 0.13330940600404012,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-10T10:40:00",
+      "symbol": "SOFI",
+      "side": "sell",
+      "qty": 683.6566787982512,
+      "price": 28.995,
+      "value": 19822.625401755293,
+      "pnl": -54.69253430386016,
+      "pnl_pct": -0.2751504729148756,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-10T10:45:00",
+      "symbol": "RIOT",
+      "side": "sell",
+      "qty": 853.929391702993,
+      "price": 22.805,
+      "value": 19473.859777786754,
+      "pnl": -439.7736367270445,
+      "pnl_pct": -2.2084048027444405,
+      "hold_duration_minutes": 70
+    },
+    {
+      "timestamp": "2025-10-10T11:00:00",
+      "symbol": "AFRM",
+      "side": "sell",
+      "qty": 131.62043395615913,
+      "price": 73.78,
+      "value": 9710.95561728542,
+      "pnl": -227.7033507441556,
+      "pnl_pct": -2.2910872732088494,
+      "hold_duration_minutes": 40
+    },
+    {
+      "timestamp": "2025-10-10T11:35:00",
+      "symbol": "DVN",
+      "side": "sell",
+      "qty": 436.90801874061384,
+      "price": 33.0,
+      "value": 14417.964618440257,
+      "pnl": -305.83561311843005,
+      "pnl_pct": -2.077151335311575,
+      "hold_duration_minutes": 70
+    },
+    {
+      "timestamp": "2025-10-10T14:25:00",
+      "symbol": "SMCI",
+      "side": "buy",
+      "qty": 361.28643898529117,
+      "price": 54.29,
+      "value": 19614.240772511457,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T14:25:00",
+      "symbol": "SHOP",
+      "side": "buy",
+      "qty": 127.45209897989835,
+      "price": 153.895,
+      "value": 19614.240772511457,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "hold_duration_minutes": 0
+    },
+    {
+      "timestamp": "2025-10-10T15:30:00",
+      "symbol": "SMCI",
+      "side": "sell",
+      "qty": 361.28643898529117,
+      "price": 53.17,
+      "value": 19209.599960847932,
+      "pnl": -404.6408116635248,
+      "pnl_pct": -2.0629950267084114,
+      "hold_duration_minutes": 65
+    },
+    {
+      "timestamp": "2025-10-10T16:00:00",
+      "symbol": "SHOP",
+      "side": "sell",
+      "qty": 127.45209897989835,
+      "price": 150.61,
+      "value": 19195.56062736249,
+      "pnl": -418.6801451489664,
+      "pnl_pct": -2.134572273303228,
+      "hold_duration_minutes": 95
+    }
+  ],
+  "decisions": [
+    {
+      "time": "2025-10-01T09:30:00",
+      "symbol": "REGN",
+      "action": "BUY",
+      "price": 575.045,
+      "qty": 34.7798867914685,
+      "score": 9,
+      "momentum": 2.119479320203858,
+      "volume_ratio": 6.43754899399007,
+      "stop_loss": 563.5441,
+      "take_profit": 592.29635,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry with fresh momentum and no major risk flags; supports short-term upside.",
+        "risk_flags": 0,
+        "trend": "UNKNOWN",
+        "spy_context": "SPY: \ud83d\udcc8 +0.04%"
+      }
+    },
+    {
+      "time": "2025-10-01T09:35:00",
+      "symbol": "DELL",
+      "action": "BUY",
+      "price": 143.87,
+      "qty": 139.38933484683093,
+      "score": 9,
+      "momentum": 2.0897640588965714,
+      "volume_ratio": 2.5566739775467453,
+      "stop_loss": 140.9926,
+      "take_profit": 148.1861,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point within recent range, supported by fresh momentum and rising market.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.25%"
+      }
+    },
+    {
+      "time": "2025-10-01T09:35:00",
+      "symbol": "AAL",
+      "action": "BUY",
+      "price": 11.3201,
+      "qty": 1771.5341387808915,
+      "score": 7,
+      "momentum": 0.4151401985221655,
+      "volume_ratio": 1.6198353044712053,
+      "stop_loss": 11.093698,
+      "take_profit": 11.659703,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and reasonable entry in an uptrend, supported by market conditions.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.25%"
+      }
+    },
+    {
+      "time": "2025-10-01T09:50:00",
+      "symbol": "REGN",
+      "action": "SELL",
+      "price": 593.28,
+      "qty": 34.7798867914685,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T09:55:00",
+      "symbol": "AFRM",
+      "action": "BUY",
+      "price": 74.46,
+      "qty": 270.82633607372884,
+      "score": 5,
+      "momentum": 0.6080259424401954,
+      "volume_ratio": 0.42671439705784436,
+      "stop_loss": 72.9708,
+      "take_profit": 76.6938,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum at opening, within reason, and market is slightly up.",
+        "risk_flags": 0,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.12%"
+      }
+    },
+    {
+      "time": "2025-10-01T10:05:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 19.2101,
+      "qty": 1048.9372753470561,
+      "score": 9,
+      "momentum": 1.8293135435992696,
+      "volume_ratio": 2.791638605340709,
+      "stop_loss": 18.825898,
+      "take_profit": 19.786403,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReasonable entry point, fresh momentum, and supporting market context outweigh near-range high risk.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.22%"
+      }
+    },
+    {
+      "time": "2025-10-01T10:15:00",
+      "symbol": "MU",
+      "action": "BUY",
+      "price": 171.065,
+      "qty": 59.07229734200734,
+      "score": 9,
+      "momentum": 0.4492072812683419,
+      "volume_ratio": 1.6036370517754301,
+      "stop_loss": 167.6437,
+      "take_profit": 176.19695000000002,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum in an uptrend, moderate volume, and supportive market context.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.25%"
+      }
+    },
+    {
+      "time": "2025-10-01T10:35:00",
+      "symbol": "MU",
+      "action": "SELL",
+      "price": 176.47,
+      "qty": 59.07229734200734,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T10:50:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 18.795,
+      "qty": 1048.9372753470561,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-01T10:55:00",
+      "symbol": "AAL",
+      "action": "SELL",
+      "price": 11.2907,
+      "qty": 1771.5341387808915,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T15:30:00",
+      "symbol": "DELL",
+      "action": "SELL",
+      "price": 148.435,
+      "qty": 139.38933484683093,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-01T15:35:00",
+      "symbol": "AFRM",
+      "action": "SELL",
+      "price": 74.745,
+      "qty": 270.82633607372884,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-01T15:55:00",
+      "symbol": "INTC",
+      "action": "BUY",
+      "price": 35.97,
+      "qty": 562.5771356989495,
+      "score": 7,
+      "momentum": 0.2801823276042228,
+      "volume_ratio": 2.2655740516237572,
+      "stop_loss": 35.2506,
+      "take_profit": 37.0491,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and trend alignment outweigh near-range high risks.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.86%"
+      }
+    },
+    {
+      "time": "2025-10-01T16:00:00",
+      "symbol": "INTC",
+      "action": "SELL",
+      "price": 35.9872,
+      "qty": 562.5771356989495,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-02T09:30:00",
+      "symbol": "MRVL",
+      "action": "BUY",
+      "price": 86.11,
+      "qty": 235.0230500108933,
+      "score": 9,
+      "momentum": 1.1392999765092775,
+      "volume_ratio": 19.2435634932925,
+      "stop_loss": 84.3878,
+      "take_profit": 88.69330000000001,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum and trend in place, plus recent range high near current price offers potential for strong bounce.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.06%"
+      }
+    },
+    {
+      "time": "2025-10-02T09:35:00",
+      "symbol": "NIO",
+      "action": "BUY",
+      "price": 7.95,
+      "qty": 2545.2848502940737,
+      "score": 7,
+      "momentum": 1.1450381679389294,
+      "volume_ratio": 2.767537743142297,
+      "stop_loss": 7.791,
+      "take_profit": 8.188500000000001,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum (+1.15%), reasonable entry ($7.95), and market context is supportive of the uptrend.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.13%"
+      }
+    },
+    {
+      "time": "2025-10-02T09:35:00",
+      "symbol": "BABA",
+      "action": "BUY",
+      "price": 191.3904,
+      "qty": 105.72638209564266,
+      "score": 7,
+      "momentum": 0.981586028597055,
+      "volume_ratio": 1.6891382460125202,
+      "stop_loss": 187.562592,
+      "take_profit": 197.132112,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and relatively low volatility in 5-min chart with market supportive.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.13%"
+      }
+    },
+    {
+      "time": "2025-10-02T09:40:00",
+      "symbol": "SOFI",
+      "action": "BUY",
+      "price": 25.905,
+      "qty": 777.8023632870675,
+      "score": 5,
+      "momentum": 0.3680743897714158,
+      "volume_ratio": 1.077505618326362,
+      "stop_loss": 25.3869,
+      "take_profit": 26.682150000000004,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh 5-min momentum, within range, and market context not extremely bearish.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc9 -0.01%"
+      }
+    },
+    {
+      "time": "2025-10-02T09:55:00",
+      "symbol": "RIVN",
+      "action": "BUY",
+      "price": 13.715,
+      "qty": 741.2446228627348,
+      "score": 4,
+      "momentum": 0.2558479532163753,
+      "volume_ratio": 0.45535477541868125,
+      "stop_loss": 13.4407,
+      "take_profit": 14.12645,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry, +0.26% 5-min momentum, uptrend in place, and market is opening strong today.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.05%"
+      }
+    },
+    {
+      "time": "2025-10-02T09:55:00",
+      "symbol": "NIO",
+      "action": "SELL",
+      "price": 7.7608,
+      "qty": 2545.2848502940737,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-02T10:15:00",
+      "symbol": "NFLX",
+      "action": "BUY",
+      "price": 1139.51,
+      "qty": 13.128281747735716,
+      "score": 5,
+      "momentum": 0.32973370371510746,
+      "volume_ratio": 0.2650834338051286,
+      "stop_loss": 1116.7198,
+      "take_profit": 1173.6953,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and reasonable entry, market supportive, within a sideways trend.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc9 -0.12%"
+      }
+    },
+    {
+      "time": "2025-10-02T10:40:00",
+      "symbol": "MRVL",
+      "action": "SELL",
+      "price": 85.83,
+      "qty": 235.0230500108933,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-02T11:50:00",
+      "symbol": "RIVN",
+      "action": "SELL",
+      "price": 13.435,
+      "qty": 741.2446228627348,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-02T12:10:00",
+      "symbol": "SOFI",
+      "action": "SELL",
+      "price": 25.845,
+      "qty": 777.8023632870675,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-02T12:15:00",
+      "symbol": "MRVL",
+      "action": "BUY",
+      "price": 86.755,
+      "qty": 231.54815554295337,
+      "score": 8,
+      "momentum": 0.4573876794812367,
+      "volume_ratio": 1.7446388947616969,
+      "stop_loss": 85.01989999999999,
+      "take_profit": 89.35764999999999,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry at 87% position in range, fresh momentum, and uptrend support MRVL.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.22%"
+      }
+    },
+    {
+      "time": "2025-10-02T13:20:00",
+      "symbol": "MRVL",
+      "action": "SELL",
+      "price": 86.6814,
+      "qty": 231.54815554295337,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-02T14:05:00",
+      "symbol": "AFRM",
+      "action": "BUY",
+      "price": 77.17,
+      "qty": 260.42272076114125,
+      "score": 5,
+      "momentum": 0.4163955757970168,
+      "volume_ratio": 0.34586374448533147,
+      "stop_loss": 75.6266,
+      "take_profit": 79.4851,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point in an uptrend, market is slightly down but supportive, and risk/reward is acceptable.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.06%"
+      }
+    },
+    {
+      "time": "2025-10-02T15:10:00",
+      "symbol": "AFRM",
+      "action": "SELL",
+      "price": 77.49,
+      "qty": 260.42272076114125,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-02T15:35:00",
+      "symbol": "AMC",
+      "action": "BUY",
+      "price": 3.08,
+      "qty": 6526.450590202098,
+      "score": 8,
+      "momentum": 0.48939641109298937,
+      "volume_ratio": 3.3445483006664496,
+      "stop_loss": 3.0184,
+      "take_profit": 3.1724,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry at 70% range high with decent volume and trend supporting AMC's move.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.03%"
+      }
+    },
+    {
+      "time": "2025-10-02T16:00:00",
+      "symbol": "BABA",
+      "action": "SELL",
+      "price": 189.34,
+      "qty": 105.72638209564266,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-02T16:00:00",
+      "symbol": "NFLX",
+      "action": "SELL",
+      "price": 1163.37,
+      "qty": 13.128281747735716,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-02T16:00:00",
+      "symbol": "AMC",
+      "action": "SELL",
+      "price": 3.15,
+      "qty": 6526.450590202098,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-03T09:40:00",
+      "symbol": "COIN",
+      "action": "BUY",
+      "price": 381.15,
+      "qty": 53.00127902121183,
+      "score": 9,
+      "momentum": 1.1034775458234882,
+      "volume_ratio": 1.7272628034637323,
+      "stop_loss": 373.527,
+      "take_profit": 392.5845,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nFresh momentum and a reasonable entry near the lower end of the range, despite near-high.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.00%"
+      }
+    },
+    {
+      "time": "2025-10-03T09:40:00",
+      "symbol": "ORCL",
+      "action": "BUY",
+      "price": 294.365,
+      "qty": 68.62717204468903,
+      "score": 7,
+      "momentum": 0.8824839782034987,
+      "volume_ratio": 2.371336721179484,
+      "stop_loss": 288.4777,
+      "take_profit": 303.19595000000004,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry price near recent range high, supporting trend and moderate volatility.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.00%"
+      }
+    },
+    {
+      "time": "2025-10-03T09:45:00",
+      "symbol": "LUV",
+      "action": "BUY",
+      "price": 33.3,
+      "qty": 605.3188724320224,
+      "score": 7,
+      "momentum": 0.2317671492640586,
+      "volume_ratio": 1.973439354618062,
+      "stop_loss": 32.63399999999999,
+      "take_profit": 34.299,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum (+0.23% in 5-min), reasonable entry ($33.30), and market context is somewhat supportive.",
+        "risk_flags": 0,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.03%"
+      }
+    },
+    {
+      "time": "2025-10-03T10:05:00",
+      "symbol": "COIN",
+      "action": "SELL",
+      "price": 372.9637,
+      "qty": 53.00127902121183,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-03T10:10:00",
+      "symbol": "ORCL",
+      "action": "SELL",
+      "price": 288.33,
+      "qty": 68.62717204468903,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-03T10:15:00",
+      "symbol": "SHOP",
+      "action": "BUY",
+      "price": 157.67,
+      "qty": 126.78801258870621,
+      "score": 6,
+      "momentum": 0.6382842918235783,
+      "volume_ratio": 0.7582605801803953,
+      "stop_loss": 154.51659999999998,
+      "take_profit": 162.40009999999998,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point with fresh momentum and modest day change despite downtrend.",
+        "risk_flags": 0,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.06%"
+      }
+    },
+    {
+      "time": "2025-10-03T10:20:00",
+      "symbol": "BIIB",
+      "action": "BUY",
+      "price": 158.605,
+      "qty": 125.93319988368022,
+      "score": 9,
+      "momentum": 0.4655729397605531,
+      "volume_ratio": 1.3361097129618777,
+      "stop_loss": 155.4329,
+      "take_profit": 163.36315,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point within range, fresh momentum, and market context is supportive despite near-range high.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.04%"
+      }
+    },
+    {
+      "time": "2025-10-03T10:55:00",
+      "symbol": "MU",
+      "action": "BUY",
+      "price": 190.455,
+      "qty": 105.11070482931571,
+      "score": 6,
+      "momentum": 0.28470736537481134,
+      "volume_ratio": 1.211558228119452,
+      "stop_loss": 186.6459,
+      "take_profit": 196.16865,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReasonable entry, good momentum, and market supportive, but some caution due to already holding multiple positions.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.16%"
+      }
+    },
+    {
+      "time": "2025-10-03T11:25:00",
+      "symbol": "BIIB",
+      "action": "SELL",
+      "price": 159.33,
+      "qty": 125.93319988368022,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-03T12:00:00",
+      "symbol": "MU",
+      "action": "SELL",
+      "price": 190.44,
+      "qty": 105.11070482931571,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-03T12:45:00",
+      "symbol": "LUV",
+      "action": "SELL",
+      "price": 33.225,
+      "qty": 605.3188724320224,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-03T13:50:00",
+      "symbol": "SHOP",
+      "action": "SELL",
+      "price": 158.155,
+      "qty": 126.78801258870621,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-03T15:10:00",
+      "symbol": "TSLA",
+      "action": "BUY",
+      "price": 425.67,
+      "qty": 47.109242521648106,
+      "score": 7,
+      "momentum": 0.21053464216527545,
+      "volume_ratio": 1.4504381651934393,
+      "stop_loss": 417.1566,
+      "take_profit": 438.44010000000003,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum (+0.21%) and market context is supportive despite stock being near range high.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.17%"
+      }
+    },
+    {
+      "time": "2025-10-03T16:00:00",
+      "symbol": "TSLA",
+      "action": "SELL",
+      "price": 430.1,
+      "qty": 47.109242521648106,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-06T09:35:00",
+      "symbol": "MRVL",
+      "action": "BUY",
+      "price": 90.12,
+      "qty": 222.97747506728953,
+      "score": 9,
+      "momentum": 1.2470508931580713,
+      "volume_ratio": 5.426583570260546,
+      "stop_loss": 88.3176,
+      "take_profit": 92.82360000000001,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and uptrend support MRVL's potential for continued growth despite near high of range.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.09%"
+      }
+    },
+    {
+      "time": "2025-10-06T09:40:00",
+      "symbol": "SMCI",
+      "action": "BUY",
+      "price": 55.21,
+      "qty": 363.8801765733138,
+      "score": 9,
+      "momentum": 1.507630079058651,
+      "volume_ratio": 3.1061750723618706,
+      "stop_loss": 54.1058,
+      "take_profit": 56.8663,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point despite recent range high, supported by fresh momentum and trend.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.10%"
+      }
+    },
+    {
+      "time": "2025-10-06T09:40:00",
+      "symbol": "AFRM",
+      "action": "BUY",
+      "price": 75.17,
+      "qty": 267.2585412879161,
+      "score": 7,
+      "momentum": 0.306912196423811,
+      "volume_ratio": 0.7791978958949323,
+      "stop_loss": 73.6666,
+      "take_profit": 77.4251,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point with modest momentum, market somewhat supportive in opening hours.",
+        "risk_flags": 0,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.10%"
+      }
+    },
+    {
+      "time": "2025-10-06T09:50:00",
+      "symbol": "AMC",
+      "action": "BUY",
+      "price": 2.965,
+      "qty": 6778.966461219428,
+      "score": 4,
+      "momentum": 0.20615769373753742,
+      "volume_ratio": 0.9443735438249093,
+      "stop_loss": 2.9057,
+      "take_profit": 3.05395,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh 5-min momentum, reasonable entry, and good volume support the trade.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc9 -0.15%"
+      }
+    },
+    {
+      "time": "2025-10-06T10:55:00",
+      "symbol": "AMC",
+      "action": "SELL",
+      "price": 2.97,
+      "qty": 6778.966461219428,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-06T12:40:00",
+      "symbol": "SMCI",
+      "action": "SELL",
+      "price": 54.94,
+      "qty": 363.8801765733138,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-06T13:00:00",
+      "symbol": "MRVL",
+      "action": "SELL",
+      "price": 89.73,
+      "qty": 222.97747506728953,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-06T15:00:00",
+      "symbol": "AFRM",
+      "action": "SELL",
+      "price": 75.495,
+      "qty": 267.2585412879161,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-06T15:45:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 20.245,
+      "qty": 991.9406792847053,
+      "score": 7,
+      "momentum": 0.4251139672508431,
+      "volume_ratio": 0.5557210354085884,
+      "stop_loss": 19.8401,
+      "take_profit": 20.85235,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum, reasonable entry, and supportive market context after morning recovery.",
+        "risk_flags": 0,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.07%"
+      }
+    },
+    {
+      "time": "2025-10-06T15:55:00",
+      "symbol": "HOOD",
+      "action": "BUY",
+      "price": 144.6,
+      "qty": 139.14609086176324,
+      "score": 7,
+      "momentum": 0.21345604745931354,
+      "volume_ratio": 1.570442220218154,
+      "stop_loss": 141.708,
+      "take_profit": 148.938,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry price with some fresh momentum and market supportive trend.",
+        "risk_flags": 0,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.07%"
+      }
+    },
+    {
+      "time": "2025-10-06T16:00:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 20.48,
+      "qty": 991.9406792847053,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-06T16:00:00",
+      "symbol": "HOOD",
+      "action": "SELL",
+      "price": 144.5,
+      "qty": 139.14609086176324,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-07T09:30:00",
+      "symbol": "BNTX",
+      "action": "BUY",
+      "price": 106.33,
+      "qty": 189.27562627883015,
+      "score": 7,
+      "momentum": 1.7219936860231484,
+      "volume_ratio": 2.8698614047451256,
+      "stop_loss": 104.2034,
+      "take_profit": 109.5199,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh 5-min momentum and moderate price increase justify an entry at this point.",
+        "risk_flags": 0,
+        "trend": "UNKNOWN",
+        "spy_context": "SPY: \ud83d\udcc8 +0.14%"
+      }
+    },
+    {
+      "time": "2025-10-07T09:35:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 20.7597,
+      "qty": 970.370713683526,
+      "score": 7,
+      "momentum": 0.8903360629844694,
+      "volume_ratio": 1.969260228631779,
+      "stop_loss": 20.344506,
+      "take_profit": 21.382490999999998,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum and 2% move up in a downtrend, making it a reasonable entry point.",
+        "risk_flags": 1,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.21%"
+      }
+    },
+    {
+      "time": "2025-10-07T09:35:00",
+      "symbol": "SHOP",
+      "action": "BUY",
+      "price": 166.955,
+      "qty": 120.65888955021347,
+      "score": 6,
+      "momentum": 0.6844771438909778,
+      "volume_ratio": 3.263301927945327,
+      "stop_loss": 163.6159,
+      "take_profit": 171.96365000000003,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry price, moderate volume, and uptrend make SHOP an attractive buy opportunity.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.21%"
+      }
+    },
+    {
+      "time": "2025-10-07T09:40:00",
+      "symbol": "INTC",
+      "action": "BUY",
+      "price": 37.4965,
+      "qty": 536.2300422599475,
+      "score": 7,
+      "momentum": 1.0483055985986545,
+      "volume_ratio": 2.101926434702413,
+      "stop_loss": 36.74657,
+      "take_profit": 38.621395,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum and moderate price action amidst positive market context.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.20%"
+      }
+    },
+    {
+      "time": "2025-10-07T10:00:00",
+      "symbol": "NIO",
+      "action": "BUY",
+      "price": 7.395,
+      "qty": 1359.482743718737,
+      "score": 6,
+      "momentum": 0.33921302578018275,
+      "volume_ratio": 0.19985797526144705,
+      "stop_loss": 7.2471,
+      "take_profit": 7.6168499999999995,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry with +0.34% 5-min momentum and market supportive SPY trend.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.11%"
+      }
+    },
+    {
+      "time": "2025-10-07T10:00:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 20.305,
+      "qty": 970.370713683526,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-07T10:40:00",
+      "symbol": "SHOP",
+      "action": "SELL",
+      "price": 166.16,
+      "qty": 120.65888955021347,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-07T10:45:00",
+      "symbol": "INTC",
+      "action": "SELL",
+      "price": 37.6042,
+      "qty": 536.2300422599475,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-07T11:10:00",
+      "symbol": "NIO",
+      "action": "SELL",
+      "price": 7.3701,
+      "qty": 1359.482743718737,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-07T13:05:00",
+      "symbol": "UPST",
+      "action": "BUY",
+      "price": 51.48,
+      "qty": 388.3153036016656,
+      "score": 6,
+      "momentum": 0.311769290724857,
+      "volume_ratio": 2.161134075520503,
+      "stop_loss": 50.450399999999995,
+      "take_profit": 53.0244,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry with +0.31% momentum and uptrend support, despite midday chop in broader market.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.42%"
+      }
+    },
+    {
+      "time": "2025-10-07T14:20:00",
+      "symbol": "ORCL",
+      "action": "BUY",
+      "price": 284.345,
+      "qty": 70.45630678828982,
+      "score": 5,
+      "momentum": 0.20262888959370107,
+      "volume_ratio": 0.6815127663659051,
+      "stop_loss": 278.65810000000005,
+      "take_profit": 292.87535,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum (+0.20% 5-min momentum), reasonable entry near high of range, afternoons are trend following.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.43%"
+      }
+    },
+    {
+      "time": "2025-10-07T14:55:00",
+      "symbol": "BNTX",
+      "action": "SELL",
+      "price": 105.835,
+      "qty": 189.27562627883015,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-07T15:25:00",
+      "symbol": "ORCL",
+      "action": "SELL",
+      "price": 284.62,
+      "qty": 70.45630678828982,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-07T15:40:00",
+      "symbol": "SOFI",
+      "action": "BUY",
+      "price": 28.11,
+      "qty": 712.9275779866382,
+      "score": 4,
+      "momentum": 0.3208411104885425,
+      "volume_ratio": 1.0630307808324853,
+      "stop_loss": 27.5478,
+      "take_profit": 28.9533,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nFresh momentum at 88% position in range, reasonable entry, and market is not severely down.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.37%"
+      }
+    },
+    {
+      "time": "2025-10-07T15:50:00",
+      "symbol": "UPST",
+      "action": "SELL",
+      "price": 51.72,
+      "qty": 388.3153036016656,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-07T16:00:00",
+      "symbol": "SOFI",
+      "action": "SELL",
+      "price": 28.14,
+      "qty": 712.9275779866382,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-08T09:35:00",
+      "symbol": "DELL",
+      "action": "BUY",
+      "price": 156.7112,
+      "qty": 127.82162823746013,
+      "score": 9,
+      "momentum": 0.9737113402061872,
+      "volume_ratio": 2.6050516726056534,
+      "stop_loss": 153.576976,
+      "take_profit": 161.412536,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and reasonable entry despite near range high, market is opening and volatile.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.05%"
+      }
+    },
+    {
+      "time": "2025-10-08T09:35:00",
+      "symbol": "MRNA",
+      "action": "BUY",
+      "price": 27.86,
+      "qty": 718.9906944381286,
+      "score": 7,
+      "momentum": 0.759493670886079,
+      "volume_ratio": 1.9646170608825249,
+      "stop_loss": 27.302799999999998,
+      "take_profit": 28.6958,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point with fresh momentum and uptrend in place, despite near high of range.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.05%"
+      }
+    },
+    {
+      "time": "2025-10-08T09:35:00",
+      "symbol": "XPEV",
+      "action": "BUY",
+      "price": 23.97,
+      "qty": 835.6729556548295,
+      "score": 7,
+      "momentum": 0.39790575916229887,
+      "volume_ratio": 2.5257448955365622,
+      "stop_loss": 23.490599999999997,
+      "take_profit": 24.6891,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum, reasonable entry, and 10-bar uptrend indicate potential for further gains in a still-supportive market.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.05%"
+      }
+    },
+    {
+      "time": "2025-10-08T09:55:00",
+      "symbol": "DELL",
+      "action": "SELL",
+      "price": 161.7225,
+      "qty": 127.82162823746013,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-08T10:00:00",
+      "symbol": "NIO",
+      "action": "BUY",
+      "price": 7.7501,
+      "qty": 2608.082053072225,
+      "score": 8,
+      "momentum": 0.5814179850232892,
+      "volume_ratio": 4.360330113585219,
+      "stop_loss": 7.595097999999999,
+      "take_profit": 7.982603,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry, fresh momentum, and market is up with minimal risk flags.",
+        "risk_flags": 0,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.07%"
+      }
+    },
+    {
+      "time": "2025-10-08T10:25:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 20.73,
+      "qty": 973.7346806601996,
+      "score": 5,
+      "momentum": 1.0115775932639424,
+      "volume_ratio": 1.234892084790216,
+      "stop_loss": 20.3154,
+      "take_profit": 21.3519,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum, reasonable entry at 100% position in range, and market is up.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.22%"
+      }
+    },
+    {
+      "time": "2025-10-08T10:40:00",
+      "symbol": "XPEV",
+      "action": "SELL",
+      "price": 24.045,
+      "qty": 835.6729556548295,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-08T10:55:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 20.265,
+      "qty": 973.7346806601996,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-08T11:05:00",
+      "symbol": "NIO",
+      "action": "SELL",
+      "price": 7.725,
+      "qty": 2608.082053072225,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-08T11:10:00",
+      "symbol": "MRNA",
+      "action": "SELL",
+      "price": 28.84,
+      "qty": 718.9906944381286,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-08T14:25:00",
+      "symbol": "DELL",
+      "action": "BUY",
+      "price": 162.855,
+      "qty": 124.09197522581692,
+      "score": 6,
+      "momentum": 0.40382244143033363,
+      "volume_ratio": 3.2017090773652663,
+      "stop_loss": 159.59789999999998,
+      "take_profit": 167.74065,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable momentum and trend following context; entry is not at range high but rather near it.",
+        "risk_flags": 2,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.41%"
+      }
+    },
+    {
+      "time": "2025-10-08T15:25:00",
+      "symbol": "REGN",
+      "action": "BUY",
+      "price": 575.165,
+      "qty": 35.16719091276252,
+      "score": 7,
+      "momentum": 0.32355967975441186,
+      "volume_ratio": 5.313908195218819,
+      "stop_loss": 563.6617,
+      "take_profit": 592.41995,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and reasonable entry in afternoon trend following session, despite near range high.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.41%"
+      }
+    },
+    {
+      "time": "2025-10-08T15:30:00",
+      "symbol": "DELL",
+      "action": "SELL",
+      "price": 163.4135,
+      "qty": 124.09197522581692,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-08T15:50:00",
+      "symbol": "REGN",
+      "action": "SELL",
+      "price": 563.45,
+      "qty": 35.16719091276252,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-08T15:55:00",
+      "symbol": "MU",
+      "action": "BUY",
+      "price": 196.7,
+      "qty": 102.39177921059755,
+      "score": 9,
+      "momentum": 0.5238277756483849,
+      "volume_ratio": 4.927652220719158,
+      "stop_loss": 192.766,
+      "take_profit": 202.601,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum, reasonable entry near support within uptrend, and market is still positive.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.44%"
+      }
+    },
+    {
+      "time": "2025-10-08T16:00:00",
+      "symbol": "MU",
+      "action": "SELL",
+      "price": 196.65,
+      "qty": 102.39177921059755,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-09T09:30:00",
+      "symbol": "DAL",
+      "action": "BUY",
+      "price": 61.69,
+      "qty": 326.46197200409193,
+      "score": 6,
+      "momentum": 0.6198010112542741,
+      "volume_ratio": 14.927613373164546,
+      "stop_loss": 60.456199999999995,
+      "take_profit": 63.5407,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum at opening, strong volume, and trend support justify a controlled buy.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.06%"
+      }
+    },
+    {
+      "time": "2025-10-09T09:30:00",
+      "symbol": "AFRM",
+      "action": "BUY",
+      "price": 76.14,
+      "qty": 264.50537237893917,
+      "score": 7,
+      "momentum": 0.9145129224652058,
+      "volume_ratio": 14.789124559823112,
+      "stop_loss": 74.6172,
+      "take_profit": 78.4242,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry point despite near range high, stock has fresh momentum and good market context.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.06%"
+      }
+    },
+    {
+      "time": "2025-10-09T09:35:00",
+      "symbol": "LUV",
+      "action": "BUY",
+      "price": 33.51,
+      "qty": 601.2721371498723,
+      "score": 6,
+      "momentum": 0.20933014354067073,
+      "volume_ratio": 2.121337029868703,
+      "stop_loss": 32.8398,
+      "take_profit": 34.515299999999996,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum with +2.85% day change and 2.1x average volume in a sideways trend.",
+        "risk_flags": 0,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.04%"
+      }
+    },
+    {
+      "time": "2025-10-09T09:40:00",
+      "symbol": "LCID",
+      "action": "BUY",
+      "price": 21.9541,
+      "qty": 917.1336525502086,
+      "score": 8,
+      "momentum": 0.38454503886602376,
+      "volume_ratio": 1.3456908607310318,
+      "stop_loss": 21.515018,
+      "take_profit": 22.612723000000003,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh +0.38% 5-min momentum in a sideways trend, moderate position size.",
+        "risk_flags": 1,
+        "trend": "SIDEWAYS",
+        "spy_context": "SPY: \ud83d\udcc8 +0.04%"
+      }
+    },
+    {
+      "time": "2025-10-09T09:40:00",
+      "symbol": "AFRM",
+      "action": "SELL",
+      "price": 78.8625,
+      "qty": 264.50537237893917,
+      "reason": "take_profit"
+    },
+    {
+      "time": "2025-10-09T10:10:00",
+      "symbol": "DAL",
+      "action": "SELL",
+      "price": 60.365,
+      "qty": 326.46197200409193,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-09T10:25:00",
+      "symbol": "LUV",
+      "action": "SELL",
+      "price": 32.475,
+      "qty": 601.2721371498723,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-09T10:30:00",
+      "symbol": "LCID",
+      "action": "SELL",
+      "price": 21.4724,
+      "qty": 917.1336525502086,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-09T15:25:00",
+      "symbol": "ORCL",
+      "action": "BUY",
+      "price": 299.435,
+      "qty": 66.73945870434308,
+      "score": 4,
+      "momentum": 0.36030298967689656,
+      "volume_ratio": 0.9761323740355677,
+      "stop_loss": 293.4463,
+      "take_profit": 308.41805,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum, reasonable entry near high of range, and market is somewhat supportive despite some weakness in SPY.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.36%"
+      }
+    },
+    {
+      "time": "2025-10-09T15:40:00",
+      "symbol": "NIO",
+      "action": "BUY",
+      "price": 7.505,
+      "qty": 2661.503807400433,
+      "score": 7,
+      "momentum": 0.46854082998661506,
+      "volume_ratio": 1.0603501187757693,
+      "stop_loss": 7.3549,
+      "take_profit": 7.73015,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReasonable entry point with fresh momentum and trend following in afternoon session.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.34%"
+      }
+    },
+    {
+      "time": "2025-10-09T15:55:00",
+      "symbol": "LCID",
+      "action": "BUY",
+      "price": 21.65,
+      "qty": 921.6341374482132,
+      "score": 9,
+      "momentum": 0.6508600650859926,
+      "volume_ratio": 2.4641841067765275,
+      "stop_loss": 21.217,
+      "take_profit": 22.2995,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nFresh momentum and uptrend align with trend following strategy; near high is mitigated by increasing volume.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -0.31%"
+      }
+    },
+    {
+      "time": "2025-10-09T16:00:00",
+      "symbol": "ORCL",
+      "action": "SELL",
+      "price": 297.04,
+      "qty": 66.73945870434308,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-09T16:00:00",
+      "symbol": "NIO",
+      "action": "SELL",
+      "price": 7.45,
+      "qty": 2661.503807400433,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-09T16:00:00",
+      "symbol": "LCID",
+      "action": "SELL",
+      "price": 21.5013,
+      "qty": 921.6341374482132,
+      "reason": "end_of_day"
+    },
+    {
+      "time": "2025-10-10T09:30:00",
+      "symbol": "INTC",
+      "action": "BUY",
+      "price": 39.007,
+      "qty": 510.04885470009174,
+      "score": 7,
+      "momentum": 1.6071893722323451,
+      "volume_ratio": 18.208198873717222,
+      "stop_loss": 38.226859999999995,
+      "take_profit": 40.17721,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum, recent high, but still within a clear uptrend and market context is bullish.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.06%"
+      }
+    },
+    {
+      "time": "2025-10-10T09:35:00",
+      "symbol": "MARA",
+      "action": "BUY",
+      "price": 21.405,
+      "qty": 930.32625155402,
+      "score": 9,
+      "momentum": 2.5143678160919647,
+      "volume_ratio": 2.982092813556727,
+      "stop_loss": 20.9769,
+      "take_profit": 22.047150000000002,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh 5-min momentum and uptrend with moderate volume, supporting market conditions.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.17%"
+      }
+    },
+    {
+      "time": "2025-10-10T09:35:00",
+      "symbol": "RIOT",
+      "action": "BUY",
+      "price": 23.32,
+      "qty": 853.929391702993,
+      "score": 9,
+      "momentum": 2.1910604732690624,
+      "volume_ratio": 2.8746264013421774,
+      "stop_loss": 22.8536,
+      "take_profit": 24.0196,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry price considering recent trend and volatility, and market is opening strongly.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.17%"
+      }
+    },
+    {
+      "time": "2025-10-10T09:35:00",
+      "symbol": "SOFI",
+      "action": "BUY",
+      "price": 29.075,
+      "qty": 683.6566787982512,
+      "score": 6,
+      "momentum": 0.6055363321799333,
+      "volume_ratio": 2.0121839208822014,
+      "stop_loss": 28.493499999999997,
+      "take_profit": 29.94725,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReasonable entry point with moderate momentum and trend in place, market supporting SOFI's move.",
+        "risk_flags": 1,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.17%"
+      }
+    },
+    {
+      "time": "2025-10-10T10:20:00",
+      "symbol": "AFRM",
+      "action": "BUY",
+      "price": 75.51,
+      "qty": 131.62043395615913,
+      "score": 7,
+      "momentum": 0.3681894913136536,
+      "volume_ratio": 0.6175590829105918,
+      "stop_loss": 73.99980000000001,
+      "take_profit": 77.7753,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh momentum (+0.37% 5-min), relatively low position in range (68%), and SPY is up.",
+        "risk_flags": 1,
+        "trend": "DOWNTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.14%"
+      }
+    },
+    {
+      "time": "2025-10-10T10:20:00",
+      "symbol": "MARA",
+      "action": "SELL",
+      "price": 20.97,
+      "qty": 930.32625155402,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-10T10:25:00",
+      "symbol": "DVN",
+      "action": "BUY",
+      "price": 33.7,
+      "qty": 436.90801874061384,
+      "score": 9,
+      "momentum": 0.5666948173834202,
+      "volume_ratio": 2.5610283666028058,
+      "stop_loss": 33.026,
+      "take_profit": 34.711000000000006,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry, +0.57% momentum, market is up, and volume is high, making it a relatively safe trade setup.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc8 +0.20%"
+      }
+    },
+    {
+      "time": "2025-10-10T10:35:00",
+      "symbol": "INTC",
+      "action": "SELL",
+      "price": 39.059,
+      "qty": 510.04885470009174,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-10T10:40:00",
+      "symbol": "SOFI",
+      "action": "SELL",
+      "price": 28.995,
+      "qty": 683.6566787982512,
+      "reason": "time_exit"
+    },
+    {
+      "time": "2025-10-10T10:45:00",
+      "symbol": "RIOT",
+      "action": "SELL",
+      "price": 22.805,
+      "qty": 853.929391702993,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-10T11:00:00",
+      "symbol": "AFRM",
+      "action": "SELL",
+      "price": 73.78,
+      "qty": 131.62043395615913,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-10T11:35:00",
+      "symbol": "DVN",
+      "action": "SELL",
+      "price": 33.0,
+      "qty": 436.90801874061384,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-10T14:25:00",
+      "symbol": "SMCI",
+      "action": "BUY",
+      "price": 54.29,
+      "qty": 361.28643898529117,
+      "score": 7,
+      "momentum": 0.46262028127313104,
+      "volume_ratio": 0.680052572904653,
+      "stop_loss": 53.2042,
+      "take_profit": 55.9187,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\n\nReason: Fresh 5-min momentum, trend intact, and stock not excessively extended despite today's decline.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -1.73%"
+      }
+    },
+    {
+      "time": "2025-10-10T14:25:00",
+      "symbol": "SHOP",
+      "action": "BUY",
+      "price": 153.895,
+      "qty": 127.45209897989835,
+      "score": 4,
+      "momentum": 0.23773855272585753,
+      "volume_ratio": 0.3160803342768567,
+      "stop_loss": 150.8171,
+      "take_profit": 158.51185,
+      "ollama_analysis": {
+        "recommendation": "BUY",
+        "reasoning": "BUY\nReasonable entry with +0.24% 5-min momentum and an uptrend in place despite a down market day.",
+        "risk_flags": 2,
+        "trend": "UPTREND",
+        "spy_context": "SPY: \ud83d\udcc9 -1.73%"
+      }
+    },
+    {
+      "time": "2025-10-10T15:30:00",
+      "symbol": "SMCI",
+      "action": "SELL",
+      "price": 53.17,
+      "qty": 361.28643898529117,
+      "reason": "stop_loss"
+    },
+    {
+      "time": "2025-10-10T16:00:00",
+      "symbol": "SHOP",
+      "action": "SELL",
+      "price": 150.61,
+      "qty": 127.45209897989835,
+      "reason": "end_of_day"
+    }
+  ],
+  "symbol_breakdown": {
+    "REGN": {
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "pnl": 222.22759409942228,
+      "total_volume": 40449.16495543848,
+      "win_rate": 50.0
+    },
+    "MU": {
+      "trades": 3,
+      "wins": 1,
+      "losses": 2,
+      "pnl": 312.5895176005779,
+      "total_volume": 50577.11432140293,
+      "win_rate": 33.33333333333333
+    },
+    "MARA": {
+      "trades": 5,
+      "wins": 1,
+      "losses": 4,
+      "pnl": -1501.0139128095434,
+      "total_volume": 98974.77334190943,
+      "win_rate": 20.0
+    },
+    "AAL": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -52.083103680161,
+      "total_volume": 20001.860500733408,
+      "win_rate": 0.0
+    },
+    "DELL": {
+      "trades": 3,
+      "wins": 3,
+      "losses": 0,
+      "pnl": 1346.1702073257911,
+      "total_volume": 61640.19318418603,
+      "win_rate": 100.0
+    },
+    "AFRM": {
+      "trades": 5,
+      "wins": 4,
+      "losses": 1,
+      "pnl": 739.7923279006573,
+      "total_volume": 91170.26524266244,
+      "win_rate": 80.0
+    },
+    "INTC": {
+      "trades": 3,
+      "wins": 3,
+      "losses": 0,
+      "pnl": 93.95084272982422,
+      "total_volume": 60332.07586870763,
+      "win_rate": 100.0
+    },
+    "NIO": {
+      "trades": 4,
+      "wins": 0,
+      "losses": 4,
+      "pnl": -727.2645829333778,
+      "total_volume": 69748.60766075988,
+      "win_rate": 0.0
+    },
+    "MRVL": {
+      "trades": 3,
+      "wins": 0,
+      "losses": 3,
+      "pnl": -169.80961352725353,
+      "total_volume": 60250.71551010382,
+      "win_rate": 0.0
+    },
+    "RIVN": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -207.5484944015643,
+      "total_volume": 9958.621508160842,
+      "win_rate": 0.0
+    },
+    "SOFI": {
+      "trades": 3,
+      "wins": 1,
+      "losses": 2,
+      "pnl": -79.97284876148478,
+      "total_volume": 59986.70952545355,
+      "win_rate": 33.33333333333333
+    },
+    "BABA": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -216.7813738489058,
+      "total_volume": 20018.233185988982,
+      "win_rate": 0.0
+    },
+    "NFLX": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 313.2408025009736,
+      "total_volume": 15273.0491368633,
+      "win_rate": 100.0
+    },
+    "AMC": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "pnl": 490.7463736202444,
+      "total_volume": 40691.84974895831,
+      "win_rate": 100.0
+    },
+    "COIN": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -433.8843704513456,
+      "total_volume": 19767.55312848354,
+      "win_rate": 0.0
+    },
+    "ORCL": {
+      "trades": 3,
+      "wins": 1,
+      "losses": 2,
+      "pnl": -554.6305025198162,
+      "total_volume": 59664.835367266314,
+      "win_rate": 33.33333333333333
+    },
+    "BIIB": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 91.30156991567128,
+      "total_volume": 20064.93673746677,
+      "win_rate": 100.0
+    },
+    "LUV": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "pnl": -667.715577382518,
+      "total_volume": 39638.032190496044,
+      "win_rate": 0.0
+    },
+    "SHOP": {
+      "trades": 3,
+      "wins": 1,
+      "losses": 2,
+      "pnl": -453.1117762358663,
+      "total_volume": 59296.39984599278,
+      "win_rate": 33.33333333333333
+    },
+    "TSLA": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 208.6939443709016,
+      "total_volume": 20261.68520856085,
+      "win_rate": 100.0
+    },
+    "SMCI": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "pnl": -502.8884593383191,
+      "total_volume": 39201.17686178579,
+      "win_rate": 0.0
+    },
+    "HOOD": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -13.914609086172277,
+      "total_volume": 20106.61012952479,
+      "win_rate": 0.0
+    },
+    "BNTX": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -93.69143500802238,
+      "total_volume": 20031.985907219987,
+      "win_rate": 0.0
+    },
+    "UPST": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 93.19567286439997,
+      "total_volume": 20083.667502278146,
+      "win_rate": 100.0
+    },
+    "XPEV": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 62.675471674116125,
+      "total_volume": 20093.756218720377,
+      "win_rate": 100.0
+    },
+    "MRNA": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "pnl": 704.6108805493677,
+      "total_volume": 20735.69162759563,
+      "win_rate": 100.0
+    },
+    "DAL": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -432.5621129054198,
+      "total_volume": 19706.87694002701,
+      "win_rate": 0.0
+    },
+    "LCID": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "pnl": -578.8302766719826,
+      "total_volume": 39509.392720534364,
+      "win_rate": 0.0
+    },
+    "RIOT": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -439.7736367270445,
+      "total_volume": 19473.859777786754,
+      "win_rate": 0.0
+    },
+    "DVN": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "pnl": -305.83561311843005,
+      "total_volume": 14417.964618440257,
+      "win_rate": 0.0
+    }
+  }
+}

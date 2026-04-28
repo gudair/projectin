@@ -142,4 +142,7 @@ jspm_packages/
 **/secrets.*
 **/*secret*
 **/*key*
-**/*token*
+**/*token*backtest/cache/
+agent/data/memory.json
+.serena/
+data/memory/

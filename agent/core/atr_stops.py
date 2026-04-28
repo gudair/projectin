@@ -252,8 +252,8 @@ class ATRStopManager:
         atr_result = await self.get_atr(symbol)
 
         if not atr_result:
-            # Fallback to default 2% stop
-            self.logger.warning(f"{symbol}: ATR unavailable, using default 2% stop")
+            # Fallback to default 2% stop (this is normal for new/low-volume stocks)
+            self.logger.debug(f"{symbol}: ATR unavailable, using default 2% stop")
             return self._default_levels(symbol, entry_price, direction)
 
         atr = atr_result.atr

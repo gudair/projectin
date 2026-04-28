@@ -212,24 +212,34 @@ class DayTradingStrategy(BaseStrategy):
         action: str,
         indicators: Dict[str, Any],
     ) -> tuple:
-        """Calculate stop loss and take profit"""
-        bb_upper = indicators.get('bb_upper', price * 1.02)
-        bb_lower = indicators.get('bb_lower', price * 0.98)
+        """Calculate stop loss and take profit with tighter risk management"""
+        # Use tighter stops (1.5%) to reduce average loss
+        stop_pct = 0.015  # 1.5% stop loss
+        target_pct = 0.025  # 2.5% take profit (R:R ~1.67:1)
+
+        bb_upper = indicators.get('bb_upper', price * (1 + target_pct))
+        bb_lower = indicators.get('bb_lower', price * (1 - stop_pct))
         sma_20 = indicators.get('sma_20', price)
 
         if action == 'BUY':
-            # Stop below recent support / lower BB
-            stop_loss = min(bb_lower, sma_20 * 0.98, price * 0.98)
+            # Stop below recent support / lower BB - but cap at 1.5%
+            stop_loss = max(
+                min(bb_lower, sma_20 * (1 - stop_pct)),
+                price * (1 - stop_pct)  # Never more than 1.5% risk
+            )
 
-            # Target at upper BB or 3% gain
-            take_profit = max(bb_upper, price * 1.03)
+            # Target at upper BB or 2.5% gain
+            take_profit = max(bb_upper, price * (1 + target_pct))
 
         else:  # SELL
-            # Stop above recent resistance / upper BB
-            stop_loss = max(bb_upper, sma_20 * 1.02, price * 1.02)
+            # Stop above recent resistance / upper BB - but cap at 1.5%
+            stop_loss = min(
+                max(bb_upper, sma_20 * (1 + stop_pct)),
+                price * (1 + stop_pct)  # Never more than 1.5% risk
+            )
 
-            # Target at lower BB or 3% decline
-            take_profit = min(bb_lower, price * 0.97)
+            # Target at lower BB or 2.5% decline
+            take_profit = min(bb_lower, price * (1 - target_pct))
 
         return stop_loss, take_profit
 

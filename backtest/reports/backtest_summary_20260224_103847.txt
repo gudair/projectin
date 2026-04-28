@@ -1,0 +1,56 @@
+======================================================================
+BACKTEST REPORT
+======================================================================
+
+CONFIGURATION
+----------------------------------------
+Period: 2025-10-01T00:00:00 to 2025-10-31T00:00:00
+Trading Days: 12
+Initial Capital: $100,000.00
+Ollama Analysis: Disabled
+
+AGENT PERFORMANCE
+----------------------------------------
+Final Equity: $94,888.46
+Total Return: $-5,111.54 (-5.11%)
+Total Trades: 580
+Winning Trades: 128
+Losing Trades: 162
+Win Rate: 44.1%
+Profit Factor: 0.82
+Max Drawdown: 8.45%
+Avg Daily P&L: $-222.24
+Avg Hold Duration: 69 min
+
+OPTIMAL BENCHMARK (Hindsight)
+----------------------------------------
+Realistic Return: $+29,669.57 (+29.67%)
+Theoretical Max Trades: 941
+Avg Gain per Optimal Trade: 4.12%
+
+EFFICIENCY
+----------------------------------------
+Agent vs Optimal: -17.2%
+
+TRADE BREAKDOWN
+----------------------------------------
+  SOFI: 8 trades, $+997.68 (88% win rate)
+  MU: 7 trades, $+937.64 (86% win rate)
+  RIOT: 16 trades, $+749.44 (50% win rate)
+  REGN: 3 trades, $+569.80 (67% win rate)
+  MRNA: 12 trades, $+522.76 (50% win rate)
+  AVGO: 2 trades, $+518.80 (100% win rate)
+  INTC: 8 trades, $+424.20 (62% win rate)
+  WMT: 2 trades, $+406.83 (50% win rate)
+  NFLX: 1 trades, $+383.16 (100% win rate)
+  GS: 1 trades, $+322.52 (100% win rate)
+
+DAILY PERFORMANCE
+----------------------------------------
+  Best Day: 2025-10-01 ($+2,419.75)
+  Worst Day: 2025-10-10 ($-3,920.36)
+  Profitable Days: 8/23 (35%)
+
+======================================================================
+Report generated: 2026-02-24 10:38:47
+======================================================================
