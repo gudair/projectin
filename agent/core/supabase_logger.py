@@ -136,9 +136,10 @@ def get_active_symbols() -> list[str]:
 
 
 def add_discovered_candidate(symbol: str, reason: str, score: float, change_pct: float) -> None:
-    """Write a discovery candidate as is_active=false for human review.
+    """Write a discovery candidate as is_active=true so the agent can trade it immediately.
 
     Uses upsert so re-discovering the same symbol only updates the notes.
+    Symbols can be deactivated manually (is_active=false) if they underperform.
     """
     client = _get_client()
     if client is None:
@@ -147,7 +148,7 @@ def add_discovered_candidate(symbol: str, reason: str, score: float, change_pct:
     try:
         client.table("symbols").upsert({
             "symbol": symbol,
-            "is_active": False,
+            "is_active": True,
             "added_by": "discovery",
             "added_at": datetime.now(ET).isoformat(),
             "notes": f"{reason} | score={score:.1f} | change={change_pct:+.1f}%",
