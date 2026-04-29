@@ -745,6 +745,11 @@ async def _run_with_health_server(agent, port: int):
     async def health():
         return {"status": "ok"}
 
+    @health_app.head("/health")
+    async def health_head():
+        from fastapi.responses import Response
+        return Response()
+
     @health_app.get("/")
     async def root():
         if _html:
